@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+cat <<EOF
+
+${bold}Checking coding standards${normal}
+
+EOF
+
+if ! composer check-coding-standards; then
+  cat >&2 << EOF
+Please fix any coding standards issues before committing!
+EOF
+  exit 1
+fi
+
+exit 0

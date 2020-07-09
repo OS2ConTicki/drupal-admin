@@ -1,0 +1,32 @@
+uuid: 67b55eca-5a13-49d2-bf39-f6f54e41b889
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.conference_event.body
+    - field.field.node.conference_event.field_conference_conference
+    - node.type.conference_event
+  module:
+    - text
+    - user
+id: node.conference_event.teaser
+targetEntityType: node
+bundle: conference_event
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_conference_conference: true

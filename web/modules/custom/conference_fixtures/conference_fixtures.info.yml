@@ -1,0 +1,8 @@
+name: 'Conference fixtures'
+type: module
+description: 'Conference fixtures.'
+core_version_requirement: ^9
+package: Conference
+# version: VERSION
+dependencies:
+  - drupal:content_fixtures

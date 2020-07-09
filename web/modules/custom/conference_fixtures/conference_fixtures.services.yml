@@ -1,0 +1,17 @@
+services:
+  conference_fixtures.core.node_storage:
+    class:  \Drupal\node\NodeStorageInterface
+    factory: 'entity_type.manager:getStorage'
+    arguments: ['node']
+
+  conference_fixtures.conference_fixture:
+    class: Drupal\conference_fixtures\Fixture\ConferenceFixture
+    arguments: ['@conference_fixtures.core.node_storage']
+    tags:
+      - { name: content_fixture }
+
+  conference_fixtures.event_fixture:
+    class: Drupal\conference_fixtures\Fixture\EventFixture
+    arguments: ['@conference_fixtures.core.node_storage']
+    tags:
+      - { name: content_fixture }

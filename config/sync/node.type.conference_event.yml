@@ -1,0 +1,11 @@
+uuid: f1e4d108-435c-4daf-98d3-ab181d11c83f
+langcode: en
+status: true
+dependencies: {  }
+name: Event
+type: conference_event
+description: 'A conference event.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

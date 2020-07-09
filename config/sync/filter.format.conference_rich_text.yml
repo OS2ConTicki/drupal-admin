@@ -1,0 +1,8 @@
+uuid: 9c9079c1-2ff6-4712-b34d-4c7d5931676c
+langcode: en
+status: true
+dependencies: {  }
+name: 'Rich text'
+format: conference_rich_text
+weight: 0
+filters: {  }
