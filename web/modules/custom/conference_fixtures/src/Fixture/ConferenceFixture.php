@@ -2,18 +2,22 @@
 
 namespace Drupal\conference_fixtures\Fixture;
 
+use Drupal\content_fixtures\Fixture\AbstractFixture;
+use Drupal\node\Entity\Node;
+
 /**
  * Class ConferenceFixture.
  *
  * @package Drupal\conference_fixtures\Fixture
  */
-class ConferenceFixture extends AbstractNodeFixture {
+class ConferenceFixture extends AbstractFixture {
 
   /**
    * {@inheritdoc}
    */
   public function load() {
-    $conference = $this->nodeStorage->create([
+    /** @var \Drupal\node\Entity\Node $conference */
+    $conference = Node::create([
       'type' => 'conference_conference',
       'title' => 'The first conference',
       'body' => <<<'BODY'

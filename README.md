@@ -46,6 +46,14 @@ symfony php vendor/bin/drush content-fixtures:load
 symfony php vendor/bin/drush --yes pm:uninstall content_fixtures
 ```
 
+After loading user fixtures you can sign in a user without super-user
+privileges:
+
+```sh
+symfony php vendor/bin/drush --uri=https://127.0.0.1:8888 user:login administrator@example.com
+symfony php vendor/bin/drush --uri=https://127.0.0.1:8888 user:login organizer@example.com
+```
+
 ## Conference API
 
 ```sh

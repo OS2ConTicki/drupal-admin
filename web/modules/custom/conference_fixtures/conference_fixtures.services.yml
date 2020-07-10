@@ -15,3 +15,8 @@ services:
     arguments: ['@conference_fixtures.core.node_storage']
     tags:
       - { name: content_fixture }
+
+  conference_fixtures.user_fixture:
+    class: Drupal\conference_fixtures\Fixture\UserFixture
+    tags:
+      - { name: content_fixture }
