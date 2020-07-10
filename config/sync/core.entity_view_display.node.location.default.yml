@@ -1,16 +1,16 @@
-uuid: d3543640-9743-4e07-983b-0ee09990978a
+uuid: a4047afb-fcf4-478f-82bd-7ad5302a10af
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.conference_conference.body
-    - node.type.conference_conference
+    - field.field.node.location.body
+    - node.type.location
   module:
     - text
     - user
-id: node.conference_conference.default
+id: node.location.default
 targetEntityType: node
-bundle: conference_conference
+bundle: location
 mode: default
 content:
   body:

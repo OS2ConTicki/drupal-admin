@@ -3,13 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_conference_conference
-    - node.type.conference_conference
-    - node.type.conference_event
-id: node.conference_event.field_conference_conference
-field_name: field_conference_conference
+    - field.storage.node.field_conference
+    - node.type.conference
+    - node.type.event
+id: node.event.field_conference
+field_name: field_conference
 entity_type: node
-bundle: conference_event
+bundle: event
 label: Conference
 description: ''
 required: true
@@ -20,7 +20,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      conference_conference: conference_conference
+      conference: conference
     sort:
       field: _none
     auto_create: false

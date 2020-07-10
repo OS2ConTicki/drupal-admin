@@ -1,0 +1,28 @@
+uuid: a85dee77-8071-443a-9506-c85980256e9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.speaker.body
+    - node.type.speaker
+  module:
+    - text
+    - user
+id: node.speaker.default
+targetEntityType: node
+bundle: speaker
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

@@ -1,16 +1,16 @@
-uuid: f9ab187c-9c95-4040-a948-28988a5f0db0
+uuid: 344c8ca4-b30b-47f7-8efa-3055da1906bc
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.body
-    - node.type.conference_event
+    - node.type.location
   module:
     - text
-id: node.conference_event.body
+id: node.location.body
 field_name: body
 entity_type: node
-bundle: conference_event
+bundle: location
 label: Body
 description: ''
 required: false

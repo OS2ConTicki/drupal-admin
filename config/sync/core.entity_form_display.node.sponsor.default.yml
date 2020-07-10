@@ -1,16 +1,15 @@
-uuid: dcdfc766-2fa4-4ca6-847b-3ed08ce37f09
+uuid: 692aea21-726e-488e-bece-1e3a988c9ed5
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.conference_event.body
-    - field.field.node.conference_event.field_conference_conference
-    - node.type.conference_event
+    - field.field.node.sponsor.body
+    - node.type.sponsor
   module:
     - text
-id: node.conference_event.default
+id: node.sponsor.default
 targetEntityType: node
-bundle: conference_event
+bundle: sponsor
 mode: default
 content:
   body:
@@ -29,16 +28,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_conference_conference:
-    weight: 122
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   promote:
     type: boolean_checkbox
     settings:

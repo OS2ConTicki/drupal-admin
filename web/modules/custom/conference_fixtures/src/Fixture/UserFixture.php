@@ -39,7 +39,6 @@ class UserFixture extends AbstractFixture {
     $this->setReference('user:organizer', $organizer);
 
     $organizer->save();
-
   }
 
 }

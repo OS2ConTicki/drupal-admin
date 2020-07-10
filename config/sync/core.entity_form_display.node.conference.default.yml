@@ -3,13 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.conference_conference.body
-    - node.type.conference_conference
+    - field.field.node.conference.body
+    - node.type.conference
   module:
     - text
-id: node.conference_conference.default
+id: node.conference.default
 targetEntityType: node
-bundle: conference_conference
+bundle: conference
 mode: default
 content:
   body:

@@ -1,16 +1,16 @@
-uuid: 09fbf519-1aaf-4731-96a4-85f8fa70f69e
+uuid: 7c905ac3-96d6-4e56-adf2-4cdd57758d5d
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.body
-    - node.type.conference_conference
+    - node.type.speaker
   module:
     - text
-id: node.conference_conference.body
+id: node.speaker.body
 field_name: body
 entity_type: node
-bundle: conference_conference
+bundle: speaker
 label: Body
 description: ''
 required: false

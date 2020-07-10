@@ -1,18 +1,17 @@
-uuid: 67b55eca-5a13-49d2-bf39-f6f54e41b889
+uuid: 95ae51e9-c52f-4d71-a618-6ad9d2fbdc44
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.conference_event.body
-    - field.field.node.conference_event.field_conference_conference
-    - node.type.conference_event
+    - field.field.node.sponsor.body
+    - node.type.sponsor
   module:
     - text
     - user
-id: node.conference_event.teaser
+id: node.sponsor.teaser
 targetEntityType: node
-bundle: conference_event
+bundle: sponsor
 mode: teaser
 content:
   body:
@@ -28,5 +27,4 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden:
-  field_conference_conference: true
+hidden: {  }

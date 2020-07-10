@@ -1,0 +1,28 @@
+uuid: d3543640-9743-4e07-983b-0ee09990978a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.conference.body
+    - node.type.conference
+  module:
+    - text
+    - user
+id: node.conference.default
+targetEntityType: node
+bundle: conference
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

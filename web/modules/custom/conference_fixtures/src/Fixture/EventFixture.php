@@ -19,18 +19,21 @@ class EventFixture extends AbstractFixture implements DependentFixtureInterface 
   public function load() {
     /** @var \Drupal\node\Entity\Node $event */
     $event = Node::create([
-      'type' => 'conference_event',
+      'type' => 'event',
       'title' => 'The first event',
-      'field_conference_conference' => $this->getReference('conference:001'),
+      'field_conference' => $this->getReference('conference:001'),
     ]);
+    $event->setOwner($this->getReference('user:organizer'));
 
     $event->save();
 
     $event = Node::create([
-      'type' => 'conference_event',
+      'type' => 'event',
       'title' => 'Another event',
-      'field_conference_conference' => $this->getReference('conference:001'),
+      'field_conference' => $this->getReference('conference:001'),
     ]);
+    $event->setUnpublished();
+    $event->setOwner($this->getReference('user:organizer'));
 
     $event->save();
   }
@@ -41,6 +44,7 @@ class EventFixture extends AbstractFixture implements DependentFixtureInterface 
   public function getDependencies() {
     return [
       ConferenceFixture::class,
+      UserFixture::class,
     ];
   }
 

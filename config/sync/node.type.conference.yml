@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: Conference
-type: conference_conference
+type: conference
 description: 'A conference.'
 help: ''
 new_revision: true

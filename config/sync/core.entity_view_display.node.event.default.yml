@@ -3,15 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.conference_event.body
-    - field.field.node.conference_event.field_conference_conference
-    - node.type.conference_event
+    - field.field.node.event.body
+    - field.field.node.event.field_conference
+    - node.type.event
   module:
     - text
     - user
-id: node.conference_event.default
+id: node.event.default
 targetEntityType: node
-bundle: conference_event
+bundle: event
 mode: default
 content:
   body:
@@ -21,7 +21,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-  field_conference_conference:
+  field_conference:
     weight: 102
     label: above
     settings:
