@@ -1,0 +1,23 @@
+uuid: 99375d73-80ba-439b-90f6-82f0afa37608
+langcode: en
+status: true
+dependencies: {  }
+id: administrator
+label: Administrator
+weight: 2
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'administer users'
+  - 'create conference_conference content'
+  - 'create conference_event content'
+  - 'delete any conference_conference content'
+  - 'delete any conference_event content'
+  - 'delete own conference_conference content'
+  - 'delete own conference_event content'
+  - 'edit any conference_conference content'
+  - 'edit any conference_event content'
+  - 'edit own conference_conference content'
+  - 'edit own conference_event content'

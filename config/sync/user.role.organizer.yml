@@ -1,0 +1,17 @@
+uuid: f3627a2a-8f9c-42d8-a2e1-1720643af3be
+langcode: en
+status: true
+dependencies: {  }
+id: organizer
+label: Organizer
+weight: 3
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'access toolbar'
+  - 'create conference_conference content'
+  - 'create conference_event content'
+  - 'delete own conference_conference content'
+  - 'delete own conference_event content'
+  - 'edit own conference_conference content'
+  - 'edit own conference_event content'
