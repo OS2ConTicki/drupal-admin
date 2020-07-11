@@ -21,11 +21,14 @@ class ConferenceFixture extends AbstractFixture implements DependentFixtureInter
     $conference = Node::create([
       'type' => 'conference',
       'title' => 'The first conference',
-      'body' => <<<'BODY'
+      'body' => [
+        'value' => <<<'BODY'
 This is the first conference.
 
 It'll be <strong>fun</strong>!
 BODY,
+        'format' => 'rich_text',
+      ],
     ]);
     $conference->setOwner($this->getReference('user:organizer'));
 
