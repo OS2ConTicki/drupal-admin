@@ -1,0 +1,11 @@
+uuid: 64635bf6-0db5-40ec-bc30-ea2f80a56f7d
+langcode: en
+status: true
+dependencies: {  }
+name: Organizer
+type: organizer
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

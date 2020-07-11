@@ -1,0 +1,28 @@
+uuid: cd35881e-4c85-4196-bc56-6c69f979d029
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.organizer.body
+    - node.type.organizer
+  module:
+    - text
+    - user
+id: node.organizer.default
+targetEntityType: node
+bundle: organizer
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

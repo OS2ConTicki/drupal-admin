@@ -14,6 +14,11 @@ services:
     tags:
       - { name: content_fixture }
 
+  conference_fixtures.organizer_fixture:
+    class: Drupal\conference_fixtures\Fixture\OrganizerFixture
+    tags:
+      - { name: content_fixture }
+
   conference_fixtures.speaker_fixture:
     class: Drupal\conference_fixtures\Fixture\SpeakerFixture
     tags:
