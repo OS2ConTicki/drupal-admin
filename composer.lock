@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "125d2fedee27fcc79e3e00cc41ea8b69",
+    "content-hash": "d5a9502a76ad66edccc10e214f5f23fb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1361,12 +1361,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OS2Conference/drupal-module-conference_api.git",
-                "reference": "1ae8fa19a9d49dcfb73a2ddbe0fc471ac563a446"
+                "reference": "c13a89a1a6eecaf736bce84176d99817d9c9169c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OS2Conference/drupal-module-conference_api/zipball/1ae8fa19a9d49dcfb73a2ddbe0fc471ac563a446",
-                "reference": "1ae8fa19a9d49dcfb73a2ddbe0fc471ac563a446",
+                "url": "https://api.github.com/repos/OS2Conference/drupal-module-conference_api/zipball/c13a89a1a6eecaf736bce84176d99817d9c9169c",
+                "reference": "c13a89a1a6eecaf736bce84176d99817d9c9169c",
                 "shasum": ""
             },
             "require-dev": {
@@ -1402,7 +1402,7 @@
                 "source": "https://github.com/OS2Conference/drupal-module-conference_api/tree/main",
                 "issues": "https://github.com/OS2Conference/drupal-module-conference_api/issues"
             },
-            "time": "2020-07-09T16:43:48+00:00"
+            "time": "2020-07-13T13:45:09+00:00"
         },
         {
             "name": "drupal/core",
@@ -6275,7 +6275,9 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^7.3"
+    },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
 }
