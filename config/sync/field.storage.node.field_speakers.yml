@@ -1,11 +1,11 @@
-uuid: ee503d5e-6b8f-4a90-8f46-7b73b1bfeac0
+uuid: 4d2a27bb-35d3-43e0-b34b-0e4587fb3a47
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_events
-field_name: field_events
+id: node.field_speakers
+field_name: field_speakers
 entity_type: node
 type: entity_reference
 settings:

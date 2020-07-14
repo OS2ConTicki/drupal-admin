@@ -19,8 +19,11 @@
             }
         },
         "drupal/conference_api": {
-            "type": "vcs",
-            "url": "https://github.com/OS2Conference/drupal-module-conference_api"
+            "type": "path",
+            "url": "web/modules/custom/conference_api",
+            "options": {
+                "symlink": false
+            }
         }
     },
     "require": {
@@ -31,7 +34,6 @@
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
-        "drupal/inline_entity_form": "^1.0@RC",
         "drupal/restui": "^1.18",
         "drupal/toolbar_menu": "^2.2",
         "drush/drush": "^10.3"

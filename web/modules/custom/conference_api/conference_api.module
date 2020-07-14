@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Module file for conference_api.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function conference_api_form_alter(
+  &$form,
+  FormStateInterface $form_state,
+  $form_id
+) {
+  \Drupal::service('conference_api.form_helper')->alter($form, $form_state, $form_id);
+}

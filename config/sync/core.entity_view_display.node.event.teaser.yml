@@ -6,6 +6,11 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.event.body
     - field.field.node.event.field_conference
+    - field.field.node.event.field_location
+    - field.field.node.event.field_organizers
+    - field.field.node.event.field_speakers
+    - field.field.node.event.field_tags
+    - field.field.node.event.field_themes
     - node.type.event
   module:
     - text
@@ -30,3 +35,8 @@ content:
     region: content
 hidden:
   field_conference: true
+  field_location: true
+  field_organizers: true
+  field_speakers: true
+  field_tags: true
+  field_themes: true

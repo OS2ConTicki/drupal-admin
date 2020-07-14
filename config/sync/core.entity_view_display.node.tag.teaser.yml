@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.tag.body
+    - field.field.node.tag.field_conference
     - node.type.tag
   module:
     - text
@@ -27,4 +28,5 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  field_conference: true

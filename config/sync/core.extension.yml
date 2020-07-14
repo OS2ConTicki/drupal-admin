@@ -10,7 +10,6 @@ module:
   field_ui: 0
   file: 0
   filter: 0
-  inline_entity_form: 0
   jsonapi: 0
   node: 0
   page_cache: 0

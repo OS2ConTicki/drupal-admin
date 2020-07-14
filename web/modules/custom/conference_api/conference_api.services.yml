@@ -1,0 +1,5 @@
+services:
+  conference_api.form_helper:
+      class: Drupal\conference_api\Form\Helper
+      arguments:
+        - '@string_translation'
