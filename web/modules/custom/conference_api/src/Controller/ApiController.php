@@ -95,13 +95,18 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
    * Build JSON:API request.
    */
   private function buildJsonApiRequest(Request $request, string $path): Request {
-    // @TODO Keep server info (domain and port).
-    // $request = $request->duplicate();
-    // $request->attributes->remove('api_path');
-    // $request->server->set('REQUEST_URI', $requestPath);
     $query = $this->buildJsonApiQuery($request->query->all());
 
-    return Request::create($path, 'GET', $query);
+    // Keep server info (specifically domain and port).
+    // @TODO (How) Can we use Request::duplicate for this?
+    return Request::create(
+      $path,
+      'GET',
+      $query,
+      $request->cookies->all(),
+      $request->files->all(),
+      $request->server->all(),
+    );
   }
 
   /**
