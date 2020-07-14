@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.event.body
     - field.field.node.event.field_conference
+    - field.field.node.event.field_date
     - field.field.node.event.field_location
     - field.field.node.event.field_organizers
     - field.field.node.event.field_speakers
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.event.field_themes
     - node.type.event
   module:
+    - datetime_range
     - text
 id: node.event.default
 targetEntityType: node
@@ -44,6 +46,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_date:
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+    type: daterange_default
+    region: content
   field_location:
     weight: 28
     settings:

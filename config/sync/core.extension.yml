@@ -4,6 +4,8 @@ module:
   ckeditor: 0
   conference_api: 0
   conference_base: 0
+  datetime: 0
+  datetime_range: 0
   dynamic_page_cache: 0
   editor: 0
   field: 0

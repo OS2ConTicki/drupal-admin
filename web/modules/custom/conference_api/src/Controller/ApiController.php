@@ -76,6 +76,7 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
     $response = $this->httpKernel->handle($request,
       HttpKernelInterface::SUB_REQUEST);
 
+    // @see https://medium.com/thefirstcode/cors-cross-origin-resource-sharing-in-drupal-8-19778cf2838a
     if (Response::HTTP_OK === $response->getStatusCode()) {
       return new JsonResponse(json_decode($this->convertContent($response->getContent())));
     }
@@ -179,31 +180,58 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
     $item['type'] = preg_replace('/^node--/', '', $item['type']);
     unset($item['relationships']);
 
-    foreach ($item['attributes'] as $name => $value) {
-      // Flatten rich text values.
-      if (is_array($value)) {
-        if (array_key_exists('summary', $value)) {
-          $item['attributes'][$name . '_summary'] = $value['summary'];
+    if (isset($item['attributes'])) {
+      $attributes = &$item['attributes'];
+
+      foreach ($attributes as $name => $value) {
+        if ('body' === $name && is_array($value)) {
+          // Flatten rich text value.
+          $attributes['summary'] = $value['summary'] ?? NULL;
+          $attributes['description'] = $value['processed'] ?? NULL;
+          unset($attributes[$name]);
         }
-        if (array_key_exists('processed', $value)) {
-          $item['attributes'][$name] = $value['processed'];
+
+        // Flatten date ranges.
+        if ('field_date' === $name) {
+          if (is_array($value)) {
+            $attributes['start_time'] = $value['value'];
+            $attributes['end_time'] = $value['end_value'];
+          }
+          unset($attributes[$name]);
         }
       }
-    }
 
-    // Add links to related resources.
-    switch ($item['type']) {
-      case 'conference':
-        foreach (array_keys($this->getContentTypes()) as $type) {
-          if ($item['type'] === $type) {
-            continue;
+      // Add links to related resources.
+      switch ($item['type']) {
+        case 'conference':
+          foreach (array_keys($this->getContentTypes()) as $type) {
+            if ($item['type'] === $type) {
+              continue;
+            }
+            $item['links'][$type]['href'] = $this->generateApiUrl([
+              'type' => $type,
+              'filter' => ['field_' . $item['type'] . '.id' => $item['id']],
+            ]);
           }
-          $item['links'][$type]['href'] = $this->generateApiUrl([
-            'type' => $type,
-            'filter' => ['field_' . $item['type'] . '.id' => $item['id']],
-          ]);
-        }
-        break;
+          break;
+      }
+
+      // Keep only the stuff we need.
+      $allowedNames = [
+        'title',
+        'langcode',
+        'title',
+        'created',
+        'changed',
+        'promote',
+        'start_time',
+        'end_time',
+        'description',
+        'summary',
+      ];
+      $attributes = array_filter($attributes, static function ($name) use ($allowedNames) {
+        return in_array($name, $allowedNames, TRUE);
+      }, ARRAY_FILTER_USE_KEY);
     }
 
     return $item;
