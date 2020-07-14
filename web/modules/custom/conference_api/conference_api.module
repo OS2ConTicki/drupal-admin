@@ -17,3 +17,27 @@ function conference_api_form_alter(
 ) {
   \Drupal::service('conference_api.form_helper')->alter($form, $form_state, $form_id);
 }
+
+/**
+ * Implements hook_theme().
+ */
+function conference_api_theme() {
+  return [
+    'conference_api_conference_info' => [
+      'variables' => [
+        // The conference.
+        'conference' => NULL,
+      ],
+    ],
+    'conference_api_conference_entity_list' => [
+      'variables' => [
+        // The conference.
+        'conference' => NULL,
+        // The entity type.
+        'type' => NULL,
+        // The entities.
+        'entities' => NULL,
+      ],
+    ],
+  ];
+}

@@ -2,11 +2,10 @@
 
 namespace Drupal\conference_api\Form;
 
+use Drupal\conference_api\Helper\ConferenceHelper;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -17,20 +16,24 @@ class Helper {
   use StringTranslationTrait;
 
   /**
+   * The conference helper.
+   *
+   * @var \Drupal\conference_api\Helper\ConferenceHelper
+   */
+  private $conferenceHelper;
+
+  /**
    * Constructor.
    */
-  public function __construct(TranslationInterface $stringTranslation) {
-    $this->stringTranslation = $stringTranslation;
+  public function __construct(ConferenceHelper $conferenceHelper, TranslationInterface $translation) {
+    $this->conferenceHelper = $conferenceHelper;
+    $this->setStringTranslation($translation);
   }
 
   /**
    * Implements hook_form_alter().
    */
-  public function alter(
-    array &$form,
-    FormStateInterface $formState,
-    string $formId
-  ) {
+  public function alter(array &$form, FormStateInterface $formState, string $formId) {
     switch ($formId) {
       case 'node_conference_form':
       case 'node_conference_edit_form':
@@ -39,13 +42,21 @@ class Helper {
     }
 
     switch ($formId) {
+      case 'node_conference_edit_form':
       case 'node_conference_form':
+      case 'node_event_edit_form':
       case 'node_event_form':
+      case 'node_location_edit_form':
       case 'node_location_form':
+      case 'node_organizer_edit_form':
       case 'node_organizer_form':
+      case 'node_speaker_edit_form':
       case 'node_speaker_form':
+      case 'node_sponsor_edit_form':
       case 'node_sponsor_form':
+      case 'node_tag_edit_form':
       case 'node_tag_form':
+      case 'node_theme_edit_form':
       case 'node_theme_form':
         $this->setConference($form, $formState, $formId);
         break;
@@ -70,19 +81,9 @@ class Helper {
       return;
 
     }
-    $apiUrl = Url::fromRoute(
-      'conference_api.api_controller_index',
-      [
-        'type' => 'conference',
-        'id' => $conference->uuid(),
-      ],
-      [
-        'absolute' => TRUE,
-      ]
-    );
     $form['conference_api'] = [
-      '#markup' => Link::fromTextAndUrl($apiUrl->toString(), $apiUrl)
-        ->toString(),
+      '#theme' => 'conference_api_conference_info',
+      '#conference' => $conference,
       '#weight' => -1000,
     ];
 
@@ -117,23 +118,23 @@ class Helper {
         'add' => $this->t('Add organizer'),
       ],
     ] as $type => $info) {
+      $entities = $this->conferenceHelper->getEntitites($conference, $type);
+
       $form['conference_' . $type] = [
         '#type' => 'details',
-        '#open' => TRUE,
+        '#open' => FALSE,
         '#title' => $info['title'] ?? $type,
         '#weight' => $weight++,
-        'add' => [
-          '#markup' => Link::fromTextAndUrl(
-            $info['add'] ?? $this->t('Add @type', ['@type' => $type]),
-            Url::fromRoute('node.add',
-              ['node_type' => $type, 'conference' => $conference->uuid()]),
-          )->toString(),
-        ],
         'list' => [
-          '#markup' => 'list',
+          '#theme' => 'conference_api_conference_entity_list',
+          '#conference' => $conference,
+          '#type' => $type,
+          '#entities' => $entities,
         ],
       ];
     }
+
+    $form['#attached']['library'][] = 'conference_api/form-conference';
   }
 
   /**
@@ -143,13 +144,18 @@ class Helper {
     array &$form,
     FormStateInterface $formState,
     string $formId
-  ) {
+    ) {
     /** @var \Drupal\node\NodeInterface $entity */
     $entity = $formState->getFormObject()->getEntity();
 
-    if (isset($form['field_conference']['widget'][0]) && NULL === $entity->id()) {
-      $conference = $this->getConference();
-      $form['field_conference']['widget'][0]['target_id']['#default_value'] = $conference;
+    if (isset($form['field_conference']['widget'][0])) {
+      // Add conference on new entities.
+      if (NULL === $entity->id()) {
+        $conference = $this->getConference();
+        $form['field_conference']['widget'][0]['target_id']['#default_value'] = $conference;
+      }
+      // Make field readonly.
+      $form['field_conference']['widget'][0]['target_id']['#attributes']['readonly'] = TRUE;
     }
   }
 
@@ -161,9 +167,13 @@ class Helper {
       $uuid = \Drupal::request()->get('conference');
     }
 
-    $conference = \Drupal::service('entity.repository')->loadEntityByUuid('node', $uuid);
+    if (NULL === $uuid) {
+      throw new BadRequestHttpException('Missing conference');
+    }
 
-    if (NULL === $conference || 'conference' !== $conference->bundle()) {
+    $conference = $this->conferenceHelper->getByUuid($uuid);
+
+    if (NULL === $conference) {
       throw new BadRequestHttpException('Missing conference');
     }
 

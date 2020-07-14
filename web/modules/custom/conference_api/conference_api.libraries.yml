@@ -1,0 +1,7 @@
+form-conference:
+  version: VERSION
+  js:
+    build/form/conference.js: {scope: bottom, preprocess: false}
+  css:
+    theme:
+      build/form/conference.css: {}

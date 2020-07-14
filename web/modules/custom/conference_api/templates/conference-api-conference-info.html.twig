@@ -1,0 +1,14 @@
+{#
+Variaables:
+
+  conference: the conference (NodeInterface)
+#}
+
+<div class="conference-info">
+  {% set api_url = url('conference_api.api_controller_index', {type: 'conference', 'id': conference.uuid.value}) %}
+
+  <dl>
+    <dt>{{ 'Api url'|trans }}</dt>
+    <dd><a href="{{ api_url }}">{{ api_url }}</a></dd>
+  </dl>
+</div>

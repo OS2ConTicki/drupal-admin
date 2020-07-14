@@ -1,0 +1,24 @@
+{#
+Variaables:
+
+  conference: the conference (NodeInterface)
+  type: the type (string)
+  entities: the entities (list of NodeInterface)
+#}
+
+<div class="conference-entity-list conference-entity-list-{{ type }}">
+  <div class="actions">
+    <a class="button button--small" href="{{ path('node.add', {node_type: type, conference: conference.uuid[0].value}) }}">{{ 'Add @type'|t({'@type': type}) }}</a>
+  </div>
+
+  <table>
+    {% for entity in entities %}
+      <tr>
+        <td>{{ entity.title[0].value }}</td>
+        <td class="actions">
+          <a href="{{ path('entity.node.edit_form', {node: entity.id}) }}">{{ 'Edit'|t }}</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>

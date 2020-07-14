@@ -1,5 +1,11 @@
 services:
+  conference_api.conference_helper:
+    class: Drupal\conference_api\Helper\ConferenceHelper
+    arguments:
+      - '@entity.repository'
+
   conference_api.form_helper:
       class: Drupal\conference_api\Form\Helper
       arguments:
+        - '@conference_api.conference_helper'
         - '@string_translation'

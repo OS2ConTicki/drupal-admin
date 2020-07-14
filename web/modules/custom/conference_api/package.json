@@ -1,0 +1,20 @@
+{
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.30.2",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.0",
+    "standard": "^14.3.1",
+    "webpack-notifier": "^1.6.0"
+  },
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "build": "encore production --progress",
+    "watch": "encore dev --watch",
+    "coding-standards-check": "cd assets && standard",
+    "coding-standards-apply": "cd assets && standard --fix"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  }
+}
