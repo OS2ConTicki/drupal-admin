@@ -4,6 +4,7 @@ namespace Drupal\conference_api\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Url;
 use Drupal\file\FileInterface;
 use Exception;
 use InvalidArgumentException;
@@ -77,10 +78,15 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
     $response = $this->httpKernel->handle($request,
       HttpKernelInterface::SUB_REQUEST);
 
-    // @see https://medium.com/thefirstcode/cors-cross-origin-resource-sharing-in-drupal-8-19778cf2838a
     if (Response::HTTP_OK === $response->getStatusCode()) {
-      return new JsonResponse(json_decode($this->convertContent($response->getContent())));
+      $response->setContent($this->convertContent($response->getContent()));
     }
+
+    // @see https://medium.com/thefirstcode/cors-cross-origin-resource-sharing-in-drupal-8-19778cf2838a
+    $response->headers->add([
+      'access-control-allow-origin' => '*',
+      'access-control-allow-methods' => 'GET',
+    ]);
 
     return $response;
   }
@@ -129,8 +135,11 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
   /**
    * Generate API url.
    */
-  private function generateApiUrl(array $parameters = []) {
-    return $this->urlGenerator->generate('conference_api.api_controller_index', $parameters, UrlGeneratorInterface::ABSOLUTE_URL);
+  private function generateApiUrl(array $parameters = []): string {
+    $url = Url::fromRoute('conference_api.api_controller_index', $parameters, ['absolute' => TRUE]);
+
+    // @see https://www.lullabot.com/articles/early-rendering-a-lesson-in-debugging-drupal-8
+    return $url->toString(TRUE)->getGeneratedUrl();
   }
 
   /**
