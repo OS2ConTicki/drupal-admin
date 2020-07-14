@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -o errexit -o errtrace -o noclobber -o nounset -o pipefail
+IFS=$'\n\t'
+
+dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+number_of_images=${1:-8}
+
+for ((i=1; i<=$number_of_images; i++)); do
+  filename=$dir/$(printf "%03d.jpg" $i)
+  curl --silent https://lorempixel.com/800/600/ >| $filename
+  echo $filename
+done

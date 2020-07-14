@@ -9,6 +9,13 @@ services:
     tags:
       - { name: content_fixture }
 
+  conference_fixtures.image_fixture:
+    class: Drupal\conference_fixtures\Fixture\ImageFixture
+    arguments:
+      - '@file_system'
+    tags:
+      - { name: content_fixture }
+
   conference_fixtures.location_fixture:
     class: Drupal\conference_fixtures\Fixture\LocationFixture
     tags:

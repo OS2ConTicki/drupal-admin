@@ -29,6 +29,7 @@ It'll be <strong>fun</strong>!
 BODY,
         'format' => 'rich_text',
       ],
+      'field_image' => $this->getReference('image:004'),
     ]);
     $conference->setOwner($this->getReference('user:organizer'));
 

@@ -22,6 +22,11 @@ class EventFixture extends AbstractFixture implements DependentFixtureInterface 
       'type' => 'event',
       'title' => 'The first event',
       'field_conference' => $this->getReference('conference:001'),
+      'field_image' => $this->getReference('image:001'),
+      'field_date' => [
+        'value' => '2001-01-01T12:00:00',
+        'end_value' => '2001-01-01T13:00:00',
+      ],
     ]);
     $event->setOwner($this->getReference('user:organizer'));
 
@@ -31,6 +36,11 @@ class EventFixture extends AbstractFixture implements DependentFixtureInterface 
       'type' => 'event',
       'title' => 'Another event',
       'field_conference' => $this->getReference('conference:001'),
+      'field_image' => $this->getReference('image:002'),
+      'field_date' => [
+        'value' => '2001-01-01T15:00:00',
+        'end_value' => '2001-01-01T15:30:00',
+      ],
     ]);
     $event->setUnpublished();
     $event->setOwner($this->getReference('user:organizer'));
@@ -44,6 +54,7 @@ class EventFixture extends AbstractFixture implements DependentFixtureInterface 
   public function getDependencies() {
     return [
       ConferenceFixture::class,
+      ImageFixture::class,
       UserFixture::class,
     ];
   }
