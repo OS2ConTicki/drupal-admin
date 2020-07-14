@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.organizer.body
     - field.field.node.organizer.field_conference
+    - field.field.node.organizer.field_image
     - node.type.organizer
   module:
     - text
@@ -30,3 +31,4 @@ content:
     region: content
 hidden:
   field_conference: true
+  field_image: true

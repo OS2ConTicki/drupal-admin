@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.speaker.body
     - field.field.node.speaker.field_conference
+    - field.field.node.speaker.field_image
     - node.type.speaker
   module:
     - text
@@ -30,3 +31,4 @@ content:
     region: content
 hidden:
   field_conference: true
+  field_image: true

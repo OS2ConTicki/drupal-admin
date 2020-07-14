@@ -5,8 +5,11 @@ dependencies:
   config:
     - field.field.node.location.body
     - field.field.node.location.field_conference
+    - field.field.node.location.field_image
+    - image.style.thumbnail
     - node.type.location
   module:
+    - image
     - text
 id: node.location.default
 targetEntityType: node
@@ -38,6 +41,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_image:
+    weight: 26
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
     region: content
   promote:
     type: boolean_checkbox

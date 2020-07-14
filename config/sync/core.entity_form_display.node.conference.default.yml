@@ -4,8 +4,11 @@ status: true
 dependencies:
   config:
     - field.field.node.conference.body
+    - field.field.node.conference.field_image
+    - image.style.thumbnail
     - node.type.conference
   module:
+    - image
     - text
 id: node.conference.default
 targetEntityType: node
@@ -28,6 +31,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_image:
+    weight: 122
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
   promote:
     type: boolean_checkbox
     settings:

@@ -4,6 +4,7 @@ namespace Drupal\conference_api\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\file\FileInterface;
 use Exception;
 use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -178,10 +179,16 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
    */
   private function convertItem(array $item) {
     $item['type'] = preg_replace('/^node--/', '', $item['type']);
-    unset($item['relationships']);
 
     if (isset($item['attributes'])) {
       $attributes = &$item['attributes'];
+
+      if (isset($item['relationships']['field_image']['data']['id'])) {
+        $image = $this->getFile($item['relationships']['field_image']['data']['id']);
+        if ($image) {
+          $attributes['image'] = $image->createFileUrl(FALSE);
+        }
+      }
 
       foreach ($attributes as $name => $value) {
         if ('body' === $name && is_array($value)) {
@@ -217,8 +224,10 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
       }
 
       // Keep only the stuff we need.
+      unset($item['relationships']);
       $allowedNames = [
         'title',
+        'image',
         'langcode',
         'title',
         'created',
@@ -294,6 +303,13 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
     $config = \Drupal::config('conference_api.settings');
 
     return array_filter($config->get('content_types') ?? []);
+  }
+
+  /**
+   * Get file by uuid.
+   */
+  private function getFile(string $uuid): ?FileInterface {
+    return \Drupal::service('entity.repository')->loadEntityByUuid('file', $uuid);
   }
 
 }

@@ -6,14 +6,17 @@ dependencies:
     - field.field.node.event.body
     - field.field.node.event.field_conference
     - field.field.node.event.field_date
+    - field.field.node.event.field_image
     - field.field.node.event.field_location
     - field.field.node.event.field_organizers
     - field.field.node.event.field_speakers
     - field.field.node.event.field_tags
     - field.field.node.event.field_themes
+    - image.style.thumbnail
     - node.type.event
   module:
     - datetime_range
+    - image
     - text
 id: node.event.default
 targetEntityType: node
@@ -51,6 +54,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: daterange_default
+    region: content
+  field_image:
+    weight: 31
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
     region: content
   field_location:
     weight: 28

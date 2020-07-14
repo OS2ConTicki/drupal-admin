@@ -5,8 +5,11 @@ dependencies:
   config:
     - field.field.node.organizer.body
     - field.field.node.organizer.field_conference
+    - field.field.node.organizer.field_image
+    - image.style.thumbnail
     - node.type.organizer
   module:
+    - image
     - text
 id: node.organizer.default
 targetEntityType: node
@@ -38,6 +41,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_image:
+    weight: 26
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
     region: content
   promote:
     type: boolean_checkbox
