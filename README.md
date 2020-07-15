@@ -57,25 +57,5 @@ symfony php vendor/bin/drush --uri=https://127.0.0.1:8888 user:login organizer@e
 ## Conference API
 
 ```sh
-https://127.0.0.1:8888/api/conference
-```
-
-## JSON:API
-
-https://www.drupal.org/project/jsonapi
-https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi
-
-```sh
-https://127.0.0.1:8888/jsonapi/node/conference_conference
-
-# https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/filtering
-https://127.0.0.1:8888/jsonapi/node/conference_event?filter[event-title][path]=title&filter[event-title][operator]==&filter[event-title][value]=welcome
-
-# Events with speaker data
-https://127.0.0.1:8888/jsonapi/node/conference_event?include=field_conference_speakers
-
-# Events for a given speaker
-https://127.0.0.1:8888/jsonapi/node/conference_event?filter[field_conference_speakers.id]=7077c4cd-4ab4-4850-aa54-5ec57f82ec69
-
-https://127.0.0.1:8888/jsonapi/node/conference_speaker
+https://127.0.0.1:8888/api
 ```

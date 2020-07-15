@@ -18,6 +18,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Api controller.
+ *
+ * @see https://www.drupal.org/project/jsonapi/issues/3032259#comment-12967876
+ * @see https://www.drupal.org/project/jsonapi_extras/issues/3036904
  */
 class ApiController extends ControllerBase implements ContainerInjectionInterface {
   /**
@@ -237,8 +240,19 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
           break;
       }
 
+      $relationships = [];
+      if (isset($item['relationships']['field_conference'])) {
+        $relationships['conference'] = $this->convertRelationship($item['relationships']['field_conference']);
+      }
+
       // Keep only the stuff we need.
-      unset($item['relationships']);
+      $allowedRelationships = ['field_conference'];
+      if ($relationships) {
+        $item['relationships'] = $relationships;
+      }
+      else {
+        unset($item['relationships']);
+      }
       $allowedNames = [
         'title',
         'image',
@@ -252,12 +266,42 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
         'description',
         'summary',
       ];
-      $attributes = array_filter($attributes, static function ($name) use ($allowedNames) {
-        return in_array($name, $allowedNames, TRUE);
-      }, ARRAY_FILTER_USE_KEY);
+      $attributes = $this->includeKeys($allowedNames, $attributes);
     }
 
     return $item;
+  }
+
+  /**
+   * Convert relationship.
+   */
+  private function convertRelationship(array $relationship): array {
+    if (isset($relationship['data']['type'])) {
+      $relationship['data']['type'] = preg_replace('/^node--/', '', $relationship['data']['type']);
+    }
+    $links = [];
+    if (isset($relationship['links']['related'])) {
+      $links['related'] = [
+        'href' => $this->generateApiUrl(['type' => $relationship['data']['type'], 'id' => $relationship['data']['id']]),
+      ];
+    }
+    if ($links) {
+      $relationship['links'] = $links;
+    }
+    else {
+      unset($relationship['links']);
+    }
+
+    return $relationship;
+  }
+
+  /**
+   * Include keys in array.
+   */
+  private function includeKeys(array $keys, array $value) {
+    return array_filter($value, static function ($name) use ($keys) {
+      return in_array($name, $keys, TRUE);
+    }, ARRAY_FILTER_USE_KEY);
   }
 
   /**

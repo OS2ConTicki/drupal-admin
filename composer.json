@@ -28,6 +28,7 @@
     },
     "require": {
         "php": "^7.3",
+        "ext-json": "*",
         "composer/installers": "^1.9",
         "drupal/admin_toolbar": "^2.3",
         "drupal/conference_api": "dev-main",
