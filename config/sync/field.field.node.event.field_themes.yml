@@ -10,7 +10,7 @@ id: node.event.field_themes
 field_name: field_themes
 entity_type: node
 bundle: event
-label: Themes
+label: Theme
 description: ''
 required: false
 translatable: false
