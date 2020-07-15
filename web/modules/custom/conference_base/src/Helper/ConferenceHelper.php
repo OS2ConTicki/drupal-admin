@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\conference_api\Helper;
+namespace Drupal\conference_base\Helper;
 
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\node\Entity\Node;
@@ -40,8 +40,17 @@ class ConferenceHelper {
   /**
    * Get conference by uuid.
    */
-  public function getByUuid(string $uuid): ?NodeInterface {
+  public function loadByUuid(string $uuid): ?NodeInterface {
     $conference = $this->entityRepository->loadEntityByUuid('node', $uuid);
+
+    return (NULL !== $conference && 'conference' === $conference->bundle()) ? $conference : NULL;
+  }
+
+  /**
+   * Get conference by uuid.
+   */
+  public function loadById($id): ?NodeInterface {
+    $conference = Node::load($id);
 
     return (NULL !== $conference && 'conference' === $conference->bundle()) ? $conference : NULL;
   }

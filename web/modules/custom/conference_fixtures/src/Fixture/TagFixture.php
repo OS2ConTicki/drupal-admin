@@ -32,7 +32,7 @@ class TagFixture extends AbstractFixture implements DependentFixtureInterface {
     $tag = Node::create([
       'type' => 'tag',
       'title' => 'Glasses',
-      'field_conference' => $this->getReference('conference:001'),
+      'field_conference' => $this->getReference('conference:002'),
     ]);
     $tag->setOwner($this->getReference('user:organizer'));
 

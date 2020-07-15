@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Module file for conference_base.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function conference_base_form_alter(
+  &$form,
+  FormStateInterface $form_state,
+  $form_id
+) {
+  \Drupal::service('conference_base.form_helper')->alter($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function conference_base_theme() {
+  return [
+    'conference_base_conference_info' => [
+      'variables' => [
+        // The conference.
+        'conference' => NULL,
+      ],
+    ],
+    'conference_base_conference_entity_list' => [
+      'variables' => [
+        // The conference.
+        'conference' => NULL,
+        // The entity type.
+        'type' => NULL,
+        // The entities.
+        'entities' => NULL,
+      ],
+    ],
+  ];
+}

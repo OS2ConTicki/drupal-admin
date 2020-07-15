@@ -56,7 +56,7 @@ BODY,
     $event = Node::create([
       'type' => 'event',
       'title' => 'Another event',
-      'field_conference' => $this->getReference('conference:001'),
+      'field_conference' => $this->getReference('conference:002'),
       'field_image' => $this->getReference('image:002'),
       'field_date' => [
         'value' => '2001-01-01T15:00:00',

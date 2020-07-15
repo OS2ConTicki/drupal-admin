@@ -1,9 +1,10 @@
 <?php
 
-namespace Drupal\conference_api\Form;
+namespace Drupal\conference_base\Form;
 
-use Drupal\conference_api\Helper\ConferenceHelper;
+use Drupal\conference_base\Helper\ConferenceHelper;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\node\NodeInterface;
@@ -18,7 +19,7 @@ class Helper {
   /**
    * The conference helper.
    *
-   * @var \Drupal\conference_api\Helper\ConferenceHelper
+   * @var \Drupal\conference_base\Helper\ConferenceHelper
    */
   private $conferenceHelper;
 
@@ -81,8 +82,8 @@ class Helper {
       return;
 
     }
-    $form['conference_api'] = [
-      '#theme' => 'conference_api_conference_info',
+    $form['conference_base'] = [
+      '#theme' => 'conference_base_conference_info',
       '#conference' => $conference,
       '#weight' => -1000,
     ];
@@ -126,7 +127,7 @@ class Helper {
         '#title' => $info['title'] ?? $type,
         '#weight' => $weight++,
         'list' => [
-          '#theme' => 'conference_api_conference_entity_list',
+          '#theme' => 'conference_base_conference_entity_list',
           '#conference' => $conference,
           '#type' => $type,
           '#entities' => $entities,
@@ -134,7 +135,7 @@ class Helper {
       ];
     }
 
-    $form['#attached']['library'][] = 'conference_api/form-conference';
+    $form['#attached']['library'][] = 'conference_base/form-conference';
   }
 
   /**
@@ -147,6 +148,7 @@ class Helper {
     ) {
     /** @var \Drupal\node\NodeInterface $entity */
     $entity = $formState->getFormObject()->getEntity();
+    $conference = NULL;
 
     if (isset($form['field_conference']['widget'][0])) {
       // Add conference on new entities.
@@ -154,8 +156,37 @@ class Helper {
         $conference = $this->getConference();
         $form['field_conference']['widget'][0]['target_id']['#default_value'] = $conference;
       }
+      else {
+        $conference = $entity->field_conference->entity;
+      }
       // Make field readonly.
       $form['field_conference']['widget'][0]['target_id']['#attributes']['readonly'] = TRUE;
+    }
+
+    // @TODO Set up custom autocomplete.
+    // @see https://antistatique.net/en/we/blog/2019/07/10/how-to-create-a-custom-autocomplete-using-the-drupal-8-form-api
+    foreach ([
+               // 'field_events' => 'event',
+               // 'field_locations' => 'location',
+               // 'field_organizers' => 'organizer',
+               // 'field_speakers' => 'speaker',
+               // 'field_sponsors' => 'sponsor',
+               // 'field_tags' => 'tag',
+               // 'field_themes' => 'theme',
+      ] as $field => $type) {
+      if (isset($form[$field]['widget'])) {
+        foreach (Element::children($form[$field]['widget']) as $child) {
+          if ('entity_autocomplete' === ($form[$field]['widget'][$child]['target_id']['#type'] ?? NULL)) {
+            $element = &$form[$field]['widget'][$child]['target_id'];
+            $element['#type'] = 'textfield';
+            $element['#autocomplete_route_name'] = 'conference_base.entity_autocomplete';
+            $element['#autocomplete_route_parameters'] = [
+              'conference' => $conference->id(),
+              'type' => $type,
+            ];
+          }
+        }
+      }
     }
   }
 
@@ -171,7 +202,7 @@ class Helper {
       throw new BadRequestHttpException('Missing conference');
     }
 
-    $conference = $this->conferenceHelper->getByUuid($uuid);
+    $conference = $this->conferenceHelper->loadByUuid($uuid);
 
     if (NULL === $conference) {
       throw new BadRequestHttpException('Missing conference');
