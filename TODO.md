@@ -6,6 +6,9 @@
     https://www.chapterthree.com/blog/how-alter-entity-autocomplete-results-drupal-8
     https://antistatique.net/en/we/blog/2019/07/10/how-to-create-a-custom-autocomplete-using-the-drupal-8-form-api
 
+[ ] Validate that allowed entity is selected
+
 # API
 
 [x] Add relationships, e.g. for tags
+[ ] Write JSON Schemas for valid api responses

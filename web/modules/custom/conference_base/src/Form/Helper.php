@@ -8,7 +8,6 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\node\NodeInterface;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Form helper.
@@ -159,8 +158,10 @@ class Helper {
       else {
         $conference = $entity->field_conference->entity;
       }
-      // Make field readonly.
-      $form['field_conference']['widget'][0]['target_id']['#attributes']['readonly'] = TRUE;
+      if (NULL !== $conference) {
+        // Make field readonly.
+        $form['field_conference']['widget'][0]['target_id']['#attributes']['readonly'] = TRUE;
+      }
     }
 
     // @TODO Set up custom autocomplete.
@@ -198,17 +199,7 @@ class Helper {
       $uuid = \Drupal::request()->get('conference');
     }
 
-    if (NULL === $uuid) {
-      throw new BadRequestHttpException('Missing conference');
-    }
-
-    $conference = $this->conferenceHelper->loadByUuid($uuid);
-
-    if (NULL === $conference) {
-      throw new BadRequestHttpException('Missing conference');
-    }
-
-    return $conference;
+    return $this->conferenceHelper->loadByUuid($uuid);
   }
 
 }

@@ -75,11 +75,14 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
     }
 
     $request = $this->buildJsonApiRequest($request, $requestPath);
+    // @TODO Houston, we may have a caching problem here …
     $response = $this->httpKernel->handle($request,
       HttpKernelInterface::SUB_REQUEST);
 
     if (Response::HTTP_OK === $response->getStatusCode()) {
-      $response->setContent($this->helper->convertContent($response->getContent()));
+      $content = json_decode($response->getContent(), TRUE, 512, JSON_THROW_ON_ERROR);
+      $content = $this->helper->convertContent($content);
+      $response->setContent(json_encode($content));
     }
 
     // @see https://medium.com/thefirstcode/cors-cross-origin-resource-sharing-in-drupal-8-19778cf2838a

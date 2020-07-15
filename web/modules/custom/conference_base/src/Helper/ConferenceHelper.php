@@ -40,8 +40,8 @@ class ConferenceHelper {
   /**
    * Get conference by uuid.
    */
-  public function loadByUuid(string $uuid): ?NodeInterface {
-    $conference = $this->entityRepository->loadEntityByUuid('node', $uuid);
+  public function loadByUuid(string $uuid = NULL): ?NodeInterface {
+    $conference = $this->entityRepository->loadEntityByUuid('node', $uuid ?? '');
 
     return (NULL !== $conference && 'conference' === $conference->bundle()) ? $conference : NULL;
   }

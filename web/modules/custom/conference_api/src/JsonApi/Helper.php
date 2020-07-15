@@ -15,9 +15,7 @@ class Helper {
   /**
    * Converts JSON:API data to Conference API data.
    */
-  public function convertContent(string $content): string {
-    $document = json_decode($content, TRUE);
-
+  public function convertContent(array $document): array {
     foreach (['data', 'included'] as $key) {
       if (isset($document[$key])) {
         $document[$key] = $this->isAssoc($document[$key])
@@ -33,7 +31,7 @@ class Helper {
       }
     });
 
-    return json_encode($document);
+    return $document;
   }
 
   /**
@@ -46,9 +44,13 @@ class Helper {
       $attributes = &$item['attributes'];
 
       if (isset($item['relationships']['field_image']['data']['id'])) {
-        $image = $this->getFile($item['relationships']['field_image']['data']['id']);
+        $data = $item['relationships']['field_image']['data'];
+        $image = $this->getFile($data['id']);
         if ($image) {
-          $attributes['image'] = $image->createFileUrl(FALSE);
+          $attributes['image'] = [
+            'url' => $image->createFileUrl(FALSE),
+            'meta' => $data['meta'] ?? NULL,
+          ];
         }
       }
 
