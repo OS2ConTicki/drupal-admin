@@ -4,7 +4,6 @@ namespace Drupal\conference_content\Form;
 
 use Drupal\conference_content\Helper\ConferenceHelper;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\node\NodeInterface;
@@ -164,31 +163,8 @@ class Helper {
       }
     }
 
-    // @TODO Set up custom autocomplete.
-    // @see https://antistatique.net/en/we/blog/2019/07/10/how-to-create-a-custom-autocomplete-using-the-drupal-8-form-api
-    foreach ([
-               // 'field_events' => 'event',
-               // 'field_locations' => 'location',
-               // 'field_organizers' => 'organizer',
-               // 'field_speakers' => 'speaker',
-               // 'field_sponsors' => 'sponsor',
-               // 'field_tags' => 'tag',
-               // 'field_themes' => 'theme',
-      ] as $field => $type) {
-      if (isset($form[$field]['widget'])) {
-        foreach (Element::children($form[$field]['widget']) as $child) {
-          if ('entity_autocomplete' === ($form[$field]['widget'][$child]['target_id']['#type'] ?? NULL)) {
-            $element = &$form[$field]['widget'][$child]['target_id'];
-            $element['#type'] = 'textfield';
-            $element['#autocomplete_route_name'] = 'conference_content.entity_autocomplete';
-            $element['#autocomplete_route_parameters'] = [
-              'conference' => $conference->id(),
-              'type' => $type,
-            ];
-          }
-        }
-      }
-    }
+    // Store conference to be used by conference autocomplete.
+    $formState->set(['conference_content', 'conference'], $conference);
   }
 
   /**

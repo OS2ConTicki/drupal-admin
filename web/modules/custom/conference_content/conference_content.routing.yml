@@ -1,8 +1,8 @@
 # https://antistatique.net/en/we/blog/2019/07/10/how-to-create-a-custom-autocomplete-using-the-drupal-8-form-api
-conference_content.entity_autocomplete:
-  path: '/conference_content/entity/autocomplete/{conference}/{type}'
+conference_content.conference_entity_autocomplete:
+  path: '/conference_content/entity/autocomplete/{conference}/{target_type}'
   defaults:
-    _controller: '\Drupal\conference_content\Controller\EntityAutocompleteController::handleAutocomplete'
+    _controller: '\Drupal\conference_content\Controller\ConferenceEntityAutocompleteController::handleAutocomplete'
     _title: 'Conference base entity autocomplete'
   requirements:
     _access: 'TRUE'

@@ -15,23 +15,26 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @package Drupal\conference_content\Controller
  */
-class EntityAutocompleteController extends ControllerBase {
+class ConferenceEntityAutocompleteController extends ControllerBase {
 
   /**
    * Handler for autocomplete request.
    */
-  public function handleAutocomplete(Request $request, NodeInterface $conference, string $type) {
+  public function handleAutocomplete(Request $request, NodeInterface $conference, string $target_type) {
     $results = [];
 
     $input = $request->query->get('q');
     $input = Xss::filter($input);
 
-    $ids = \Drupal::entityQuery('node')
-      ->condition('type', $type)
+    $query = \Drupal::entityQuery($target_type)
       ->condition('status', 1)
       ->condition('field_conference', $conference->id())
-    // ->condition('title', '%'.$input.'%', 'LIKE')
-      ->execute();
+      ->condition('title', '%' . $input . '%', 'LIKE');
+    if ($bundles = $request->get('bundles')) {
+      $query->condition('type', (array) $bundles, 'IN');
+    }
+
+    $ids = $query->execute();
 
     $nodes = Node::loadMultiple($ids ?? []);
     foreach ($nodes as $node) {
