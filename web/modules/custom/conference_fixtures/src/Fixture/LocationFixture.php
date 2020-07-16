@@ -39,6 +39,17 @@ class LocationFixture extends AbstractFixture implements DependentFixtureInterfa
     $this->setReference('location:room2', $location);
 
     $location->save();
+
+    $location = Node::create([
+      'type' => 'location',
+      'title' => 'Room 3',
+      'field_conference' => $this->getReference('conference:002'),
+    ]);
+    $location->setOwner($this->getReference('user:organizer'));
+
+    $this->setReference('location:room3', $location);
+
+    $location->save();
   }
 
   /**

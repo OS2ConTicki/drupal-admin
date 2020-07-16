@@ -67,6 +67,25 @@ BODY,
     $event->setOwner($this->getReference('user:organizer'));
 
     $event->save();
+
+    $event = Node::create([
+      'type' => 'event',
+      'title' => 'The third event',
+      'field_conference' => $this->getReference('conference:002'),
+      'field_image' => [
+        'target_id' => $this->getReference('image:004')->id(),
+        'alt' => 'Image for the third event',
+      ],
+      'field_date' => [
+        'value' => '2001-12-01T15:00:00',
+        'end_value' => '2001-12-01T15:30:00',
+      ],
+      'field_location' => $this->getReference('location:room3'),
+    ]);
+    $event->setUnpublished();
+    $event->setOwner($this->getReference('user:organizer'));
+
+    $event->save();
   }
 
   /**
