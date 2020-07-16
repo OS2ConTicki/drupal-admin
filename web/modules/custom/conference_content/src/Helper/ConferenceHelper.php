@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\conference_base\Helper;
+namespace Drupal\conference_content\Helper;
 
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\node\Entity\Node;

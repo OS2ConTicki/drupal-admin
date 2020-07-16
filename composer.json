@@ -11,16 +11,23 @@
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
-        "drupal/conference_fixtures": {
+        "drupal/conference_api": {
             "type": "path",
-            "url": "web/modules/custom/conference_fixtures",
+            "url": "web/modules/custom/conference_api",
             "options": {
                 "symlink": false
             }
         },
-        "drupal/conference_api": {
+        "drupal/conference_content": {
             "type": "path",
-            "url": "web/modules/custom/conference_api",
+            "url": "web/modules/custom/conference_content",
+            "options": {
+                "symlink": false
+            }
+        },
+        "drupal/conference_fixtures": {
+            "type": "path",
+            "url": "web/modules/custom/conference_fixtures",
             "options": {
                 "symlink": false
             }

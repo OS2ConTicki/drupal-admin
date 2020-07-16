@@ -3,7 +3,7 @@ module:
   breakpoint: 0
   ckeditor: 0
   conference_api: 0
-  conference_base: 0
+  conference_content: 0
   datetime: 0
   datetime_range: 0
   dynamic_page_cache: 0

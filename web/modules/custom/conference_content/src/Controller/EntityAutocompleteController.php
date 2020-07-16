@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\conference_base\Controller;
+namespace Drupal\conference_content\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class EntityAutocompleteController.
  *
- * @package Drupal\conference_base\Controller
+ * @package Drupal\conference_content\Controller
  */
 class EntityAutocompleteController extends ControllerBase {
 

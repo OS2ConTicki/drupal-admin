@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Module file for conference_base.
+ * Module file for conference_content.
  */
 
 use Drupal\Core\Form\FormStateInterface;
@@ -10,26 +10,26 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements hook_form_alter().
  */
-function conference_base_form_alter(
+function conference_content_form_alter(
   &$form,
   FormStateInterface $form_state,
   $form_id
 ) {
-  \Drupal::service('conference_base.form_helper')->alter($form, $form_state, $form_id);
+  \Drupal::service('conference_content.form_helper')->alter($form, $form_state, $form_id);
 }
 
 /**
  * Implements hook_theme().
  */
-function conference_base_theme() {
+function conference_content_theme() {
   return [
-    'conference_base_conference_info' => [
+    'conference_content_conference_info' => [
       'variables' => [
         // The conference.
         'conference' => NULL,
       ],
     ],
-    'conference_base_conference_entity_list' => [
+    'conference_content_conference_entity_list' => [
       'variables' => [
         // The conference.
         'conference' => NULL,

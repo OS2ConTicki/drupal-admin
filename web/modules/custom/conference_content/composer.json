@@ -1,5 +1,5 @@
 {
-    "name": "drupal/conference_base",
+    "name": "drupal/conference_content",
     "description": "Conference base.",
     "type": "drupal-custom-module",
     "license": "GPL-2.0+",

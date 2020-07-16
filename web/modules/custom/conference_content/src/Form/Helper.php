@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\conference_base\Form;
+namespace Drupal\conference_content\Form;
 
-use Drupal\conference_base\Helper\ConferenceHelper;
+use Drupal\conference_content\Helper\ConferenceHelper;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -18,7 +18,7 @@ class Helper {
   /**
    * The conference helper.
    *
-   * @var \Drupal\conference_base\Helper\ConferenceHelper
+   * @var \Drupal\conference_content\Helper\ConferenceHelper
    */
   private $conferenceHelper;
 
@@ -81,8 +81,8 @@ class Helper {
       return;
 
     }
-    $form['conference_base'] = [
-      '#theme' => 'conference_base_conference_info',
+    $form['conference_content'] = [
+      '#theme' => 'conference_content_conference_info',
       '#conference' => $conference,
       '#weight' => -1000,
     ];
@@ -126,7 +126,7 @@ class Helper {
         '#title' => $info['title'] ?? $type,
         '#weight' => $weight++,
         'list' => [
-          '#theme' => 'conference_base_conference_entity_list',
+          '#theme' => 'conference_content_conference_entity_list',
           '#conference' => $conference,
           '#type' => $type,
           '#entities' => $entities,
@@ -134,7 +134,7 @@ class Helper {
       ];
     }
 
-    $form['#attached']['library'][] = 'conference_base/form-conference';
+    $form['#attached']['library'][] = 'conference_content/form-conference';
   }
 
   /**
@@ -180,7 +180,7 @@ class Helper {
           if ('entity_autocomplete' === ($form[$field]['widget'][$child]['target_id']['#type'] ?? NULL)) {
             $element = &$form[$field]['widget'][$child]['target_id'];
             $element['#type'] = 'textfield';
-            $element['#autocomplete_route_name'] = 'conference_base.entity_autocomplete';
+            $element['#autocomplete_route_name'] = 'conference_content.entity_autocomplete';
             $element['#autocomplete_route_parameters'] = [
               'conference' => $conference->id(),
               'type' => $type,
