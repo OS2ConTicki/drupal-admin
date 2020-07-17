@@ -64,8 +64,8 @@ class Helper {
 
         // Flatten date ranges.
         if (in_array($name, ['field_dates', 'field_times'], TRUE) && isset($value['value'], $value['end_value'])) {
-          $attributes['start_date'] = $value['value'];
-          $attributes['end_date'] = $value['end_value'];
+          $attributes['start_time'] = $value['value'];
+          $attributes['end_time'] = $value['end_value'];
           unset($attributes[$name]);
         }
       }
