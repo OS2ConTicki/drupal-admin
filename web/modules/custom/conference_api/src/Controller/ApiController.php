@@ -122,17 +122,7 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
       switch ($name) {
         case 'include':
           // @see https://jsonapi.org/format/#fetching-includes
-          $jsonApiQuery[$name] = implode(
-            ',',
-            array_map(
-              // @TODO Get the field names from config.
-              static function ($field) {
-                return 'field_' . $field;
-              },
-              array_filter(explode(',', $value)
-              )
-            )
-          );
+          $jsonApiQuery[$name] = preg_replace('/[^.,]+/', 'field_$0', $value);
           break;
       }
     }

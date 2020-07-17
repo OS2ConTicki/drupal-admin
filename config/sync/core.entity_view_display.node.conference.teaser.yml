@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.conference.field_dates
     - field.field.node.conference.field_image
     - field.field.node.conference.field_organizers
+    - field.field.node.conference.field_sponsors
     - node.type.conference
   module:
     - text
@@ -34,3 +35,4 @@ hidden:
   field_dates: true
   field_image: true
   field_organizers: true
+  field_sponsors: true

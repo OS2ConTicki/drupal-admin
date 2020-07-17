@@ -82,6 +82,20 @@ class Helper {
               'filter' => ['field_' . $item['type'] . '.id' => $item['id']],
             ]);
           }
+          $item['links']['all']['href'] = $this->generateApiUrl([
+            'type' => 'event',
+            'filter' => ['field_' . $item['type'] . '.id' => $item['id']],
+            'include' => implode(',', [
+              'conference',
+              'conference.organizers',
+              'location',
+              'organizers',
+              'speakers',
+              'sponsors',
+              'tags',
+              'themes',
+            ]),
+          ]);
           break;
       }
 

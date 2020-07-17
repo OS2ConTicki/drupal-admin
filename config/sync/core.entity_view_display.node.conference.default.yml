@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.conference.field_dates
     - field.field.node.conference.field_image
     - field.field.node.conference.field_organizers
+    - field.field.node.conference.field_sponsors
     - node.type.conference
   module:
     - datetime_range
@@ -46,6 +47,14 @@ content:
     region: content
   field_organizers:
     weight: 103
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_sponsors:
+    weight: 105
     label: above
     settings:
       link: true

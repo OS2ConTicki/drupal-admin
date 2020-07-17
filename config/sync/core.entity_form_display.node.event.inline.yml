@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.event.field_location
     - field.field.node.event.field_organizers
     - field.field.node.event.field_speakers
+    - field.field.node.event.field_sponsors
     - field.field.node.event.field_tags
     - field.field.node.event.field_themes
     - node.type.event
@@ -46,6 +47,7 @@ hidden:
   field_location: true
   field_organizers: true
   field_speakers: true
+  field_sponsors: true
   field_tags: true
   field_themes: true
   field_times: true
