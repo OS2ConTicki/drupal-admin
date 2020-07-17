@@ -41,8 +41,6 @@ class Helper {
     }
 
     switch ($formId) {
-      case 'node_conference_edit_form':
-      case 'node_conference_form':
       case 'node_event_edit_form':
       case 'node_event_form':
       case 'node_location_edit_form':
@@ -78,13 +76,16 @@ class Helper {
 
     if (NULL === $conference->id()) {
       return;
-
     }
+
     $form['conference_content'] = [
       '#theme' => 'conference_content_conference_info',
       '#conference' => $conference,
       '#weight' => -1000,
     ];
+
+    // Store conference to be used by conference autocomplete.
+    $formState->set(['conference_content', 'conference'], $conference);
 
     $weight = 10000;
     foreach ([

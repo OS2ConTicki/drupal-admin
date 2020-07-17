@@ -28,6 +28,17 @@ class OrganizerFixture extends AbstractFixture implements DependentFixtureInterf
     $this->setReference('organizer:someone', $organizer);
 
     $organizer->save();
+
+    $organizer = Node::create([
+      'type' => 'organizer',
+      'title' => 'Another organizer',
+      'field_conference' => $this->getReference('conference:002'),
+    ]);
+    $organizer->setOwner($this->getReference('user:organizer'));
+
+    $this->setReference('organizer:another', $organizer);
+
+    $organizer->save();
   }
 
   /**

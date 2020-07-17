@@ -5,7 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.conference.body
+    - field.field.node.conference.field_dates
     - field.field.node.conference.field_image
+    - field.field.node.conference.field_organizers
     - node.type.conference
   module:
     - text
@@ -29,4 +31,6 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_dates: true
   field_image: true
+  field_organizers: true

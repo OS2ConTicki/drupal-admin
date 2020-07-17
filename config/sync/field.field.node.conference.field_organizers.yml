@@ -1,0 +1,28 @@
+uuid: 4e79ce81-8a5e-4f93-a74f-650d28016344
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_organizers
+    - node.type.conference
+    - node.type.organizer
+id: node.conference.field_organizers
+field_name: field_organizers
+entity_type: node
+bundle: conference
+label: Organizers
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      organizer: organizer
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
