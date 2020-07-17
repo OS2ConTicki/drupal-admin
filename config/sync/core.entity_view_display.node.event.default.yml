@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.node.event.body
     - field.field.node.event.field_conference
-    - field.field.node.event.field_date
+    - field.field.node.event.field_times
     - field.field.node.event.field_image
     - field.field.node.event.field_location
     - field.field.node.event.field_organizers
@@ -37,16 +37,6 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_date:
-    weight: 108
-    label: above
-    settings:
-      separator: '-'
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: daterange_default
     region: content
   field_image:
     weight: 109
@@ -96,6 +86,16 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_times:
+    weight: 108
+    label: above
+    settings:
+      separator: '-'
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: daterange_default
     region: content
   links:
     weight: 100

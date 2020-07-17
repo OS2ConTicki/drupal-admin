@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.node.event.body
     - field.field.node.event.field_conference
-    - field.field.node.event.field_date
+    - field.field.node.event.field_times
     - field.field.node.event.field_image
     - field.field.node.event.field_location
     - field.field.node.event.field_organizers
@@ -50,12 +50,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_date:
-    weight: 30
-    settings: {  }
-    third_party_settings: {  }
-    type: daterange_default
-    region: content
   field_image:
     weight: 31
     settings:
@@ -113,6 +107,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: conference_entity_reference_autocomplete
+    region: content
+  field_times:
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+    type: daterange_default
     region: content
   promote:
     type: boolean_checkbox

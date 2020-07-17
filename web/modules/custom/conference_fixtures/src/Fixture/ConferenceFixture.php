@@ -29,7 +29,14 @@ It'll be <strong>fun</strong>!
 BODY,
         'format' => 'rich_text',
       ],
-      'field_image' => $this->getReference('image:004'),
+      'field_dates' => [
+        'value' => '2001-01-07T00:00:00',
+        'end_value' => '2001-01-11T23:59:59',
+      ],
+      'field_image' => [
+        'target_id' => $this->getReference('image:004')->id(),
+        'alt' => 'Image for the conference',
+      ],
     ]);
     $conference->setOwner($this->getReference('user:organizer'));
 
@@ -46,6 +53,10 @@ This is the second conference.
 
 It'll be <strong>fun</strong>!
 BODY,
+      'field_dates' => [
+        'value' => '2001-01-01T00:00:00',
+        'end_value' => '2001-01-04T23:59:59',
+      ],
     ]);
     $conference->setOwner($this->getReference('user:organizer'));
 

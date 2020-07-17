@@ -28,9 +28,11 @@ BODY,
         'format' => 'rich_text',
       ],
       'field_conference' => $this->getReference('conference:001'),
-      'field_image' => $this->getReference('image:001'),
-      'field_image_alt' => 'An image',
-      'field_date' => [
+      'field_image' => [
+        'target_id' => $this->getReference('image:001')->id(),
+        'alt' => 'An image',
+      ],
+      'field_times' => [
         'value' => '2001-01-01T12:00:00',
         'end_value' => '2001-01-01T13:00:00',
       ],
@@ -57,8 +59,11 @@ BODY,
       'type' => 'event',
       'title' => 'Another event',
       'field_conference' => $this->getReference('conference:002'),
-      'field_image' => $this->getReference('image:002'),
-      'field_date' => [
+      'field_image' => [
+        'target_id' => $this->getReference('image:002')->id(),
+        'alt' => 'Image for the event',
+      ],
+      'field_times' => [
         'value' => '2001-01-01T15:00:00',
         'end_value' => '2001-01-01T15:30:00',
       ],
@@ -76,7 +81,7 @@ BODY,
         'target_id' => $this->getReference('image:004')->id(),
         'alt' => 'Image for the third event',
       ],
-      'field_date' => [
+      'field_times' => [
         'value' => '2001-12-01T15:00:00',
         'end_value' => '2001-12-01T15:30:00',
       ],
