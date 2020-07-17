@@ -23,6 +23,7 @@ module:
   toolbar: 0
   toolbar_menu: 0
   user: 0
+  views: 10
   minimal: 1000
 theme:
   stark: 0
