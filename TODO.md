@@ -8,6 +8,13 @@
 
 [ ] Validate that allowed entity is selected
 
+[ ] Allow only creation of non-conference content in conference context (with preselected conference)
+
+[ ] Use user groups to control permissions on content (https://www.drupal.org/project/group).
+
+    A conference administrator can create/edit a conference and related tag
+    and themes. Then event editors can create events using the tags and themes.
+
 # API
 
 [x] Add relationships, e.g. for tags

@@ -164,6 +164,10 @@ class Helper {
       }
     }
 
+    if (NULL === $conference) {
+      // @TODO We don't have a conference context. Clear the form and show a message instead.
+    }
+
     // Store conference to be used by conference autocomplete.
     $formState->set(['conference_content', 'conference'], $conference);
   }
