@@ -9,6 +9,7 @@ module:
   datetime_range: 0
   dynamic_page_cache: 0
   editor: 0
+  entity: 0
   entity_clone: 0
   entity_clone_extras: 0
   field: 0
@@ -16,6 +17,7 @@ module:
   field_ui: 0
   file: 0
   filter: 0
+  group: 0
   image: 0
   jsonapi: 0
   language: 0
@@ -35,6 +37,7 @@ module:
   toolbar: 0
   toolbar_menu: 0
   user: 0
+  variationcache: 0
   views: 10
   minimal: 1000
 theme:

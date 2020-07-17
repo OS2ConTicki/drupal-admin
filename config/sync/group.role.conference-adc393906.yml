@@ -1,0 +1,17 @@
+uuid: eeaf942a-7dfe-4838-a0d2-e6ede4b0a695
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.conference
+  enforced:
+    config:
+      - user.role.organizer
+id: conference-adc393906
+label: Organizer
+weight: 3
+internal: true
+audience: outsider
+group_type: conference
+permissions_ui: false
+permissions: {  }

@@ -1,0 +1,14 @@
+uuid: 4e08bce5-d10f-4386-bfb1-eef29d96217c
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.conference
+id: conference-editor
+label: Editor
+weight: 5
+internal: false
+audience: member
+group_type: conference
+permissions_ui: true
+permissions: {  }
