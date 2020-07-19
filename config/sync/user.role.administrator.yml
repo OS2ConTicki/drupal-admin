@@ -51,3 +51,4 @@ permissions:
   - 'edit own sponsor content'
   - 'edit own tag content'
   - 'edit own theme content'
+  - 'masquerade as any user'

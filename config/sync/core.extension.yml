@@ -14,6 +14,7 @@ module:
   filter: 0
   image: 0
   jsonapi: 0
+  masquerade: 0
   node: 0
   page_cache: 0
   path_alias: 0

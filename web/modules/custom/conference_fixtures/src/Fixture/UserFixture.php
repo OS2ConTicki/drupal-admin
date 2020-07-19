@@ -16,29 +16,36 @@ class UserFixture extends AbstractFixture {
    * {@inheritdoc}
    */
   public function load() {
-    /** @var \Drupal\user\Entity\User $administrator */
-    $administrator = User::create()
+    /** @var \Drupal\user\Entity\User $user */
+    $user = User::create()
       ->setUsername('administrator@example.com')
       ->setPassword('administrator')
       ->activate();
+    $user->addRole('administrator');
+    $user->save();
+    $this->setReference('user:administrator', $user);
 
-    $administrator->addRole('administrator');
-
-    $this->setReference('user:administrator', $administrator);
-
-    $administrator->save();
-
-    /** @var \Drupal\user\Entity\User $organizer */
-    $organizer = User::create()
+    $user = User::create()
       ->setUsername('organizer@example.com')
       ->setPassword('organizer')
       ->activate();
+    $user->addRole('organizer');
+    $user->save();
+    $this->setReference('user:organizer', $user);
 
-    $organizer->addRole('organizer');
+    $user = User::create()
+      ->setUsername('conference-administrator@example.com')
+      ->setPassword('conference-administrator')
+      ->activate();
+    $user->save();
+    $this->setReference('user:conference-administrator', $user);
 
-    $this->setReference('user:organizer', $organizer);
-
-    $organizer->save();
+    $user = User::create()
+      ->setUsername('conference-editor@example.com')
+      ->setPassword('conference-editor')
+      ->activate();
+    $user->save();
+    $this->setReference('user:conference-editor', $user);
   }
 
 }
