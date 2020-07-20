@@ -74,7 +74,7 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
       throw new BadRequestHttpException($exception->getMessage());
     }
 
-    $request = $this->buildJsonApiRequest($request, $requestPath);
+    $request = $this->helper->buildJsonApiRequest($request, $requestPath);
     // @TODO Houston, we may have a caching problem here …
     $response = $this->httpKernel->handle($request,
       HttpKernelInterface::SUB_REQUEST);
@@ -92,42 +92,6 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
     ]);
 
     return $response;
-  }
-
-  /**
-   * Build JSON:API request.
-   */
-  private function buildJsonApiRequest(Request $request, string $path): Request {
-    $query = $this->buildJsonApiQuery($request->query->all());
-
-    // Keep server info (specifically domain and port).
-    // @TODO (How) Can we use Request::duplicate for this?
-    return Request::create(
-      $path,
-      'GET',
-      $query,
-      $request->cookies->all(),
-      $request->files->all(),
-      $request->server->all(),
-    );
-  }
-
-  /**
-   * Build JSON:API query.
-   */
-  private function buildJsonApiQuery(array $query) {
-    $jsonApiQuery = $query;
-
-    foreach ($query as $name => $value) {
-      switch ($name) {
-        case 'include':
-          // @see https://jsonapi.org/format/#fetching-includes
-          $jsonApiQuery[$name] = preg_replace('/[^.,]+/', 'field_$0', $value);
-          break;
-      }
-    }
-
-    return $jsonApiQuery;
   }
 
   /**

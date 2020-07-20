@@ -20,6 +20,30 @@ class EventFixture extends AbstractFixture implements DependentFixtureInterface 
     /** @var \Drupal\node\Entity\Node $event */
     $event = Node::create([
       'type' => 'event',
+      'title' => 'Welcome',
+      'body' => [
+        'value' => <<<'BODY'
+Welcome!
+BODY,
+        'format' => 'rich_text',
+      ],
+      'field_conference' => $this->getReference('conference:001'),
+      'field_image' => [
+        'target_id' => $this->getReference('image:007')->id(),
+        'alt' => 'Welcome!',
+      ],
+      'field_times' => [
+        'value' => '2001-01-01T09:00:00',
+        'end_value' => '2001-01-01T09:30:00',
+      ],
+      'field_location' => $this->getReference('location:room1'),
+    ]);
+    $event->setOwner($this->getReference('user:organizer'));
+
+    $event->save();
+
+    $event = Node::create([
+      'type' => 'event',
       'title' => 'The first event',
       'body' => [
         'value' => <<<'BODY'
@@ -49,7 +73,6 @@ BODY,
       'field_themes' => [
         $this->getReference('theme:api'),
       ],
-
     ]);
     $event->setOwner($this->getReference('user:organizer'));
 

@@ -2,8 +2,10 @@
 
 namespace Drupal\conference_api\JsonApi;
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Url;
 use Drupal\file\FileInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class Helper.
@@ -26,8 +28,15 @@ class Helper {
 
     // Fix JSON:API urls to point to our custom api.
     array_walk_recursive($document, function (&$value) {
-      if (is_string($value) && filter_var($value, FILTER_VALIDATE_URL)) {
-        $value = preg_replace('@/jsonapi/node/@', '/api/', $value);
+      if (is_string($value)
+        && filter_var($value, FILTER_VALIDATE_URL)
+        && FALSE !== strpos($value, '/jsonapi/node/')) {
+        $parts = UrlHelper::parse($value);
+        $parts['path'] = preg_replace('@/jsonapi/node/@', '/api/', $parts['path']);
+        if (isset($parts['query']) && is_array($parts['query'])) {
+          $parts['query'] = $this->buildApiQuery($parts['query']);
+        }
+        $value = Url::fromUri($parts['path'], $parts)->toString();
       }
     });
 
@@ -79,12 +88,12 @@ class Helper {
             }
             $item['links'][$type]['href'] = $this->generateApiUrl([
               'type' => $type,
-              'filter' => ['field_' . $item['type'] . '.id' => $item['id']],
+              'filter' => [$item['type'] . '.id' => $item['id']],
             ]);
           }
           $item['links']['all']['href'] = $this->generateApiUrl([
             'type' => 'event',
-            'filter' => ['field_' . $item['type'] . '.id' => $item['id']],
+            'filter' => [$item['type'] . '.id' => $item['id']],
             'include' => implode(',', [
               'conference',
               'conference.organizers',
@@ -121,8 +130,8 @@ class Helper {
         unset($item['relationships']);
       }
 
-      // Keep only the stuff we need.
-      $allowedNames = [
+      // Keep only the attributes we need.
+      $allowedAttributes = [
         'title',
         'image',
         'langcode',
@@ -135,7 +144,7 @@ class Helper {
         'description',
         'summary',
       ];
-      $attributes = $this->includeKeys($allowedNames, $attributes);
+      $attributes = $this->includeKeys($allowedAttributes, $attributes);
     }
 
     return $item;
@@ -231,6 +240,83 @@ class Helper {
     }
 
     return $apiPath;
+  }
+
+  /**
+   * Build JSON:API request.
+   */
+  public function buildJsonApiRequest(Request $request, string $path): Request {
+    $query = $this->buildJsonApiQuery($request->query->all());
+
+    // Keep server info (specifically domain and port).
+    // @TODO (How) Can we use Request::duplicate for this?
+    return Request::create(
+      $path,
+      'GET',
+      $query,
+      $request->cookies->all(),
+      $request->files->all(),
+      $request->server->all(),
+    );
+  }
+
+  /**
+   * Build API query.
+   */
+  private function buildApiQuery(array $jsonApiQuery) {
+    $query = $jsonApiQuery;
+
+    foreach ($jsonApiQuery as $name => $value) {
+      switch ($name) {
+        case 'filter':
+          if (is_array($value)) {
+            $filter = [];
+            foreach ($value as $filterField => $filterValue) {
+              $filterField = preg_replace('/^field_([^.,]+)/', '$1', $filterField);
+              $filter[$filterField] = $filterValue;
+            }
+            $query[$name] = $filter;
+          }
+          break;
+
+        case 'include':
+          // @see https://jsonapi.org/format/#fetching-includes
+          $query[$name] = preg_replace('/field_([^.,]+)/', '$1', $value);
+          break;
+      }
+    }
+
+    return $query;
+
+  }
+
+  /**
+   * Build JSON:API query.
+   */
+  private function buildJsonApiQuery(array $query) {
+    $jsonApiQuery = $query;
+
+    foreach ($query as $name => $value) {
+      switch ($name) {
+        case 'filter':
+          if (is_array($value)) {
+            $filter = [];
+            foreach ($value as $filterField => $filterValue) {
+              $filterField = preg_replace('/^[^.,]+/', 'field_$0', $filterField);
+              $filter[$filterField] = $filterValue;
+            }
+            $jsonApiQuery[$name] = $filter;
+          }
+          break;
+
+        case 'include':
+          // @see https://jsonapi.org/format/#fetching-includes
+          $jsonApiQuery[$name] = preg_replace('/[^.,]+/', 'field_$0', $value);
+          break;
+      }
+    }
+
+    return $jsonApiQuery;
   }
 
   /**
