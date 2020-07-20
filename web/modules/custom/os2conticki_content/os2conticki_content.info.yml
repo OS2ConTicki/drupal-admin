@@ -7,3 +7,4 @@ package: OS2ConTicki
 dependencies:
   - drupal:entity_clone
   - drupal:entity_clone_extras
+  - drupal:gnode

@@ -1,0 +1,19 @@
+uuid: 4cdff6e3-8516-4718-8546-4604128d83fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.conference
+    - node.type.tag
+  module:
+    - gnode
+    - node
+id: conference-group_node-tag
+label: 'Conference: Group node (Tag)'
+description: 'Adds <em class="placeholder">Tag</em> content to groups both publicly and privately.'
+group_type: conference
+content_plugin: 'group_node:tag'
+plugin_config:
+  group_cardinality: 1
+  entity_cardinality: 1
+  use_creation_wizard: false

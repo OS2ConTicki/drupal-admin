@@ -1,17 +1,20 @@
-uuid: 4e08bce5-d10f-4386-bfb1-eef29d96217c
+uuid: 6acddb06-1659-48bb-9c8a-98c89eeb3ad2
 langcode: en
 status: true
 dependencies:
   config:
     - group.type.conference
-id: conference-editor
-label: Editor
-weight: 5
+id: conference-administrator
+label: Administrator
+weight: 6
 internal: false
 audience: member
 group_type: conference
 permissions_ui: true
 permissions:
+  - 'administer members'
+  - 'create group_node:conference content'
+  - 'create group_node:conference entity'
   - 'create group_node:event content'
   - 'create group_node:event entity'
   - 'create group_node:location content'
@@ -22,16 +25,27 @@ permissions:
   - 'create group_node:speaker entity'
   - 'create group_node:sponsor content'
   - 'create group_node:sponsor entity'
+  - 'create group_node:tag content'
+  - 'create group_node:tag entity'
+  - 'create group_node:theme content'
+  - 'create group_node:theme entity'
+  - 'edit group'
+  - 'update any group_node:conference entity'
   - 'update any group_node:event entity'
   - 'update any group_node:location entity'
   - 'update any group_node:organizer entity'
   - 'update any group_node:speaker entity'
   - 'update any group_node:sponsor entity'
+  - 'update any group_node:tag entity'
+  - 'update any group_node:theme entity'
+  - 'update own group_node:conference entity'
   - 'update own group_node:event entity'
   - 'update own group_node:location entity'
   - 'update own group_node:organizer entity'
   - 'update own group_node:speaker entity'
   - 'update own group_node:sponsor entity'
+  - 'update own group_node:tag entity'
+  - 'update own group_node:theme entity'
   - 'view group_membership content'
   - 'view group_node:conference entity'
   - 'view group_node:event entity'

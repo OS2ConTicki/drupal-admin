@@ -11,4 +11,6 @@ internal: true
 audience: member
 group_type: conference
 permissions_ui: true
-permissions: {  }
+permissions:
+  - 'access group_node overview'
+  - 'view group'

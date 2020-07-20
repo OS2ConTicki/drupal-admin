@@ -17,6 +17,7 @@ module:
   field_ui: 0
   file: 0
   filter: 0
+  gnode: 0
   group: 0
   image: 0
   jsonapi: 0

@@ -1,0 +1,19 @@
+uuid: efbb3e7f-7e57-4be8-a3aa-04d9259fa20f
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.conference
+    - node.type.organizer
+  module:
+    - gnode
+    - node
+id: conference-group_node-organizer
+label: 'Conference: Group node (Organizer)'
+description: 'Adds <em class="placeholder">Organizer</em> content to groups both publicly and privately.'
+group_type: conference
+content_plugin: 'group_node:organizer'
+plugin_config:
+  group_cardinality: 1
+  entity_cardinality: 1
+  use_creation_wizard: false

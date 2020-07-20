@@ -1,0 +1,19 @@
+uuid: c372439f-ae77-44be-b9f1-196c094d2607
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.conference
+    - node.type.sponsor
+  module:
+    - gnode
+    - node
+id: conference-group_node-sponsor
+label: 'Conference: Group node (Sponsor)'
+description: 'Adds <em class="placeholder">Sponsor</em> content to groups both publicly and privately.'
+group_type: conference
+content_plugin: 'group_node:sponsor'
+plugin_config:
+  group_cardinality: 1
+  entity_cardinality: 1
+  use_creation_wizard: false

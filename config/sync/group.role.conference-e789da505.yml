@@ -1,4 +1,4 @@
-uuid: eeaf942a-7dfe-4838-a0d2-e6ede4b0a695
+uuid: f9f2d595-d51d-4517-9987-540961dc260e
 langcode: en
 status: true
 dependencies:
@@ -6,10 +6,10 @@ dependencies:
     - group.type.conference
   enforced:
     config:
-      - user.role.organizer
-id: conference-adc393906
-label: Organizer
-weight: 3
+      - user.role.conference_editor
+id: conference-e789da505
+label: 'Conference editor'
+weight: 5
 internal: true
 audience: outsider
 group_type: conference

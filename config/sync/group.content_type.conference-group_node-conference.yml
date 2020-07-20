@@ -1,0 +1,19 @@
+uuid: 26217a30-9fac-45d5-8352-1c82c15fc7be
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.conference
+    - node.type.conference
+  module:
+    - gnode
+    - node
+id: conference-group_node-conference
+label: 'Conference: Group node (Conference)'
+description: 'Adds <em class="placeholder">Conference</em> content to groups both publicly and privately.'
+group_type: conference
+content_plugin: 'group_node:conference'
+plugin_config:
+  group_cardinality: 1
+  entity_cardinality: 1
+  use_creation_wizard: false
