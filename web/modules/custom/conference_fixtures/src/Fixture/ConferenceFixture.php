@@ -44,7 +44,6 @@ BODY,
 
     $conference->save();
 
-    /** @var \Drupal\node\Entity\Node $conference */
     $conference = Node::create([
       'type' => 'conference',
       'title' => 'Another conference',
@@ -61,6 +60,22 @@ BODY,
     $conference->setOwner($this->getReference('user:organizer'));
 
     $this->setReference('conference:002', $conference);
+
+    $conference->save();
+
+    $conference = Node::create([
+      'type' => 'conference',
+      'title' => 'A very long conference',
+      'body' => <<<'BODY'
+This conference has many events.
+BODY,
+      'field_dates' => [
+        'value' => '2001-01-01T00:00:00',
+        'end_value' => '2001-12-31T23:59:59',
+      ],
+    ]);
+    $conference->setOwner($this->getReference('user:organizer'));
+    $this->setReference('conference:long', $conference);
 
     $conference->save();
   }

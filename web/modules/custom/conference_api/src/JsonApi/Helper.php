@@ -86,14 +86,19 @@ class Helper {
             if ($item['type'] === $type) {
               continue;
             }
-            $item['links'][$type]['href'] = $this->generateApiUrl([
+            $query = [
               'type' => $type,
               'filter' => [$item['type'] . '.id' => $item['id']],
-            ]);
+            ];
+            if ('event' === $type) {
+              $query['sort'] = 'field_times.value';
+            }
+            $item['links'][$type]['href'] = $this->generateApiUrl($query);
           }
           $item['links']['all']['href'] = $this->generateApiUrl([
             'type' => 'event',
             'filter' => [$item['type'] . '.id' => $item['id']],
+            'sort' => 'field_times.value',
             'include' => implode(',', [
               'conference',
               'conference.organizers',
