@@ -28,8 +28,11 @@ class ConferenceEntityAutocompleteController extends ControllerBase {
 
     $query = \Drupal::entityQuery($target_type)
       ->condition('status', 1)
-      ->condition('field_conference', $conference->id())
-      ->condition('title', '%' . $input . '%', 'LIKE');
+      ->condition('field_conference', $conference->id());
+    if ('*' !== $input) {
+      $query->condition('title', '%' . \Drupal::database()->escapeLike($input) . '%',
+        'LIKE');
+    }
     if ($bundles = $request->get('bundles')) {
       $query->condition('type', (array) $bundles, 'IN');
     }
