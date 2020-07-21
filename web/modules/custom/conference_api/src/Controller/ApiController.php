@@ -16,6 +16,11 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Api controller.
  *
+ * Custom controller that act as a proxy for the real jsonapi in Drupal.
+ *
+ * The jsonapi module does not support custom serializers so we use a JsonAPI
+ * helper to rewrite the the jsonapi response before returning it.
+ *
  * @see https://www.drupal.org/project/jsonapi/issues/3032259#comment-12967876
  * @see https://www.drupal.org/project/jsonapi_extras/issues/3036904
  */

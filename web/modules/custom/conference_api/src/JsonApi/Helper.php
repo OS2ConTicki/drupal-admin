@@ -266,7 +266,12 @@ class Helper {
   }
 
   /**
-   * Build API query.
+   * Build API query from a JSON:API query.
+   *
+   * Basically just removes leading `field_` from all field references in the
+   * query, and is the reverse of `buildJsonApiQuery` (which see).
+   *
+   * @see Helper:buildJsonApiQuery()
    */
   private function buildApiQuery(array $jsonApiQuery) {
     $query = $jsonApiQuery;
@@ -296,7 +301,12 @@ class Helper {
   }
 
   /**
-   * Build JSON:API query.
+   * Build JSON:API query from a custom query.
+   *
+   * Basically just adds leading `field_` to all field references in the
+   * query, and is the reverse of `buildApiQuery` (which see).
+   *
+   * @see Helper:buildApiQuery()
    */
   private function buildJsonApiQuery(array $query) {
     $jsonApiQuery = $query;
