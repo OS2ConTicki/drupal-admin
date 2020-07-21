@@ -40,7 +40,7 @@ BODY,
       ],
       'field_location' => $this->getReference('location:room1'),
     ]);
-    $event->setOwner($this->getReference('user:organizer'));
+    $event->setOwner($this->getReference('user:conference-editor'));
 
     $event->save();
 
@@ -76,7 +76,7 @@ BODY,
         $this->getReference('theme:api'),
       ],
     ]);
-    $event->setOwner($this->getReference('user:organizer'));
+    $event->setOwner($this->getReference('user:conference-editor'));
 
     $event->save();
 
@@ -94,7 +94,7 @@ BODY,
       ],
     ]);
     $event->setUnpublished();
-    $event->setOwner($this->getReference('user:organizer'));
+    $event->setOwner($this->getReference('user:conference-editor'));
 
     $event->save();
 
@@ -113,7 +113,7 @@ BODY,
       'field_location' => $this->getReference('location:room3'),
     ]);
     $event->setUnpublished();
-    $event->setOwner($this->getReference('user:organizer'));
+    $event->setOwner($this->getReference('user:conference-editor'));
 
     $event->save();
 
@@ -134,7 +134,7 @@ BODY,
         ],
         'field_location' => $this->getReference('location:long-room'),
       ]);
-      $event->setOwner($this->getReference('user:organizer'));
+      $event->setOwner($this->getReference('user:conference-editor'));
       $event->save();
 
       $startTime = $startTime->add(new DateInterval('PT60M'));

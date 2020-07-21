@@ -23,7 +23,7 @@ class LocationFixture extends AbstractFixture implements DependentFixtureInterfa
       'title' => 'Room 1',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $location->setOwner($this->getReference('user:organizer'));
+    $location->setOwner($this->getReference('user:conference-administrator'));
 
     $this->setReference('location:room1', $location);
 
@@ -34,7 +34,7 @@ class LocationFixture extends AbstractFixture implements DependentFixtureInterfa
       'title' => 'Room 2',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $location->setOwner($this->getReference('user:organizer'));
+    $location->setOwner($this->getReference('user:conference-administrator'));
 
     $this->setReference('location:room2', $location);
 
@@ -45,7 +45,7 @@ class LocationFixture extends AbstractFixture implements DependentFixtureInterfa
       'title' => 'Room 3',
       'field_conference' => $this->getReference('conference:002'),
     ]);
-    $location->setOwner($this->getReference('user:organizer'));
+    $location->setOwner($this->getReference('user:conference-administrator'));
 
     $this->setReference('location:room3', $location);
 
@@ -56,7 +56,7 @@ class LocationFixture extends AbstractFixture implements DependentFixtureInterfa
       'title' => 'The long room',
       'field_conference' => $this->getReference('conference:long'),
     ]);
-    $location->setOwner($this->getReference('user:organizer'));
+    $location->setOwner($this->getReference('user:conference-administrator'));
     $this->setReference('location:long-room', $location);
 
     $location->save();

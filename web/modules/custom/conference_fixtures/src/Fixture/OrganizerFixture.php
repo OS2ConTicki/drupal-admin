@@ -23,7 +23,7 @@ class OrganizerFixture extends AbstractFixture implements DependentFixtureInterf
       'title' => 'Someone',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $organizer->setOwner($this->getReference('user:organizer'));
+    $organizer->setOwner($this->getReference('user:conference-editor'));
 
     $this->setReference('organizer:someone', $organizer);
 
@@ -34,7 +34,7 @@ class OrganizerFixture extends AbstractFixture implements DependentFixtureInterf
       'title' => 'Another organizer',
       'field_conference' => $this->getReference('conference:002'),
     ]);
-    $organizer->setOwner($this->getReference('user:organizer'));
+    $organizer->setOwner($this->getReference('user:conference-editor'));
 
     $this->setReference('organizer:another', $organizer);
 

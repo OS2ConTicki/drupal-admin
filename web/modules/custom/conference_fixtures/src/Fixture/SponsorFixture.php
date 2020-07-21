@@ -23,7 +23,7 @@ class SponsorFixture extends AbstractFixture implements DependentFixtureInterfac
       'title' => 'Damage, Inc.',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $sponsor->setOwner($this->getReference('user:organizer'));
+    $sponsor->setOwner($this->getReference('user:conference-editor'));
 
     $this->setReference('sponsor:damage', $sponsor);
 
@@ -34,7 +34,7 @@ class SponsorFixture extends AbstractFixture implements DependentFixtureInterfac
       'title' => 'Acme Corporation',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $sponsor->setOwner($this->getReference('user:organizer'));
+    $sponsor->setOwner($this->getReference('user:conference-editor'));
 
     $this->setReference('sponsor:acme', $sponsor);
 

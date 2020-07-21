@@ -23,7 +23,7 @@ class ThemeFixture extends AbstractFixture implements DependentFixtureInterface 
       'title' => 'Drupal',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $theme->setOwner($this->getReference('user:organizer'));
+    $theme->setOwner($this->getReference('user:conference-administrator'));
 
     $this->setReference('theme:drupal', $theme);
 
@@ -34,7 +34,7 @@ class ThemeFixture extends AbstractFixture implements DependentFixtureInterface 
       'title' => 'API',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $theme->setOwner($this->getReference('user:organizer'));
+    $theme->setOwner($this->getReference('user:conference-administrator'));
 
     $this->setReference('theme:api', $theme);
 

@@ -38,7 +38,7 @@ BODY,
         'alt' => 'Image for the conference',
       ],
     ]);
-    $conference->setOwner($this->getReference('user:organizer'));
+    $conference->setOwner($this->getReference('user:conference-administrator'));
 
     $this->setReference('conference:001', $conference);
 
@@ -57,7 +57,7 @@ BODY,
         'end_value' => '2001-01-04T23:59:59',
       ],
     ]);
-    $conference->setOwner($this->getReference('user:organizer'));
+    $conference->setOwner($this->getReference('user:conference-administrator'));
 
     $this->setReference('conference:002', $conference);
 
@@ -74,7 +74,7 @@ BODY,
         'end_value' => '2001-12-31T23:59:59',
       ],
     ]);
-    $conference->setOwner($this->getReference('user:organizer'));
+    $conference->setOwner($this->getReference('user:conference-administrator'));
     $this->setReference('conference:long', $conference);
 
     $conference->save();

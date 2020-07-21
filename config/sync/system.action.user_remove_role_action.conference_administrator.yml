@@ -1,0 +1,14 @@
+uuid: 1649b187-6d68-4ef7-8ac8-0600c1971d13
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.conference_administrator
+  module:
+    - user
+id: user_remove_role_action.conference_administrator
+label: 'Remove the Conference administrator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: conference_administrator

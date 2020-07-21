@@ -26,17 +26,10 @@ class UserFixture extends AbstractFixture {
     $this->setReference('user:administrator', $user);
 
     $user = User::create()
-      ->setUsername('organizer@example.com')
-      ->setPassword('organizer')
-      ->activate();
-    $user->addRole('organizer');
-    $user->save();
-    $this->setReference('user:organizer', $user);
-
-    $user = User::create()
       ->setUsername('conference-administrator@example.com')
       ->setPassword('conference-administrator')
       ->activate();
+    $user->addRole('conference_administrator');
     $user->save();
     $this->setReference('user:conference-administrator', $user);
 
@@ -44,6 +37,7 @@ class UserFixture extends AbstractFixture {
       ->setUsername('conference-editor@example.com')
       ->setPassword('conference-editor')
       ->activate();
+    $user->addRole('conference_editor');
     $user->save();
     $this->setReference('user:conference-editor', $user);
   }

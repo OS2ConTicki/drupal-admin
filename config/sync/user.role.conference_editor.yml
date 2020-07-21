@@ -1,0 +1,20 @@
+uuid: c803ea8a-ca1a-4a4d-a4d2-6d514b4a5450
+langcode: en
+status: true
+dependencies: {  }
+id: conference_editor
+label: 'Conference editor'
+weight: 5
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'create event content'
+  - 'create location content'
+  - 'create organizer content'
+  - 'create speaker content'
+  - 'create sponsor content'
+  - 'edit own event content'
+  - 'edit own location content'
+  - 'edit own organizer content'
+  - 'edit own speaker content'
+  - 'edit own sponsor content'

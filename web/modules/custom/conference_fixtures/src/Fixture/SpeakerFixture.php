@@ -23,7 +23,7 @@ class SpeakerFixture extends AbstractFixture implements DependentFixtureInterfac
       'title' => 'Donald Duck',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $speaker->setOwner($this->getReference('user:organizer'));
+    $speaker->setOwner($this->getReference('user:conference-editor'));
 
     $this->setReference('speaker:donald', $speaker);
 
@@ -34,7 +34,7 @@ class SpeakerFixture extends AbstractFixture implements DependentFixtureInterfac
       'title' => 'Mickey Mouse',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $speaker->setOwner($this->getReference('user:organizer'));
+    $speaker->setOwner($this->getReference('user:conference-editor'));
 
     $this->setReference('speaker:mickey', $speaker);
 

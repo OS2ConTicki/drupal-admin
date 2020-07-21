@@ -23,7 +23,7 @@ class TagFixture extends AbstractFixture implements DependentFixtureInterface {
       'title' => 'Hat',
       'field_conference' => $this->getReference('conference:001'),
     ]);
-    $tag->setOwner($this->getReference('user:organizer'));
+    $tag->setOwner($this->getReference('user:conference-administrator'));
 
     $this->setReference('tag:hat', $tag);
 
@@ -34,7 +34,7 @@ class TagFixture extends AbstractFixture implements DependentFixtureInterface {
       'title' => 'Glasses',
       'field_conference' => $this->getReference('conference:002'),
     ]);
-    $tag->setOwner($this->getReference('user:organizer'));
+    $tag->setOwner($this->getReference('user:conference-administrator'));
 
     $this->setReference('tag:glasses', $tag);
 

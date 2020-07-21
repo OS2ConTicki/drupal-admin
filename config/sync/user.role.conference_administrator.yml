@@ -1,14 +1,13 @@
-uuid: f3627a2a-8f9c-42d8-a2e1-1720643af3be
+uuid: f94853ee-9964-4385-b7c5-f4f499dd5c00
 langcode: en
 status: true
 dependencies: {  }
-id: organizer
-label: Organizer
-weight: 3
+id: conference_administrator
+label: 'Conference administrator'
+weight: 4
 is_admin: null
 permissions:
   - 'access content overview'
-  - 'access toolbar'
   - 'create conference content'
   - 'create event content'
   - 'create location content'
@@ -17,14 +16,6 @@ permissions:
   - 'create sponsor content'
   - 'create tag content'
   - 'create theme content'
-  - 'delete own conference content'
-  - 'delete own event content'
-  - 'delete own location content'
-  - 'delete own organizer content'
-  - 'delete own speaker content'
-  - 'delete own sponsor content'
-  - 'delete own tag content'
-  - 'delete own theme content'
   - 'edit own conference content'
   - 'edit own event content'
   - 'edit own location content'
