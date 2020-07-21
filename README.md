@@ -3,7 +3,18 @@
 An “[admin](https://github.com/OS2ConTicki/OS2ConTicki#implementations)”
 implementation for [OS2ConTicki](https://github.com/OS2ConTicki/OS2ConTicki).
 
-## Installation
+Contains content types for all the [OS2ConTicki
+entities](https://github.com/OS2ConTicki/OS2ConTicki) and roles and permissions
+for managing them.
+
+All entities (apart from conferences) are created in the context of a
+conference, belong to this conference and can only refer to other entities
+within the same conference.
+
+This means that a conference has to be created by a “conference administrator”
+before events, locations and speakers etc. can be created by a “conference
+editor”. An editor can create everything apart from conferences, tags and
+themes.
 
 ## Installation
 
