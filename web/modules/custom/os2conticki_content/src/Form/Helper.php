@@ -2,11 +2,11 @@
 
 namespace Drupal\os2conticki_content\Form;
 
-use Drupal\os2conticki_content\Helper\ConferenceHelper;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\node\NodeInterface;
+use Drupal\os2conticki_content\Helper\ConferenceHelper;
 
 /**
  * Form helper.
@@ -86,26 +86,6 @@ class Helper {
 
     // Store conference to be used by conference autocomplete.
     $formState->set(['os2conticki_content', 'conference'], $conference);
-
-    $weight = 10000;
-    foreach ($this->conferenceHelper->getConferenceEntititesInfo() as $type => $info) {
-      $entities = $this->conferenceHelper->getEntitites($conference, $type);
-
-      $form['conference_' . $type] = [
-        '#type' => 'details',
-        '#open' => FALSE,
-        '#title' => $info['title'] ?? $type,
-        '#weight' => $weight++,
-        'list' => [
-          '#theme' => 'os2conticki_content_conference_entity_list',
-          '#conference' => $conference,
-          '#type' => $type,
-          '#entities' => $entities,
-        ],
-      ];
-    }
-
-    $form['#attached']['library'][] = 'os2conticki_content/form-conference';
   }
 
   /**

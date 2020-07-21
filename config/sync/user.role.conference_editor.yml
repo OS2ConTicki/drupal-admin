@@ -8,6 +8,7 @@ weight: 5
 is_admin: null
 permissions:
   - 'access content overview'
+  - 'access toolbar'
   - 'create event content'
   - 'create location content'
   - 'create organizer content'

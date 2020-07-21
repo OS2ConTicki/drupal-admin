@@ -8,7 +8,9 @@ Variaables:
 
 <div class="conference-entity-list conference-entity-list-{{ type }}">
   <div class="actions">
-    <a class="button button--small" href="{{ path('node.add', {node_type: type, conference: conference.uuid[0].value}) }}">{{ 'Add @type'|t({'@type': type}) }}</a>
+    {% if create_url|default(false) %}
+      <a class="button button--small" href="{{ create_url }}">{{ 'Add @type'|t({'@type': type}) }}</a>
+    {% endif %}
   </div>
 
   <table>
@@ -16,6 +18,7 @@ Variaables:
       <tr>
         <td>{{ entity.title[0].value }}</td>
         <td class="actions">
+          {# @TODO Check edit access on node. Using `node.access('update', user)` is not allowed. #}
           <a href="{{ path('entity.node.edit_form', {node: entity.id}) }}">{{ 'Edit'|t }}</a>
         </td>
       </tr>
