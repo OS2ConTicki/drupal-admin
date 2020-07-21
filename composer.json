@@ -11,23 +11,23 @@
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
-        "drupal/conference_api": {
+        "drupal/os2conticki_api": {
             "type": "path",
-            "url": "web/modules/custom/conference_api",
+            "url": "web/modules/custom/os2conticki_api",
             "options": {
                 "symlink": false
             }
         },
-        "drupal/conference_content": {
+        "drupal/os2conticki_content": {
             "type": "path",
-            "url": "web/modules/custom/conference_content",
+            "url": "web/modules/custom/os2conticki_content",
             "options": {
                 "symlink": false
             }
         },
-        "drupal/conference_fixtures": {
+        "drupal/os2conticki_fixtures": {
             "type": "path",
-            "url": "web/modules/custom/conference_fixtures",
+            "url": "web/modules/custom/os2conticki_fixtures",
             "options": {
                 "symlink": false
             }
@@ -38,8 +38,8 @@
         "ext-json": "*",
         "composer/installers": "^1.9",
         "drupal/admin_toolbar": "^2.3",
-        "drupal/conference_api": "*",
-        "drupal/conference_content": "*",
+        "drupal/os2conticki_api": "*",
+        "drupal/os2conticki_content": "*",
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
@@ -51,7 +51,7 @@
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
         "drupal/coder": "^8.3.1",
-        "drupal/conference_fixtures": "*"
+        "drupal/os2conticki_fixtures": "*"
     },
     "conflict": {
         "drupal/drupal": "*"

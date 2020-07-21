@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - conference_content
+    - os2conticki_content
     - node
   theme:
     - claro
@@ -16,7 +16,7 @@ plugin: conference_entities_block
 settings:
   id: conference_entities_block
   label: 'Conference entities'
-  provider: conference_content
+  provider: os2conticki_content
   label_display: visible
   context_mapping:
     node: '@node.node_route_context:node'

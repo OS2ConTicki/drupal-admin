@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac23b417a08a4523520b58760eb9bdbc",
+    "content-hash": "bacc1979c7b2e88a1c80893e7ddb7d37",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1356,72 +1356,6 @@
             }
         },
         {
-            "name": "drupal/conference_api",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "web/modules/custom/conference_api",
-                "reference": "3d00e3812c7415984f4ea14418e330833d0d4773"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-                "drupal/coder": "^8.3.1"
-            },
-            "type": "drupal-custom-module",
-            "scripts": {
-                "check-coding-standards/phpcs": [
-                    "vendor/bin/phpcs --standard=phpcs.xml.dist"
-                ],
-                "check-coding-standards": [
-                    "@check-coding-standards/phpcs"
-                ],
-                "apply-coding-standards/phpcs": [
-                    "vendor/bin/phpcbf --standard=phpcs.xml.dist"
-                ],
-                "apply-coding-standards": [
-                    "@apply-coding-standards/phpcs"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mikkel Ricky",
-                    "email": "rimi@aarhus.dk"
-                }
-            ],
-            "description": "Module implementing the Conference API",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            }
-        },
-        {
-            "name": "drupal/conference_content",
-            "version": "dev-feature/admin",
-            "dist": {
-                "type": "path",
-                "url": "web/modules/custom/conference_content",
-                "reference": "8fecdab1809b8c884f9942a00071fa9d3afea5d9"
-            },
-            "type": "drupal-custom-module",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Mikkel Ricky",
-                    "email": "rimi@aarhus.dk"
-                }
-            ],
-            "description": "Conference base.",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            }
-        },
-        {
             "name": "drupal/core",
             "version": "9.0.2",
             "source": {
@@ -1901,6 +1835,72 @@
                 "source": "https://git.drupal.org/project/masquerade.git",
                 "issues": "https://www.drupal.org/project/issues/masquerade",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/os2conticki_api",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "web/modules/custom/os2conticki_api",
+                "reference": "3d00e3812c7415984f4ea14418e330833d0d4773"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "drupal/coder": "^8.3.1"
+            },
+            "type": "drupal-custom-module",
+            "scripts": {
+                "check-coding-standards/phpcs": [
+                    "vendor/bin/phpcs --standard=phpcs.xml.dist"
+                ],
+                "check-coding-standards": [
+                    "@check-coding-standards/phpcs"
+                ],
+                "apply-coding-standards/phpcs": [
+                    "vendor/bin/phpcbf --standard=phpcs.xml.dist"
+                ],
+                "apply-coding-standards": [
+                    "@apply-coding-standards/phpcs"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikkel Ricky",
+                    "email": "rimi@aarhus.dk"
+                }
+            ],
+            "description": "Module implementing the Conference API",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
+        },
+        {
+            "name": "drupal/os2conticki_content",
+            "version": "dev-feature/admin",
+            "dist": {
+                "type": "path",
+                "url": "web/modules/custom/os2conticki_content",
+                "reference": "8fecdab1809b8c884f9942a00071fa9d3afea5d9"
+            },
+            "type": "drupal-custom-module",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mikkel Ricky",
+                    "email": "rimi@aarhus.dk"
+                }
+            ],
+            "description": "Conference base.",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
             }
         },
         {
@@ -6137,34 +6137,6 @@
             "time": "2020-05-08T10:20:59+00:00"
         },
         {
-            "name": "drupal/conference_fixtures",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "web/modules/custom/conference_fixtures",
-                "reference": "fe4249157a7a162aac037408462f6b4ba5c5c714"
-            },
-            "require": {
-                "drupal/content_fixtures": "^2.0",
-                "php": ">=7.0.0"
-            },
-            "type": "drupal-custom-module",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Mikkel Ricky",
-                    "email": "rimi@aarhus.dk"
-                }
-            ],
-            "description": "Conference fixtures.",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            }
-        },
-        {
             "name": "drupal/content_fixtures",
             "version": "2.0.0",
             "source": {
@@ -6218,6 +6190,34 @@
             "homepage": "https://www.drupal.org/project/content_fixtures",
             "support": {
                 "source": "https://git.drupalcode.org/project/content_fixtures"
+            }
+        },
+        {
+            "name": "drupal/os2conticki_fixtures",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "web/modules/custom/os2conticki_fixtures",
+                "reference": "fe4249157a7a162aac037408462f6b4ba5c5c714"
+            },
+            "require": {
+                "drupal/content_fixtures": "^2.0",
+                "php": ">=7.0.0"
+            },
+            "type": "drupal-custom-module",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mikkel Ricky",
+                    "email": "rimi@aarhus.dk"
+                }
+            ],
+            "description": "Conference fixtures.",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
             }
         },
         {

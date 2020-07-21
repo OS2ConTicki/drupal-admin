@@ -1,0 +1,12 @@
+{
+    "name": "drupal/os2conticki_api",
+    "description": "Module implementing the Conference API",
+    "type": "drupal-custom-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mikkel Ricky",
+            "email": "rimi@aarhus.dk"
+        }
+    ]
+}

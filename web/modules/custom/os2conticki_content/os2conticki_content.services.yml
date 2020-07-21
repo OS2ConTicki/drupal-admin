@@ -1,0 +1,12 @@
+services:
+  os2conticki_content.conference_helper:
+    class: Drupal\os2conticki_content\Helper\ConferenceHelper
+    arguments:
+      - '@entity.repository'
+      - '@string_translation'
+
+  os2conticki_content.form_helper:
+    class: Drupal\os2conticki_content\Form\Helper
+    arguments:
+      - '@os2conticki_content.conference_helper'
+      - '@string_translation'

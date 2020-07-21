@@ -51,7 +51,7 @@ symfony php vendor/bin/drush --uri=https://127.0.0.1:8888 user:login
 ## Fixtures
 
 ```sh
-symfony php vendor/bin/drush --yes pm:enable conference_fixtures
+symfony php vendor/bin/drush --yes pm:enable os2conticki_fixtures
 symfony php vendor/bin/drush content-fixtures:list
 symfony php vendor/bin/drush content-fixtures:load
 symfony php vendor/bin/drush --yes pm:uninstall content_fixtures

@@ -1,3 +1,0 @@
-services:
-  conference_api.json_api_helper:
-    class: Drupal\conference_api\JsonApi\Helper

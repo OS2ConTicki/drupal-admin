@@ -1,0 +1,13 @@
+{
+    "name": "drupal/os2conticki_content",
+    "description": "Conference base.",
+    "type": "drupal-custom-module",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Mikkel Ricky",
+            "email": "rimi@aarhus.dk"
+        }
+    ],
+    "require": {}
+}

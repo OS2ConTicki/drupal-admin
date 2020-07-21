@@ -16,7 +16,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.event
   module:
-    - conference_content
+    - os2conticki_content
     - datetime_range
     - image
     - text
