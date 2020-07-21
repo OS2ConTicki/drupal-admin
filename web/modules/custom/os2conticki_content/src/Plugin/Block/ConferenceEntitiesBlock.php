@@ -117,6 +117,8 @@ class ConferenceEntitiesBlock extends BlockBase implements ContainerFactoryPlugi
       ];
     }
 
+    $build['#attached']['library'][] = 'os2conticki_content/form-conference';
+
     return $build;
   }
 
