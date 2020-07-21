@@ -1,0 +1,30 @@
+uuid: 9719e972-52d5-43da-a879-4ee4950513dc
+langcode: en
+status: true
+dependencies:
+  module:
+    - conference_content
+    - node
+  theme:
+    - claro
+id: conferenceentities
+theme: claro
+region: content
+weight: -1
+provider: null
+plugin: conference_entities_block
+settings:
+  id: conference_entities_block
+  label: 'Conference entities'
+  provider: conference_content
+  label_display: visible
+  context_mapping:
+    node: '@node.node_route_context:node'
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      conference: conference
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

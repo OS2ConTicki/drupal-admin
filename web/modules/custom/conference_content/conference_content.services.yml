@@ -3,9 +3,10 @@ services:
     class: Drupal\conference_content\Helper\ConferenceHelper
     arguments:
       - '@entity.repository'
+      - '@string_translation'
 
   conference_content.form_helper:
-      class: Drupal\conference_content\Form\Helper
-      arguments:
-        - '@conference_content.conference_helper'
-        - '@string_translation'
+    class: Drupal\conference_content\Form\Helper
+    arguments:
+      - '@conference_content.conference_helper'
+      - '@string_translation'
