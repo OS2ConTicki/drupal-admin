@@ -2,6 +2,7 @@
 
 namespace Drupal\os2conticki_content\Plugin\Block;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Url;
 use Drupal\os2conticki_content\Helper\ConferenceHelper;
 use Drupal\Core\Access\AccessResult;
@@ -104,6 +105,13 @@ class ConferenceEntitiesBlock extends BlockBase implements ContainerFactoryPlugi
     $build['#attached']['library'][] = 'os2conticki_content/form-conference';
 
     return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    return Cache::mergeTags(parent::getCacheTags(), ['node_list']);
   }
 
 }
