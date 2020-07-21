@@ -1,6 +1,6 @@
 {
     "name": "drupal/os2conticki_content",
-    "description": "Conference base.",
+    "description": "OS2ConTicki content.",
     "type": "drupal-custom-module",
     "license": "GPL-2.0+",
     "authors": [
