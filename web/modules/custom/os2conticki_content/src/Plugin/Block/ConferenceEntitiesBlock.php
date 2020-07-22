@@ -72,7 +72,7 @@ class ConferenceEntitiesBlock extends BlockBase implements ContainerFactoryPlugi
     $conference = $this->getContextValue('node');
     $build = [];
 
-    foreach ($this->conferenceHelper->getConferenceEntititesInfo() as $type => $info) {
+    foreach ($this->conferenceHelper->getConferenceEntitiesInfo() as $type => $info) {
       $entities = $this->conferenceHelper->getEntitites($conference, $type);
       $fragmentId = 'entities-' . $type;
 

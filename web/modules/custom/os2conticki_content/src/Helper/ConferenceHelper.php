@@ -35,7 +35,7 @@ class ConferenceHelper {
    * @return array[]
    *   Info on entities.
    */
-  public function getConferenceEntititesInfo() {
+  public function getConferenceEntitiesInfo() {
     return [
       'event' => [
         'title' => $this->t('Events'),
