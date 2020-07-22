@@ -4,6 +4,7 @@ namespace Drupal\os2conticki_content\Plugin\Block;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Url;
+use Drupal\group\Entity\GroupContent;
 use Drupal\os2conticki_content\Helper\ConferenceHelper;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
@@ -86,6 +87,18 @@ class ConferenceEntitiesBlock extends BlockBase implements ContainerFactoryPlugi
           'conference' => $conference->uuid(),
           'destination' => $destination,
         ]);
+
+        /** @var \Drupal\group\Entity\GroupContentInterface[] $groups */
+        $groups = GroupContent::loadByEntity($conference);
+        $group = $groups ? reset($groups)->getGroup() : NULL;
+        if (NULL !== $group) {
+          $createUrl = Url::fromRoute('entity.group_content.create_form', [
+            'group' => $group->id(),
+            'plugin_id' => 'group_node:' . $type,
+            'conference' => $conference->uuid(),
+            'destination' => $destination,
+          ]);
+        }
       }
 
       $build['conference_' . $type] = [
