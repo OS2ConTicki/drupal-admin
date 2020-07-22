@@ -51,7 +51,6 @@
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
         "drupal/masquerade": "^2.0@beta",
-        "drupal/group": "^1.0",
         "drupal/os2conticki_api": "*",
         "drupal/os2conticki_app": "*",
         "drupal/os2conticki_content": "*",
@@ -95,6 +94,7 @@
                 "web-root": "web/"
             }
         },
+        "enable-patching": true,
         "installer-paths": {
             "web/core": [
                 "type:drupal-core"
