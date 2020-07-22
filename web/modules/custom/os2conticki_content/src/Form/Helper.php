@@ -7,6 +7,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\node\NodeInterface;
 use Drupal\os2conticki_content\Helper\ConferenceHelper;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Form helper.
@@ -116,7 +117,9 @@ class Helper {
     }
 
     if (NULL === $conference) {
-      // @TODO We don't have a conference context. Clear the form and show a message instead.
+      $message = $this->t('Content of type @bundle must be created inside a conference.', ['@bundle' => $entity->bundle()]);
+      \Drupal::messenger()->addError($message);
+      throw new BadRequestHttpException($message);
     }
 
     // Store conference to be used by conference autocomplete.
