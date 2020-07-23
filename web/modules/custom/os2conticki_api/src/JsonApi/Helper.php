@@ -66,7 +66,7 @@ class Helper {
       foreach ($attributes as $name => $value) {
         if ('body' === $name && is_array($value)) {
           // Flatten rich text value.
-          $attributes['summary'] = $value['summary'] ?? NULL;
+          $attributes['summary'] = $value['summary'] ?: NULL;
           $attributes['description'] = $value['processed'] ?? NULL;
           unset($attributes[$name]);
         }
