@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.event.body
     - field.field.node.event.field_conference
-    - field.field.node.event.field_times
     - field.field.node.event.field_image
     - field.field.node.event.field_location
     - field.field.node.event.field_organizers
@@ -14,6 +13,8 @@ dependencies:
     - field.field.node.event.field_sponsors
     - field.field.node.event.field_tags
     - field.field.node.event.field_themes
+    - field.field.node.event.field_ticket
+    - field.field.node.event.field_times
     - node.type.event
   module:
     - text
@@ -45,4 +46,5 @@ hidden:
   field_sponsors: true
   field_tags: true
   field_themes: true
+  field_ticket: true
   field_times: true

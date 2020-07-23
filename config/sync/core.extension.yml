@@ -12,6 +12,7 @@ module:
   filter: 0
   image: 0
   jsonapi: 0
+  link: 0
   masquerade: 0
   node: 0
   os2conticki_api: 0

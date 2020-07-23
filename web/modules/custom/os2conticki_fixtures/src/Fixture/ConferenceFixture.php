@@ -37,6 +37,10 @@ BODY,
         'target_id' => $this->getReference('image:004')->id(),
         'alt' => 'Image for the conference',
       ],
+      'field_ticket' => [
+        'uri' => 'https://dummyimage.com/600x400/000/fff&text=Buy+ticket',
+        'title' => 'Buy ticket',
+      ],
     ]);
     $conference->setOwner($this->getReference('user:conference-administrator'));
 
@@ -56,6 +60,9 @@ BODY,
         'value' => '2001-01-01T00:00:00',
         'end_value' => '2001-01-04T23:59:59',
       ],
+      'field_ticket' => [
+        'uri' => 'https://dummyimage.com/600x400/000/fff&text=Buy+ticket',
+      ],
     ]);
     $conference->setOwner($this->getReference('user:conference-administrator'));
 
@@ -68,6 +75,8 @@ BODY,
       'title' => 'A very long conference',
       'body' => <<<'BODY'
 This conference has many events.
+
+Tickets must be purchased for each event.
 BODY,
       'field_dates' => [
         'value' => '2001-01-01T00:00:00',

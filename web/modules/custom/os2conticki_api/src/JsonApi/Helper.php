@@ -77,6 +77,15 @@ class Helper {
           $attributes['end_time'] = $value['end_value'];
           unset($attributes[$name]);
         }
+
+        // Handle ticket url.
+        if (in_array($name, ['field_ticket'], TRUE) && isset($value['uri'])) {
+          $attributes['ticket'] = [
+            'url' => $value['uri'],
+            'text' => $value['title'] ?: NULL,
+          ];
+          unset($attributes[$name]);
+        }
       }
 
       // Add links to related resources.
@@ -148,6 +157,7 @@ class Helper {
         'end_time',
         'description',
         'summary',
+        'ticket',
       ];
       $attributes = $this->includeKeys($allowedAttributes, $attributes);
     }

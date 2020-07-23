@@ -120,9 +120,10 @@ BODY,
     // Events on a very long conference.
     $startTime = new DateTimeImmutable('2001-01-01T10:00:00');
     for ($i = 0; $i < 100; $i++) {
+      $title = sprintf('Event %d', $i);
       $event = Node::create([
         'type' => 'event',
-        'title' => sprintf('Event %d', $i),
+        'title' => $title,
         'field_conference' => $this->getReference('conference:long'),
         'field_image' => [
           'target_id' => $this->getReference(sprintf('image:%03d', $i % 8 + 1))->id(),
@@ -133,6 +134,10 @@ BODY,
           'end_value' => $startTime->add(new DateInterval('PT45M'))->format('Y-m-d\TH:i:s'),
         ],
         'field_location' => $this->getReference('location:long-room'),
+        'field_ticket' => [
+          'uri' => 'https://dummyimage.com/600x400/000/fff&text=' . urlencode($title),
+          'title' => sprintf('Buy ticket for %s', $title),
+        ],
       ]);
       $event->setOwner($this->getReference('user:conference-editor'));
       $event->save();

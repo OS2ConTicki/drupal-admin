@@ -1,0 +1,23 @@
+uuid: 5effb4f6-1c9f-49e6-bd6d-08678bd97165
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ticket
+    - node.type.event
+  module:
+    - link
+id: node.event.field_ticket
+field_name: field_ticket
+entity_type: node
+bundle: event
+label: Ticket
+description: 'Where to buy tickets for this event.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link
