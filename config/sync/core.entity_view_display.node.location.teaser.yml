@@ -32,3 +32,4 @@ content:
 hidden:
   field_conference: true
   field_image: true
+  langcode: true
