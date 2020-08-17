@@ -121,6 +121,51 @@ class Helper {
 
     // Store conference to be used by conference autocomplete.
     $formState->set(['os2conticki_content', 'conference'], $conference);
+
+    $form['#validate'][] = [$this, 'validateConferenceEntities'];
+  }
+
+  /**
+   * Validate that referenced entities actually belongs to the right conference.
+   */
+  public function validateConferenceEntities(array &$form,
+    FormStateInterface $formState
+  ) {
+    $conference = $formState->get(['os2conticki_content', 'conference']);
+    if (NULL === $conference) {
+      return;
+    }
+    $referenceFields = [
+      'field_location' => 'location',
+      'field_organizers' => 'organizer',
+      'field_speakers' => 'speaker',
+      'field_sponsors' => 'sponsor',
+      'field_tags' => 'tag',
+      'field_theme' => 'theme',
+    ];
+    foreach ($referenceFields as $field => $type) {
+      $value = $formState->getValue($field);
+      if (empty($value)) {
+        continue;
+      }
+      $entities = $this->conferenceHelper->getEntitites($conference, $type);
+      foreach ($value as $delta => $item) {
+        $targetId = $item['target_id'] ?? NULL;
+        if (NULL !== $targetId && !isset($entities[(int) $targetId])) {
+          $formState->setErrorByName(
+            $field,
+            $this->t(
+              'Target entity @target_type:@target_id does not belong to the conference @conference',
+              [
+                '@target_type' => $type,
+                '@target_id' => $targetId,
+                '@conference' => $conference->getTitle(),
+              ]
+            )
+          );
+        }
+      }
+    }
   }
 
   /**
