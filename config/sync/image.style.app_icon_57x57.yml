@@ -1,0 +1,15 @@
+uuid: 4f7b37bf-34c0-4e85-b282-70a48914201a
+langcode: en
+status: true
+dependencies: {  }
+name: app_icon_57x57
+label: 'App icon (57×57)'
+effects:
+  8ec46254-86b0-49b2-b60c-32061c247b18:
+    uuid: 8ec46254-86b0-49b2-b60c-32061c247b18
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 57
+      height: 57
+      anchor: center-center

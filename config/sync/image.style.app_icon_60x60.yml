@@ -1,0 +1,15 @@
+uuid: 79faa760-ff92-4a6c-96c7-8f3c38e234c9
+langcode: en
+status: true
+dependencies: {  }
+name: app_icon_60x60
+label: 'App icon (60×60)'
+effects:
+  dbf2fc28-6df7-44b2-85c6-27b992e9dc4b:
+    uuid: dbf2fc28-6df7-44b2-85c6-27b992e9dc4b
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 60
+      height: 60
+      anchor: center-center

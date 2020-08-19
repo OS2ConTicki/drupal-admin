@@ -1,0 +1,15 @@
+uuid: fec6a2d1-aed1-45b6-910d-e55e746e6bfe
+langcode: en
+status: true
+dependencies: {  }
+name: app_icon_70x70
+label: 'App icon (70×70)'
+effects:
+  3d22929c-9ad2-4649-a67f-9f08c57ed089:
+    uuid: 3d22929c-9ad2-4649-a67f-9f08c57ed089
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 70
+      height: 70
+      anchor: center-center

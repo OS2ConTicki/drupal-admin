@@ -5,6 +5,7 @@ namespace Drupal\os2conticki_api\JsonApi;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Url;
 use Drupal\file\FileInterface;
+use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -105,10 +106,8 @@ class Helper {
       switch ($item['type']) {
         case 'conference':
           // App metadata.
-          $attributes['app'] = [
-            'primary_color' => $attributes['field_app_primary_color']['color'] ?? '#ffffff',
-            'logo' => $attributes['field_app_logo'] ?? NULL,
-          ];
+          $attributes['app'] = $this->getAppMetadata($item);
+
           // Add links to related resources.
           foreach (array_keys($this->getContentTypes()) as $type) {
             if ($item['type'] === $type) {
@@ -183,6 +182,36 @@ class Helper {
     }
 
     return $item;
+  }
+
+  /**
+   * Get app metadata.
+   */
+  private function getAppMetadata(array $item): ?array {
+    $metadata = [
+      'primary_color' => $attributes['field_app_primary_color']['color'] ?? '#ffffff',
+    ];
+
+    $data = $item['relationships']['field_app_logo']['data'] ?? NULL;
+    if (isset($data['id'])) {
+      $logo = $this->getFile($data['id']);
+      if ($logo) {
+        $metadata['logo'] = $logo->createFileUrl(FALSE);
+
+        // App icons.
+        $uri = $logo->getFileUri();
+        $imageStyles = ImageStyle::loadMultiple();
+        $icons = [];
+        foreach ($imageStyles as $name => $style) {
+          if (preg_match('/app_icon_(?<dimension>\d+x\d+)$/', $name, $matches)) {
+            $icons[$matches['dimension']] = $style->buildUrl($uri);
+          }
+        }
+        $metadata['icons'] = $icons;
+      }
+    }
+
+    return $metadata;
   }
 
   /**
