@@ -1,6 +1,6 @@
-name: 'Conference base'
+name: 'Content'
 type: module
-description: 'Conference content'
+description: 'General content for OS2ConTicki'
 core_version_requirement: ^9
-package: Conference
+package: OS2ConTicki
 # version: VERSION
