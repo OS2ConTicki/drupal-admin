@@ -72,7 +72,6 @@ class ConfigForm extends ConfigFormBase {
       'sponsor' => [
         'title' => $this->t('Sponsor'),
       ],
-
     ] as $type => $info) {
       $form['content_types'][$type] = [
         '#title' => $info['title'],
@@ -80,7 +79,6 @@ class ConfigForm extends ConfigFormBase {
         '#options' => $options,
         '#default_value' => $config->get('content_types.' . $type) ?? NULL,
         '#empty_option' => $this->t('Select content type'),
-      // '#required' => TRUE,
         '#description' => $info['description'] ?? NULL,
       ];
     }
