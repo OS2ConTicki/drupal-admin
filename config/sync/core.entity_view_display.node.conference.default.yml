@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.node.conference.body
+    - field.field.node.conference.field_app_logo
+    - field.field.node.conference.field_app_primary_color
     - field.field.node.conference.field_dates
     - field.field.node.conference.field_image
     - field.field.node.conference.field_organizers
@@ -11,6 +13,7 @@ dependencies:
     - field.field.node.conference.field_ticket
     - node.type.conference
   module:
+    - color_field
     - datetime_range
     - image
     - link
@@ -27,6 +30,24 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_app_logo:
+    weight: 109
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  field_app_primary_color:
+    weight: 108
+    label: above
+    settings:
+      format: hex
+      opacity: true
+    third_party_settings: {  }
+    type: color_field_formatter_text
     region: content
   field_dates:
     weight: 104

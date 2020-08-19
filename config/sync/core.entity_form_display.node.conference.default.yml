@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.node.conference.body
+    - field.field.node.conference.field_app_logo
+    - field.field.node.conference.field_app_primary_color
     - field.field.node.conference.field_dates
     - field.field.node.conference.field_image
     - field.field.node.conference.field_organizers
@@ -12,11 +14,30 @@ dependencies:
     - image.style.thumbnail
     - node.type.conference
   module:
+    - color_field
     - datetime_range
+    - field_group
     - image
     - link
     - os2conticki_content
     - text
+third_party_settings:
+  field_group:
+    group_app:
+      children:
+        - field_app_logo
+        - field_app_primary_color
+      parent_name: ''
+      weight: 13
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'Settings for the app'
+        open: true
+        required_fields: true
+      label: App
 id: node.conference.default
 targetEntityType: node
 bundle: conference
@@ -37,6 +58,21 @@ content:
     weight: 7
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_app_logo:
+    type: image_image
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_app_primary_color:
+    type: color_field_widget_box
+    weight: 0
+    region: content
+    settings:
+      default_colors: "\n#ac725e,#d06b64,#f83a22,#fa573c,#ff7537,#ffad46\n#42d692,#16a765,#7bd148,#b3dc6c,#fbe983\n#92e1c0,#9fe1e7,#9fc6e7,#4986e7,#9a9cff\n#b99aff,#c2c2c2,#cabdbf,#cca6ac,#f691b2\n#cd74e6,#a47ae2"
     third_party_settings: {  }
   field_dates:
     weight: 2
