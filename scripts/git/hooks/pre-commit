@@ -3,14 +3,28 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 
 cat <<EOF
-
+--------------------------------------------------------------------------------
 ${bold}Checking coding standards${normal}
+--------------------------------------------------------------------------------
 
 EOF
 
-if ! composer check-coding-standards; then
+if ! composer coding-standards-check; then
   cat >&2 << EOF
-Please fix any coding standards issues before committing!
+
+--------------------------------------------------------------------------------
+${bold}Please fix any coding standards issues before committing!${normal}
+--------------------------------------------------------------------------------
+EOF
+  exit 1
+fi
+
+if ! (cd web/modules/custom/os2conticki_content && yarn coding-standards-check); then
+  cat >&2 << EOF
+
+--------------------------------------------------------------------------------
+${bold}Please fix any coding standards issues before committing!${normal}
+--------------------------------------------------------------------------------
 EOF
   exit 1
 fi

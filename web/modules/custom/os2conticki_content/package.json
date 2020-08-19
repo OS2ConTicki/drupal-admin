@@ -1,4 +1,8 @@
 {
+  "name": "os2conticki_content",
+  "version": "1.0.0",
+  "author": "Mikkel Ricky <rimi@aarhus.dk>",
+  "license": "MIT",
   "devDependencies": {
     "@symfony/webpack-encore": "^0.30.2",
     "node-sass": "^4.14.1",

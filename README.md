@@ -81,3 +81,13 @@ symfony php vendor/bin/drush --uri=https://127.0.0.1:8888 user:login organizer@e
 ```sh
 https://127.0.0.1:8888/api
 ```
+
+## Coding standards
+
+```sh
+composer coding-standards-check
+composer coding-standards-apply
+```
+
+See also
+[web/modules/custom/os2conticki_content/README.md#coding-standards](web/modules/custom/os2conticki_content/README.md#coding-standards).
