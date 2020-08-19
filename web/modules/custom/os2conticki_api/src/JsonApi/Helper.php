@@ -146,18 +146,17 @@ class Helper {
 
       // Keep only the attributes we need.
       $allowedAttributes = [
-        'title',
+        'changed',
+        'created',
+        'description',
+        'end_time',
         'image',
         'langcode',
-        'title',
-        'created',
-        'changed',
         'promote',
         'start_time',
-        'end_time',
-        'description',
         'summary',
         'ticket',
+        'title',
       ];
       $attributes = $this->includeKeys($allowedAttributes, $attributes);
     }
