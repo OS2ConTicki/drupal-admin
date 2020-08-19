@@ -1,0 +1,15 @@
+uuid: eda0a06e-b7fa-4c41-8dcc-542af0e014f3
+langcode: en
+status: true
+dependencies: {  }
+name: app_icon_96x96
+label: 'App icon (96×96)'
+effects:
+  71d0d505-ff54-48e1-9f39-dd5c0703201e:
+    uuid: 71d0d505-ff54-48e1-9f39-dd5c0703201e
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 96
+      height: 96
+      anchor: center-center
