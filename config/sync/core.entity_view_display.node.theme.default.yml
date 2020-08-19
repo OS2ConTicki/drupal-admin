@@ -1,0 +1,38 @@
+uuid: 441447d5-44a4-4df9-9826-cd171c16708a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.theme.body
+    - field.field.node.theme.field_conference
+    - node.type.theme
+  module:
+    - text
+    - user
+id: node.theme.default
+targetEntityType: node
+bundle: theme
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_conference:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true

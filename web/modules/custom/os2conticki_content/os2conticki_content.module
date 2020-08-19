@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Module file for os2conticki_content.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function os2conticki_content_form_alter(
+  &$form,
+  FormStateInterface $form_state,
+  $form_id
+) {
+  \Drupal::service('os2conticki_content.form_helper')->alter($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function os2conticki_content_theme() {
+  return [
+    'os2conticki_content_conference_info' => [
+      'variables' => [
+        // The conference.
+        'conference' => NULL,
+      ],
+    ],
+    'os2conticki_content_conference_entity_list' => [
+      'variables' => [
+        // The conference.
+        'conference' => NULL,
+        // The entity type.
+        'type' => NULL,
+        // The entities.
+        'entities' => NULL,
+        'create_url' => NULL,
+      ],
+    ],
+  ];
+}

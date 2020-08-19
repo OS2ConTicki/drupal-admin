@@ -1,0 +1,52 @@
+services:
+  os2conticki_fixtures.conference_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\ConferenceFixture
+    tags:
+      - { name: content_fixture }
+
+  os2conticki_fixtures.event_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\EventFixture
+    tags:
+      - { name: content_fixture }
+
+  os2conticki_fixtures.image_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\ImageFixture
+    arguments:
+      - '@file_system'
+    tags:
+      - { name: content_fixture }
+
+  os2conticki_fixtures.location_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\LocationFixture
+    tags:
+      - { name: content_fixture }
+
+  os2conticki_fixtures.organizer_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\OrganizerFixture
+    tags:
+      - { name: content_fixture }
+
+  os2conticki_fixtures.speaker_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\SpeakerFixture
+    tags:
+      - { name: content_fixture }
+
+  os2conticki_fixtures.theme_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\ThemeFixture
+    tags:
+      - { name: content_fixture }
+
+  os2conticki_fixtures.tag_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\TagFixture
+    tags:
+      - { name: content_fixture }
+
+  os2conticki_fixtures.user_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\UserFixture
+    tags:
+      - { name: content_fixture }
+
+  os2conticki_fixtures.conference_organizer_fixture:
+    class: Drupal\os2conticki_fixtures\Fixture\ConferenceOrganizerFixture
+    tags:
+      - { name: content_fixture }

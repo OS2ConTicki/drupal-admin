@@ -1,0 +1,16 @@
+{
+    "name": "drupal/os2conticki_fixtures",
+    "description": "Conference fixtures.",
+    "type": "drupal-custom-module",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Mikkel Ricky",
+            "email": "rimi@aarhus.dk"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "drupal/content_fixtures": "^2.0"
+    }
+}

@@ -1,0 +1,36 @@
+module:
+  block: 0
+  breakpoint: 0
+  ckeditor: 0
+  datetime: 0
+  datetime_range: 0
+  dynamic_page_cache: 0
+  editor: 0
+  field: 0
+  field_ui: 0
+  file: 0
+  filter: 0
+  image: 0
+  jsonapi: 0
+  language: 0
+  link: 0
+  masquerade: 0
+  node: 0
+  os2conticki_api: 0
+  os2conticki_content: 0
+  page_cache: 0
+  path_alias: 0
+  serialization: 0
+  system: 0
+  text: 0
+  toolbar: 0
+  toolbar_menu: 0
+  user: 0
+  views: 10
+  minimal: 1000
+theme:
+  stark: 0
+  claro: 0
+profile: minimal
+_core:
+  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
