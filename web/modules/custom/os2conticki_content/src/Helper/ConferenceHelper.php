@@ -90,7 +90,7 @@ class ConferenceHelper {
   }
 
   /**
-   * Get conference by uuid.
+   * Get conference by id.
    */
   public function loadById($id): ?NodeInterface {
     $conference = Node::load($id);
