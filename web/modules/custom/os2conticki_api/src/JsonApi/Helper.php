@@ -95,6 +95,11 @@ class Helper {
           ];
           unset($attributes[$name]);
         }
+
+        if (in_array($name, ['field_website_url'], TRUE) && isset($value['uri'])) {
+          $attributes['website_url'] = $value['uri'];
+          unset($attributes[$name]);
+        }
       }
 
       switch ($item['type']) {
@@ -172,6 +177,7 @@ class Helper {
         'summary',
         'ticket',
         'title',
+        'website_url',
       ];
       $attributes = $this->includeKeys($allowedAttributes, $attributes);
     }

@@ -6,10 +6,12 @@ dependencies:
     - field.field.node.organizer.body
     - field.field.node.organizer.field_conference
     - field.field.node.organizer.field_image
+    - field.field.node.organizer.field_website_url
     - image.style.thumbnail
     - node.type.organizer
   module:
     - image
+    - link
     - text
 id: node.organizer.default
 targetEntityType: node
@@ -49,6 +51,14 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
+  field_website_url:
+    weight: 28
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
     region: content
   langcode:
     type: language_select
