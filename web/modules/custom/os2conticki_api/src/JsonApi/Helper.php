@@ -52,15 +52,24 @@ class Helper {
     if (isset($item['attributes'])) {
       $attributes = &$item['attributes'];
 
-      if (isset($item['relationships']['field_image']['data']['id'])) {
-        $data = $item['relationships']['field_image']['data'];
-        $image = $this->getFile($data['id']);
-        if ($image) {
-          $attributes['image'] = [
-            'url' => $image->createFileUrl(FALSE),
-            'meta' => $data['meta'] ?? NULL,
-          ];
+      // Add related (via relationships) images.
+      foreach ($item['relationships'] as $name => $relationship) {
+        if ('file--file' === ($item['relationships'][$name]['data']['type'] ?? NULL)
+          && isset($item['relationships'][$name]['data']['id'])) {
+          $data = $item['relationships'][$name]['data'];
+          $image = $this->getFile($data['id']);
+          if ($image) {
+            $attributes[$name] = [
+              'url' => $image->createFileUrl(FALSE),
+              'meta' => $data['meta'] ?? NULL,
+            ];
+          }
         }
+      }
+
+      if (isset($attributes['field_image'])) {
+        $attributes['image'] = $attributes['field_image'];
+        unset($attributes['field_image']);
       }
 
       foreach ($attributes as $name => $value) {
@@ -88,9 +97,14 @@ class Helper {
         }
       }
 
-      // Add links to related resources.
       switch ($item['type']) {
         case 'conference':
+          // App metadata.
+          $attributes['app'] = [
+            'primary_color' => $attributes['field_app_primary_color']['color'] ?? '#ffffff',
+            'logo' => $attributes['field_app_logo'] ?? NULL,
+          ];
+          // Add links to related resources.
           foreach (array_keys($this->getContentTypes()) as $type) {
             if ($item['type'] === $type) {
               continue;
@@ -146,6 +160,7 @@ class Helper {
 
       // Keep only the attributes we need.
       $allowedAttributes = [
+        'app',
         'changed',
         'created',
         'description',

@@ -9,5 +9,14 @@
             "email": "rimi@aarhus.dk"
         }
     ],
-    "require": {}
+    "repositories": {
+        "drupal": {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    },
+    "require": {
+        "drupal/color_field": "^2.4",
+        "drupal/field_group": "^3.1"
+    }
 }
