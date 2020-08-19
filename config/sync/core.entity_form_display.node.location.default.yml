@@ -50,6 +50,13 @@ content:
     third_party_settings: {  }
     type: image_image
     region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: false
+    third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:

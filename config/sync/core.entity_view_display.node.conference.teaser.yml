@@ -38,3 +38,4 @@ hidden:
   field_organizers: true
   field_sponsors: true
   field_ticket: true
+  langcode: true

@@ -48,3 +48,4 @@ hidden:
   field_themes: true
   field_ticket: true
   field_times: true
+  langcode: true
