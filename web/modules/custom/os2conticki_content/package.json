@@ -13,8 +13,5 @@
     "watch": "encore dev --watch",
     "coding-standards-check": "cd assets && standard",
     "coding-standards-apply": "cd assets && standard --fix"
-  },
-  "standard": {
-    "parser": "babel-eslint"
   }
 }

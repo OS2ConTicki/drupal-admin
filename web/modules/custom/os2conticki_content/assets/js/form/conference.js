@@ -1,1 +1,1 @@
-import '../../css/form/conference.scss';
+import '../../css/form/conference.scss'
