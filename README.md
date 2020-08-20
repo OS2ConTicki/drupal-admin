@@ -52,11 +52,11 @@ docker-compose up -d
 symfony composer install
 symfony php vendor/bin/drush --yes site:install minimal --config-dir=../config/sync
 # Start the server
-symfony local:server:start --port=8888 --daemon
+symfony local:server:start --port=8887 --daemon
 # Get the site url
-echo "http://0.0.0.0:8888
+echo "http://0.0.0.0:8887
 # Get admin sign in url
-symfony php vendor/bin/drush --uri=https://127.0.0.1:8888 user:login
+symfony php vendor/bin/drush --uri=https://127.0.0.1:8887 user:login
 ```
 
 ## Fixtures
@@ -72,14 +72,14 @@ After loading user fixtures you can sign in as a user without super-user
 privileges:
 
 ```sh
-symfony php vendor/bin/drush --uri=https://127.0.0.1:8888 user:login administrator@example.com
-symfony php vendor/bin/drush --uri=https://127.0.0.1:8888 user:login organizer@example.com
+symfony php vendor/bin/drush --uri=https://127.0.0.1:8887 user:login administrator@example.com
+symfony php vendor/bin/drush --uri=https://127.0.0.1:8887 user:login organizer@example.com
 ```
 
 ## Conference API
 
 ```sh
-https://127.0.0.1:8888/api
+https://127.0.0.1:8887/api
 ```
 
 ## Coding standards
