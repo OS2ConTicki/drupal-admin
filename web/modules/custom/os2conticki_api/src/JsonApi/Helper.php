@@ -152,6 +152,13 @@ class Helper {
       ] as $field => $type) {
         if (isset($item['relationships'][$field])) {
           $relationships[$type] = $this->convertRelationship($item['relationships'][$field]);
+          // Make sure that a field with cardinality 1 is rendered as a list
+          // (rather than an object).
+          if ('themes' === $type) {
+            if ($this->isAssoc($relationships[$type])) {
+              $relationships[$type] = [$relationships[$type]];
+            }
+          }
         }
       }
 
