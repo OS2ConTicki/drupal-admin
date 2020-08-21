@@ -155,8 +155,14 @@ class Helper {
           // Make sure that a field with cardinality 1 is rendered as a list
           // (rather than an object).
           if ('themes' === $type) {
-            if ($this->isAssoc($relationships[$type])) {
-              $relationships[$type] = [$relationships[$type]];
+            $data = $relationships[$type]['data'] ?? NULL;
+            if (NULL === $data || $this->isAssoc($relationships[$type]['data'])) {
+              $relationships[$type]['data'] = $data ? [$data] : [];
+              // The "related" link does not make sense anymore.
+              unset($relationships[$type]['links']['related']);
+              if (empty($relationships[$type]['links'])) {
+                unset($relationships[$type]['links']);
+              }
             }
           }
         }
