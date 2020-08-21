@@ -65,6 +65,24 @@ symfony php vendor/bin/drush --uri=http://127.0.0.1:8887 user:login
 See
 [web/modules/custom/os2conticki_app/README.md](web/modules/custom/os2conticki_app/README.md).
 
+## Translations
+
+https://medium.com/limoengroen/how-to-deploy-drupal-interface-translations-5653294c4af6
+
+### Importing translations
+
+```sh
+docker-compose exec phpfpm vendor/bin/drush --yes locale:check
+docker-compose exec phpfpm vendor/bin/drush --yes locale:update
+docker-compose exec phpfpm vendor/bin/drush --yes locale:import da ../translations/custom-translations.da.po --type=customized --override=all
+```
+
+### Exporting translations (during development)
+
+```sh
+docker-compose exec phpfpm vendor/bin/drush --yes locale:export da --types=customized > ../translations/custom-translations.da.po
+```
+
 ## Fixtures
 
 ```sh

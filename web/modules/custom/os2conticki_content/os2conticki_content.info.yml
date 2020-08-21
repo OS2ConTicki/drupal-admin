@@ -7,3 +7,6 @@ package: OS2ConTicki
 dependencies:
   - drupal:entity_clone
   - drupal:entity_clone_extras
+  - drupal:locale
+interface translation project: os2conticki_content
+interface translation server pattern: modules/custom/%project/translations/%project.%language.po
