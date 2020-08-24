@@ -157,7 +157,7 @@ class Helper {
       'field_theme' => 'theme',
     ];
     foreach ($referenceFields as $field => $type) {
-      $value = $formState->getValue($field);
+      $value = array_filter($formState->getValue($field) ?? [], 'is_int', ARRAY_FILTER_USE_KEY);
       if (empty($value)) {
         continue;
       }
