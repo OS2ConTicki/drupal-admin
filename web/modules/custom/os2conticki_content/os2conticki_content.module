@@ -23,6 +23,18 @@ function os2conticki_content_form_alter(
  */
 function os2conticki_content_theme() {
   return [
+    'os2conticki_content_app' => [
+      'variables' => [
+        // The conference.
+        'conference' => NULL,
+        // The base url,.
+        'basename' => NULL,
+        // The conference api url.
+        'api_url' => NULL,
+        'style_urls' => NULL,
+        'script_urls' => NULL,
+      ],
+    ],
     'os2conticki_content_conference_info' => [
       'variables' => [
         // The conference.
@@ -44,3 +56,5 @@ function os2conticki_content_theme() {
     ],
   ];
 }
+
+// Function os2conticki_content_menu_local_.

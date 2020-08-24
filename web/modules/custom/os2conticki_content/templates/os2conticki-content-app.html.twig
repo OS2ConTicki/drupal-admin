@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <title>OS2ConTicki</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <!-- iOS icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/icons/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/icons/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/icons/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/icons/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/icons/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/icons/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/icons/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/icons/apple-touch-icon-152x152.png" />
+  <!-- iOS launch screens -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link href="/splashscreens/apple_splash_2048.png" sizes="2048x2732" rel="apple-touch-startup-image" />
+  <link href="/splashscreens/apple_splash_1668.png" sizes="1668x2224" rel="apple-touch-startup-image" />
+  <link href="/splashscreens/apple_splash_1536.png" sizes="1536x2048" rel="apple-touch-startup-image" />
+  <link href="/splashscreens/apple_splash_1125.png" sizes="1125x2436" rel="apple-touch-startup-image" />
+  <link href="/splashscreens/apple_splash_1242.png" sizes="1242x2208" rel="apple-touch-startup-image" />
+  <link href="/splashscreens/apple_splash_750.png" sizes="750x1334" rel="apple-touch-startup-image" />
+  <link href="/splashscreens/apple_splash_640.png" sizes="640x1136" rel="apple-touch-startup-image" />
+  <!-- Android icons - for legacy devices, newer versions gets the icons from the webmanifest file -->
+  <link rel="icon" type="image/png" href="/icons/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/icons/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/icons/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/icons/favicon-128.png" sizes="128x128" />
+  <!-- MS icons -->
+  <meta name="application-name" content="OS2ConTicki"/>
+  <meta name="msapplication-TileColor" content="#1E3284" />
+  <meta name="msapplication-TileImage" content="/icons/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="/icons/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="/icons/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="/icons/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="/icons/mstile-310x310.png" />
+  <meta name="theme-color" content="#212529">
+  {% for url in style_urls %}
+    <link rel="stylesheet" href="{{ url }}">
+  {% endfor %}
+</head>
+<body>
+<div id="app">{{ conference.title.value }}</div>
+{% for url in script_urls %}
+  <script src="{{ url }}"></script>
+{% endfor %}
+<script>
+  ConferenceApp.render({
+    element: document.getElementById('app'),
+    basename: {{ basename|json_encode|raw }},
+    url: {{ api_url|json_encode|raw }}
+  })
+  {# TODO: Should we disable the service worker if user is authenticated? #}
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+</script>
+</body>
+</html>

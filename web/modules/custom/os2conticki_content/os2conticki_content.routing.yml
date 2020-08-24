@@ -11,3 +11,18 @@ os2conticki_content.conference_entity_autocomplete:
     parameters:
       conference:
         type: entity:node
+
+os2conticki_content.conference_app:
+  path: '/app/{node}/{type}/{entity}'
+  defaults:
+    _controller: '\Drupal\os2conticki_content\Controller\ConferenceController::app'
+    _title: 'Conference app entity'
+    type: ~
+    entity: ~
+  requirements:
+    _permission: 'access content'
+    # _entity_bundles: 'node:conference'
+  options:
+    parameters:
+      node:
+        type: entity:node

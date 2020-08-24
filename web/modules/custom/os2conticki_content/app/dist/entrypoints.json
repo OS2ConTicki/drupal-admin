@@ -1,0 +1,12 @@
+{
+  "entrypoints": {
+    "entry": {
+      "css": [
+        "/dist/entry.css"
+      ],
+      "js": [
+        "/dist/entry.js"
+      ]
+    }
+  }
+}
