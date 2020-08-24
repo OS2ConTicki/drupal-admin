@@ -5,6 +5,7 @@ namespace Drupal\os2conticki_content\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\os2conticki_content\Helper\ConferenceHelper;
 
@@ -78,9 +79,21 @@ class Helper {
       return;
     }
 
+    // Build conference api url.
+    $apiUrl = Url::fromRoute('os2conticki_api.api_controller_index', [
+      'type' => $conference->bundle(),
+      'id' => $conference->uuid(),
+      'include' => implode(',', ['organizers']),
+    ], [
+      'absolute' => TRUE,
+      // We want to get content in the default language.
+      'language' => \Drupal::service('language_manager')->getDefaultLanguage(),
+    ]);
+
     $form['os2conticki_content'] = [
       '#theme' => 'os2conticki_content_conference_info',
       '#conference' => $conference,
+      '#api_url' => $apiUrl,
       '#weight' => -1000,
     ];
 

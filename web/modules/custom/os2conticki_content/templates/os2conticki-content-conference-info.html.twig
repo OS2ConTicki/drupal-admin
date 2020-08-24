@@ -5,10 +5,10 @@ Variaables:
 #}
 
 <div class="conference-info">
-  {% set api_url = url('os2conticki_api.api_controller_index', {type: 'conference', id: conference.uuid.value, include: 'organizers'}) %}
-
-  <dl>
-    <dt>{{ 'Api url'|trans }}</dt>
-    <dd><a href="{{ api_url }}">{{ api_url }}</a></dd>
-  </dl>
+  {% if api_url|default(false) %}
+    <dl>
+      <dt>{{ 'Api url'|trans }}</dt>
+      <dd><a href="{{ api_url }}">{{ api_url }}</a></dd>
+    </dl>
+  {% endif %}
 </div>
