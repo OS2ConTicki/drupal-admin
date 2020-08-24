@@ -117,14 +117,14 @@ content:
     type: conference_entity_reference_autocomplete
     region: content
   field_organizers:
-    weight: 5
+    weight: 26
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: conference_entity_reference_autocomplete
+    type: entity_reference_autocomplete
     region: content
   field_sponsors:
     weight: 12
