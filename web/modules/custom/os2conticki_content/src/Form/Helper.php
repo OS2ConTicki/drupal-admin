@@ -34,6 +34,11 @@ class Helper {
    * Implements hook_form_alter().
    */
   public function alter(array &$form, FormStateInterface $formState, string $formId) {
+    // Don't alter anything in AJAX requests.
+    if (\Drupal::request()->query->get('ajax_form')) {
+      return;
+    }
+
     switch ($formId) {
       case 'node_conference_form':
       case 'node_conference_edit_form':
