@@ -1,5 +1,0 @@
-os2conticki_content.conference_app_view:
-  title: 'App'
-  route_name: os2conticki_content.conference_app
-  base_route: entity.node.canonical
-  weight: 100

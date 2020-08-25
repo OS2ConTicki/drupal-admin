@@ -1,0 +1,2 @@
+app_style_urls: 'https://cdn.jsdelivr.net/npm/@os2conticki/display-react@latest/public/dist/entry.css'
+app_script_urls: 'https://cdn.jsdelivr.net/npm/@os2conticki/display-react@latest/public/dist/entry.js'

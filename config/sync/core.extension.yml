@@ -19,6 +19,7 @@ module:
   masquerade: 0
   node: 0
   os2conticki_api: 0
+  os2conticki_app: 0
   os2conticki_content: 0
   page_cache: 0
   path_alias: 0

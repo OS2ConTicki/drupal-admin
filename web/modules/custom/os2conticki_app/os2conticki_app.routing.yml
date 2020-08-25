@@ -1,0 +1,36 @@
+os2conticki_app.conference_app:
+  path: '/app/{node}/{type}/{entity}'
+  defaults:
+    _controller: '\Drupal\os2conticki_app\Controller\ConferenceController::app'
+    _title: 'Conference app entity'
+    type: ~
+    entity: ~
+  requirements:
+    _permission: 'access content'
+    # _entity_bundles: 'node:conference'
+  options:
+    parameters:
+      node:
+        type: entity:node
+
+os2conticki_app.conference_app_manifest:
+  path: '/app/{node}/manifest'
+  defaults:
+    _controller: '\Drupal\os2conticki_app\Controller\ConferenceController::manifest'
+    _title: 'Conference app manifest'
+    type: ~
+    entity: ~
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      node:
+        type: entity:node
+
+os2conticki_app.admin_config:
+  path: '/admin/config/services/os2conticki_app'
+  defaults:
+    _form: '\Drupal\os2conticki_app\Form\ConfigForm'
+    _title: 'Conference app configuration'
+  requirements:
+    _permission: 'administer site configuration'

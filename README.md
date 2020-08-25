@@ -52,7 +52,7 @@ docker-compose up -d
 symfony composer install
 symfony php vendor/bin/drush --yes site:install minimal --config-dir=../config/sync
 # Start the server
-symfony local:server:start --port=8887 --daemon
+symfony local:server:start --port=8887 --daemon --allow-http
 # Get the site url
 echo "http://0.0.0.0:8887
 # Get admin sign in url
