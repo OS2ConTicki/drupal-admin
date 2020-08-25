@@ -224,6 +224,14 @@ class Helper {
       }
     }
 
+    $data = $item['relationships']['field_app_logo_svg']['data'] ?? NULL;
+    if (isset($data['id'])) {
+      $logo = $this->getFile($data['id']);
+      if ($logo) {
+        $metadata['logo_svg'] = $logo->createFileUrl(FALSE);
+      }
+    }
+
     return $metadata;
   }
 

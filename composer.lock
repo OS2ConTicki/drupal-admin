@@ -2004,15 +2004,16 @@
         },
         {
             "name": "drupal/os2conticki_content",
-            "version": "dev-feature/JOBCAMP-43-app-metadata",
+            "version": "dev-feature/JOBCAMP-59-PWA-manifest",
             "dist": {
                 "type": "path",
                 "url": "web/modules/custom/os2conticki_content",
-                "reference": "ed0e878430f7d0083245ad679e37939ac6440ae5"
+                "reference": "03582f29f37de3bb063d8956210ee0db8c0ed651"
             },
             "require": {
                 "drupal/color_field": "^2.4",
-                "drupal/field_group": "^3.1"
+                "drupal/field_group": "^3.1",
+                "drupal/svg_image": "^1.14"
             },
             "type": "drupal-custom-module",
             "license": [
@@ -2084,6 +2085,57 @@
             "homepage": "https://www.drupal.org/project/restui",
             "support": {
                 "source": "https://git.drupalcode.org/project/restui"
+            }
+        },
+        {
+            "name": "drupal/svg_image",
+            "version": "1.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/svg_image.git",
+                "reference": "8.x-1.14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/svg_image-8.x-1.14.zip",
+                "reference": "8.x-1.14",
+                "shasum": "0a6ca8104995a8cf4a1fff3e9e04e1fecf734b11"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "enshrined/svg-sanitize": ">=0.9 <1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.14",
+                    "datestamp": "1591251834",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Yaroslav Lushnikov",
+                    "homepage": "https://www.drupal.org/user/2870933",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "See contributors",
+                    "homepage": "https://www.drupal.org/node/2887125/committers"
+                }
+            ],
+            "description": "Overrides the standard image formatter and widget to support SVG files.",
+            "homepage": "http://drupal.org/project/svg_image",
+            "support": {
+                "source": "http://cgit.drupalcode.org/svg_image",
+                "issues": "http://drupal.org/project/svg_image"
             }
         },
         {
@@ -2323,6 +2375,47 @@
                 "validator"
             ],
             "time": "2020-02-13T22:36:52+00:00"
+        },
+        {
+            "name": "enshrined/svg-sanitize",
+            "version": "0.13.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/darylldoyle/svg-sanitizer.git",
+                "reference": "bc66593f255b7d2613d8f22041180036979b6403"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/bc66593f255b7d2613d8f22041180036979b6403",
+                "reference": "bc66593f255b7d2613d8f22041180036979b6403",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-libxml": "*"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "^0.1.2",
+                "phpunit/phpunit": "^6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "enshrined\\svgSanitize\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Daryll Doyle",
+                    "email": "daryll@enshrined.co.uk"
+                }
+            ],
+            "description": "An SVG sanitizer for PHP",
+            "time": "2020-01-20T01:34:17+00:00"
         },
         {
             "name": "grasmash/expander",
