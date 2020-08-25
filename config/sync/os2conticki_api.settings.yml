@@ -1,0 +1,9 @@
+content_types:
+  conference: conference
+  event: event
+  speaker: speaker
+  organizer: organizer
+  tag: tag
+  theme: theme
+  location: location
+  sponsor: sponsor

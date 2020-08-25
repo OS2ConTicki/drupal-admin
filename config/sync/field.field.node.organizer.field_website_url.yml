@@ -1,0 +1,23 @@
+uuid: 51902d78-779a-4c0c-b140-1d0e58a7a738
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_website_url
+    - node.type.organizer
+  module:
+    - link
+id: node.organizer.field_website_url
+field_name: field_website_url
+entity_type: node
+bundle: organizer
+label: 'Website url'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

@@ -1,0 +1,15 @@
+uuid: 372f98bf-bbc0-45ee-8ee9-6a1c73fe55ed
+langcode: en
+status: true
+dependencies: {  }
+name: app_icon_310x150
+label: 'App icon (310×150)'
+effects:
+  837e80cd-e5d9-4a8d-bbcf-ef1f1031c826:
+    uuid: 837e80cd-e5d9-4a8d-bbcf-ef1f1031c826
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 310
+      height: 150
+      anchor: center-center

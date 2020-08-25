@@ -1,0 +1,15 @@
+uuid: e293c269-c721-4394-b116-0a92637dfe51
+langcode: en
+status: true
+dependencies: {  }
+name: app_icon_16x16
+label: 'App icon (16×16)'
+effects:
+  030eec4a-dc1a-4ef8-839f-808c4a22dd3c:
+    uuid: 030eec4a-dc1a-4ef8-839f-808c4a22dd3c
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 16
+      height: 16
+      anchor: center-center

@@ -1,0 +1,12 @@
+{
+  "entrypoints": {
+    "form/conference": {
+      "css": [
+        "/build/form/conference.css"
+      ],
+      "js": [
+        "/build/form/conference.js"
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+uuid: 5588a7db-3f0b-4140-b474-fbe079595fd1
+langcode: en
+status: true
+dependencies: {  }
+name: Theme
+type: theme
+description: 'A theme for an event'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

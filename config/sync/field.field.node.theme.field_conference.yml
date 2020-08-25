@@ -1,0 +1,28 @@
+uuid: 5831b558-d1ad-4a26-aef6-e3ba0c25b710
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_conference
+    - node.type.conference
+    - node.type.theme
+id: node.theme.field_conference
+field_name: field_conference
+entity_type: node
+bundle: theme
+label: Conference
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      conference: conference
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

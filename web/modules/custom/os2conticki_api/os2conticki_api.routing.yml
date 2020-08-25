@@ -1,0 +1,17 @@
+os2conticki_api.api_controller_index:
+  path: '/api/{type}/{id}'
+  defaults:
+    _controller: '\Drupal\os2conticki_api\Controller\ApiController::index'
+    _title: 'Conference API'
+    type: ~
+    id: ~
+  requirements:
+    _access: 'TRUE'
+
+os2conticki_api.admin_config:
+  path: '/admin/config/services/os2conticki_api'
+  defaults:
+    _form: '\Drupal\os2conticki_api\Form\ConfigForm'
+    _title: 'Conference API configuration'
+  requirements:
+    _permission: 'administer site configuration'

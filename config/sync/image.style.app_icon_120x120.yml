@@ -1,0 +1,15 @@
+uuid: 96822ae6-2d2e-4e19-8bdf-afed568d7b19
+langcode: en
+status: true
+dependencies: {  }
+name: app_icon_120x120
+label: 'App icon (120×120)'
+effects:
+  bf4806ad-06d3-424d-ac51-5f065c8489ce:
+    uuid: bf4806ad-06d3-424d-ac51-5f065c8489ce
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 120
+      height: 120
+      anchor: center-center
