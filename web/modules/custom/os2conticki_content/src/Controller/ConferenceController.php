@@ -58,8 +58,8 @@ class ConferenceController extends ControllerBase {
       '#conference' => $conference,
       '#basename' => $basename,
       '#api_url' => $apiUrl,
-      '#style_urls' => ['/modules/custom/os2conticki_content/app/dist/entry.css'],
-      '#script_urls' => ['/modules/custom/os2conticki_content/app/dist/entry.js'],
+      '#style_urls' => ['https://cdn.jsdelivr.net/npm/@os2conticki/display-react@latest/public/dist/entry.css'],
+      '#script_urls' => ['https://cdn.jsdelivr.net/npm/@os2conticki/display-react@latest/public/dist/entry.js'],
     ];
 
     $content = \Drupal::service('renderer')->renderPlain($renderable);
