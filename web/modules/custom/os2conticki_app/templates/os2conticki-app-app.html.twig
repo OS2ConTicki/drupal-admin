@@ -23,11 +23,6 @@
     <{{ icon.tagName }}{% for name, value in icon.attributes %} {{ name|escape('html_attr') }}="{{ value|escape('html_attr') }}"{% endfor %}/>
   {% endfor %}
 
-  <meta name="msapplication-square150x150logo" content="/icons/mstile-150x150.png" />
-  <meta name="msapplication-wide310x150logo"   content="/icons/mstile-310x150.png" />
-  <meta name="msapplication-square310x310logo" content="/icons/mstile-310x310.png" />
-  <meta name="msapplication-square70x70logo"   content="/icons/mstile-70x70.png" />
-
   {% for url in style_urls %}
     <link rel="stylesheet" href="{{ url }}">
   {% endfor %}
@@ -44,9 +39,11 @@
     url: {{ api_url|json_encode|raw }}
   })
   {# TODO: Should we disable the service worker if user is authenticated? #}
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js');
-  }
+  {% if service_worker_url|default(false) %}
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register({{ service_worker_url|json_encode|raw }});
+    }
+  {% endif %}
 </script>
 </body>
 </html>

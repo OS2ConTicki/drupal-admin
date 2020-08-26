@@ -27,6 +27,13 @@ function os2conticki_app_theme() {
         'api_url' => NULL,
         'style_urls' => NULL,
         'script_urls' => NULL,
+        'service_worker_url' => NULL,
+      ],
+    ],
+    'os2conticki_app_service_worker' => [
+      'variables' => [
+        // Urls to pre-cache.
+        'precache_urls' => NULL,
       ],
     ],
   ];

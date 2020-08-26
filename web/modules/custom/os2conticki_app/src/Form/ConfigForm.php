@@ -46,7 +46,7 @@ class ConfigForm extends ConfigFormBase {
     ];
 
     $form['app_script_urls'] = [
-      '#title' => $this->t('App style urls'),
+      '#title' => $this->t('App script urls'),
       '#type' => 'textarea',
       '#default_value' => $config->get('app_script_urls') ?? implode(PHP_EOL, [
         'https://cdn.jsdelivr.net/npm/@os2conticki/display-react@latest/public/dist/entry.js',

@@ -27,6 +27,20 @@ os2conticki_app.conference_app_manifest:
       node:
         type: entity:node
 
+os2conticki_app.conference_app_service_worker:
+  path: '/app/{node}/service-worker'
+  defaults:
+    _controller: '\Drupal\os2conticki_app\Controller\ConferenceController::serviceWorker'
+    _title: 'Conference app service worker'
+    type: ~
+    entity: ~
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      node:
+        type: entity:node
+
 os2conticki_app.admin_config:
   path: '/admin/config/services/os2conticki_app'
   defaults:

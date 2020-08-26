@@ -1,7 +1,8 @@
 # OS2ConTicki Drupal admin
 
 An “[admin](https://github.com/OS2ConTicki/OS2ConTicki#implementations)”
-implementation for [OS2ConTicki](https://github.com/OS2ConTicki/OS2ConTicki).
+implementation for [OS2ConTicki](https://github.com/OS2ConTicki/OS2ConTicki)
+built in Drupal 9.
 
 Contains content types for all the [OS2ConTicki
 entities](https://github.com/OS2ConTicki/OS2ConTicki) and roles and permissions
@@ -45,7 +46,7 @@ echo "http://$(docker-compose port nginx 80)"
 docker-compose exec phpfpm vendor/bin/drush --yes --uri="http://$(docker-compose port nginx 80)" user:login
 ```
 
-## Using `symfony` binary
+### Using `symfony` binary
 
 ```sh
 docker-compose up -d
@@ -58,6 +59,11 @@ echo "http://0.0.0.0:8887
 # Get admin sign in url
 symfony php vendor/bin/drush --uri=https://127.0.0.1:8887 user:login
 ```
+
+## Configuration
+
+See
+[web/modules/custom/os2conticki_app/README.md](web/modules/custom/os2conticki_app/README.md).
 
 ## Fixtures
 
