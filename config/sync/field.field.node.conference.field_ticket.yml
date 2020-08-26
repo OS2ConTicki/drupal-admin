@@ -14,7 +14,7 @@ bundle: conference
 label: Ticket
 description: 'Where to buy tickets for this conference.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
