@@ -11,7 +11,7 @@ field_name: field_sponsors
 entity_type: node
 bundle: conference
 label: Sponsors
-description: ''
+description: 'To search sponsors these must be submitted first'
 required: false
 translatable: false
 default_value: {  }
