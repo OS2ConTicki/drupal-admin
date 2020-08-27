@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29e293d5a0b00bd5cc465a7d8a4daff9",
+    "content-hash": "595f565cd0d8b82252f6c7b8bd793890",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1997,6 +1997,30 @@
                 }
             ],
             "description": "Module implementing the Conference API",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
+        },
+        {
+            "name": "drupal/os2conticki_app",
+            "version": "dev-feature/JOBCAMP-53-app-preview",
+            "dist": {
+                "type": "path",
+                "url": "web/modules/custom/os2conticki_app",
+                "reference": "55042be06d60b8e76c2683941f09552c2b485e77"
+            },
+            "type": "drupal-custom-module",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mikkel Ricky",
+                    "email": "rimi@aarhus.dk"
+                }
+            ],
+            "description": "OS2ConTicki app.",
             "transport-options": {
                 "symlink": false,
                 "relative": true

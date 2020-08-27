@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <title>{{ conference.title.value }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% if manifest_url|default(false) %}
+  <link rel="manifest" href="{{ manifest_url }}">
+  {% endif %}
+
+  <!-- iOS launch screens -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <!-- MS icons -->
+  <meta name="application-name" content="{{ application_name }}"/>
+  <meta name="msapplication-TileColor" content="#1E3284" />
+  <meta name="msapplication-TileImage" content="/icons/mstile-144x144.png" />
+
+  <meta name="theme-color" content="{{ app_data.primary_color|default('#212529') }}">
+
+  {% for icon in icons %}
+    <{{ icon.tagName }}{% for name, value in icon.attributes %} {{ name|escape('html_attr') }}="{{ value|escape('html_attr') }}"{% endfor %}/>
+  {% endfor %}
+
+  {% for url in style_urls %}
+    <link rel="stylesheet" href="{{ url }}">
+  {% endfor %}
+</head>
+<body>
+<div id="app">{{ conference.title.value }}</div>
+{% for url in script_urls %}
+  <script src="{{ url }}"></script>
+{% endfor %}
+<script>
+  ConferenceApp.render({
+    element: document.getElementById('app'),
+    basename: {{ basename|json_encode|raw }},
+    url: {{ api_url|json_encode|raw }}
+  })
+  {# TODO: Should we disable the service worker if user is authenticated? #}
+  {% if service_worker_url|default(false) %}
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register({{ service_worker_url|json_encode|raw }});
+    }
+  {% endif %}
+</script>
+</body>
+</html>
