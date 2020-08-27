@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.event.body
     - field.field.node.event.field_conference
     - field.field.node.event.field_image
+    - field.field.node.event.field_language
     - field.field.node.event.field_location
     - field.field.node.event.field_organizers
     - field.field.node.event.field_speakers
@@ -17,8 +18,9 @@ dependencies:
     - node.type.event
   module:
     - datetime_range
-    - image
     - link
+    - options
+    - svg_image
     - text
     - user
 id: node.event.default
@@ -49,6 +51,13 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
+  field_language:
+    weight: 112
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   field_location:
     weight: 106
