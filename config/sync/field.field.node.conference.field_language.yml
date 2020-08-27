@@ -1,0 +1,21 @@
+uuid: a6fb75a1-8529-4208-bebc-d40771dabafb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_language
+    - node.type.conference
+  module:
+    - options
+id: node.conference.field_language
+field_name: field_language
+entity_type: node
+bundle: conference
+label: Language
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
