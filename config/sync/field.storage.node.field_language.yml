@@ -12,11 +12,11 @@ type: list_string
 settings:
   allowed_values:
     -
-      value: en
-      label: English
-    -
       value: da
       label: Dansk
+    -
+      value: en
+      label: English
   allowed_values_function: ''
 module: options
 locked: false
