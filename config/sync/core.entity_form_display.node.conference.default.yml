@@ -5,9 +5,12 @@ dependencies:
   config:
     - field.field.node.conference.body
     - field.field.node.conference.field_app_logo
+    - field.field.node.conference.field_app_logo_svg
     - field.field.node.conference.field_app_primary_color
     - field.field.node.conference.field_dates
     - field.field.node.conference.field_image
+    - field.field.node.conference.field_language
+    - field.field.node.conference.field_location
     - field.field.node.conference.field_organizers
     - field.field.node.conference.field_sponsors
     - field.field.node.conference.field_ticket
@@ -17,18 +20,19 @@ dependencies:
     - color_field
     - datetime_range
     - field_group
-    - image
     - link
     - os2conticki_content
+    - svg_image
     - text
 third_party_settings:
   field_group:
     group_app:
       children:
         - field_app_logo
+        - field_app_logo_svg
         - field_app_primary_color
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: details
       region: content
       format_settings:
@@ -67,9 +71,17 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
+  field_app_logo_svg:
+    weight: 1
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
   field_app_primary_color:
     type: color_field_widget_box
-    weight: 0
+    weight: 2
     region: content
     settings:
       default_colors: "\n#ac725e,#d06b64,#f83a22,#fa573c,#ff7537,#ffad46\n#42d692,#16a765,#7bd148,#b3dc6c,#fbe983\n#92e1c0,#9fe1e7,#9fc6e7,#4986e7,#9a9cff\n#b99aff,#c2c2c2,#cabdbf,#cca6ac,#f691b2\n#cd74e6,#a47ae2"
@@ -88,6 +100,22 @@ content:
     third_party_settings: {  }
     type: image_image
     region: content
+  field_language:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_location:
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: conference_entity_reference_autocomplete
+    region: content
   field_organizers:
     weight: 5
     settings:
@@ -99,7 +127,7 @@ content:
     type: conference_entity_reference_autocomplete
     region: content
   field_sponsors:
-    weight: 11
+    weight: 12
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -109,20 +137,13 @@ content:
     type: conference_entity_reference_autocomplete
     region: content
   field_ticket:
-    weight: 12
+    weight: 13
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
     region: content
-  langcode:
-    type: language_select
-    weight: 1
-    region: content
-    settings:
-      include_locked: false
-    third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
@@ -162,4 +183,5 @@ content:
       match_limit: 10
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  langcode: true

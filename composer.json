@@ -18,6 +18,13 @@
                 "symlink": false
             }
         },
+        "drupal/os2conticki_app": {
+            "type": "path",
+            "url": "web/modules/custom/os2conticki_app",
+            "options": {
+                "symlink": false
+            }
+        },
         "drupal/os2conticki_content": {
             "type": "path",
             "url": "web/modules/custom/os2conticki_content",
@@ -43,6 +50,7 @@
         "drupal/core-recommended": "^9",
         "drupal/masquerade": "^2.0@beta",
         "drupal/os2conticki_api": "*",
+        "drupal/os2conticki_app": "*",
         "drupal/os2conticki_content": "*",
         "drupal/restui": "^1.18",
         "drupal/toolbar_menu": "^2.2",

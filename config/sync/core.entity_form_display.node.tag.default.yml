@@ -39,13 +39,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: false
-    third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
@@ -85,4 +78,5 @@ content:
       match_limit: 10
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  langcode: true

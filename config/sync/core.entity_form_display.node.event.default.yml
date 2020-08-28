@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.event.body
     - field.field.node.event.field_conference
     - field.field.node.event.field_image
+    - field.field.node.event.field_language
     - field.field.node.event.field_location
     - field.field.node.event.field_organizers
     - field.field.node.event.field_speakers
@@ -18,9 +19,9 @@ dependencies:
     - node.type.event
   module:
     - datetime_range
-    - image
     - link
     - os2conticki_content
+    - svg_image
     - text
 id: node.event.default
 targetEntityType: node
@@ -60,6 +61,12 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
+  field_language:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_location:
     weight: 12
@@ -135,13 +142,6 @@ content:
     third_party_settings: {  }
     type: daterange_default
     region: content
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: false
-    third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
@@ -177,4 +177,5 @@ content:
     settings: {  }
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  langcode: true

@@ -73,6 +73,15 @@ class Helper {
         unset($attributes['field_image']);
       }
 
+      // Remove `field_` prefix.
+      foreach (['language'] as $name) {
+        $fieldName = 'field_' . $name;
+        if (isset($attributes[$fieldName])) {
+          $attributes[$name] = $attributes[$fieldName];
+          unset($attributes[$fieldName]);
+        }
+      }
+
       foreach ($attributes as $name => $value) {
         if ('body' === $name && is_array($value)) {
           // Flatten rich text value.
@@ -149,9 +158,9 @@ class Helper {
         'field_sponsors' => 'sponsors',
         'field_tags' => 'tags',
         'field_themes' => 'themes',
-      ] as $field => $type) {
-        if (isset($item['relationships'][$field])) {
-          $relationships[$type] = $this->convertRelationship($item['relationships'][$field]);
+      ] as $fieldName => $type) {
+        if (isset($item['relationships'][$fieldName])) {
+          $relationships[$type] = $this->convertRelationship($item['relationships'][$fieldName]);
           // Make sure that a field with cardinality 1 is rendered as a list
           // (rather than an object).
           if ('themes' === $type) {
@@ -183,7 +192,7 @@ class Helper {
         'description',
         'end_time',
         'image',
-        'langcode',
+        'language',
         'promote',
         'start_time',
         'summary',
@@ -221,6 +230,14 @@ class Helper {
           }
         }
         $metadata['icons'] = $icons;
+      }
+    }
+
+    $data = $item['relationships']['field_app_logo_svg']['data'] ?? NULL;
+    if (isset($data['id'])) {
+      $logo = $this->getFile($data['id']);
+      if ($logo) {
+        $metadata['logo_svg'] = $logo->createFileUrl(FALSE);
       }
     }
 

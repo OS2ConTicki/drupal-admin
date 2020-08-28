@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Module file for os2conticki_app.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function os2conticki_app_theme() {
+  return [
+    'os2conticki_app_app' => [
+      'variables' => [
+        // The conference.
+        'conference' => NULL,
+        // The base url,.
+        'basename' => NULL,
+        // The app manifest url.
+        'manifest_url' => NULL,
+        // General app data.
+        'app_data' => NULL,
+        // App icons.
+        'icons' => NULL,
+        'application_name' => NULL,
+        // The conference api url.
+        'api_url' => NULL,
+        'style_urls' => NULL,
+        'script_urls' => NULL,
+        'service_worker_url' => NULL,
+      ],
+    ],
+    'os2conticki_app_service_worker' => [
+      'variables' => [
+        // Urls to pre-cache.
+        'precache_urls' => NULL,
+      ],
+    ],
+  ];
+}

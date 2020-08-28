@@ -1,0 +1,8 @@
+name: 'APP'
+type: module
+description: 'App view for OS2ConTicki'
+core_version_requirement: ^9
+package: OS2ConTicki
+# version: VERSION
+
+configure: os2conticki_app.admin_config
