@@ -52,14 +52,14 @@
         "drupal/os2conticki_api": "*",
         "drupal/os2conticki_app": "*",
         "drupal/os2conticki_content": "*",
+        "drupal/os2conticki_fixtures": "*",
         "drupal/restui": "^1.18",
         "drupal/toolbar_menu": "^2.2",
         "drush/drush": "^10.3"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-        "drupal/coder": "^8.3.1",
-        "drupal/os2conticki_fixtures": "*"
+        "drupal/coder": "^8.3.1"
     },
     "conflict": {
         "drupal/drupal": "*"
