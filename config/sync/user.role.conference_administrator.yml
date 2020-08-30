@@ -8,6 +8,7 @@ weight: 4
 is_admin: null
 permissions:
   - 'access content overview'
+  - 'access toolbar'
   - 'create conference content'
   - 'create event content'
   - 'create location content'
