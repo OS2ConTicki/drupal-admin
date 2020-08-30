@@ -30,7 +30,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 9
+    weight: 4
     settings:
       rows: 9
       summary_rows: 3
@@ -40,7 +40,7 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 5
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -55,7 +55,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_image:
-    weight: 15
+    weight: 5
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -63,13 +63,13 @@ content:
     type: image_image
     region: content
   field_language:
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_location:
-    weight: 12
+    weight: 10
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -79,7 +79,7 @@ content:
     type: conference_entity_reference_autocomplete
     region: content
   field_organizers:
-    weight: 13
+    weight: 8
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -89,7 +89,7 @@ content:
     type: conference_entity_reference_autocomplete
     region: content
   field_speakers:
-    weight: 11
+    weight: 9
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -99,7 +99,7 @@ content:
     type: conference_entity_reference_autocomplete
     region: content
   field_sponsors:
-    weight: 16
+    weight: 11
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -109,7 +109,7 @@ content:
     type: conference_entity_reference_autocomplete
     region: content
   field_tags:
-    weight: 3
+    weight: 7
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -119,7 +119,7 @@ content:
     type: conference_entity_reference_autocomplete
     region: content
   field_themes:
-    weight: 10
+    weight: 6
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -137,7 +137,7 @@ content:
     type: link_default
     region: content
   field_times:
-    weight: 14
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: daterange_default
@@ -146,21 +146,21 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 6
+    weight: 14
     region: content
     third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 16
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 15
     region: content
     third_party_settings: {  }
   title:
@@ -173,7 +173,7 @@ content:
     third_party_settings: {  }
   uid:
     type: options_buttons
-    weight: 4
+    weight: 12
     settings: {  }
     region: content
     third_party_settings: {  }

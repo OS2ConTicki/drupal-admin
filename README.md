@@ -55,9 +55,9 @@ symfony php vendor/bin/drush --yes site:install minimal --config-dir=../config/s
 # Start the server
 symfony local:server:start --port=8887 --daemon --allow-http
 # Get the site url
-echo "http://0.0.0.0:8887
+echo "http://127.0.0.1:8887"
 # Get admin sign in url
-symfony php vendor/bin/drush --uri=https://127.0.0.1:8887 user:login
+symfony php vendor/bin/drush --uri=http://127.0.0.1:8887 user:login
 ```
 
 ## Configuration

@@ -12,7 +12,7 @@ field_name: field_language
 entity_type: node
 bundle: conference
 label: Language
-description: ''
+description: 'Choose the language of your conference'
 required: false
 translatable: false
 default_value: {  }
