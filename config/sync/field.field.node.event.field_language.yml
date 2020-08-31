@@ -12,7 +12,7 @@ field_name: field_language
 entity_type: node
 bundle: event
 label: Language
-description: ''
+description: 'Choose the language of your event'
 required: true
 translatable: true
 default_value: {  }
