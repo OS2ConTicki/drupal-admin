@@ -9,6 +9,7 @@ is_admin: null
 permissions:
   - 'access content overview'
   - 'access toolbar'
+  - 'clone event node entities'
   - 'create conference content'
   - 'create event content'
   - 'create location content'

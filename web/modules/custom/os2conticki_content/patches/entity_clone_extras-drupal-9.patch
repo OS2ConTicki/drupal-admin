@@ -1,0 +1,248 @@
+diff --git a/modules/entity_clone_extras/entity_clone_extras.info.yml b/modules/entity_clone_extras/entity_clone_extras.info.yml
+new file mode 100644
+index 0000000..0ffa74c
+--- /dev/null
++++ b/modules/entity_clone_extras/entity_clone_extras.info.yml
+@@ -0,0 +1,7 @@
++name: 'Entity Clone Extras'
++type: module
++description: 'Allow for bundle level permission for node entity type.'
++core_version_requirement: ^9
++package: 'entity_clone'
++dependencies:
++  - entity_clone
+diff --git a/modules/entity_clone_extras/entity_clone_extras.module b/modules/entity_clone_extras/entity_clone_extras.module
+new file mode 100644
+index 0000000..b395b4b
+--- /dev/null
++++ b/modules/entity_clone_extras/entity_clone_extras.module
+@@ -0,0 +1,74 @@
++<?php
++
++/**
++ * @file
++ * Contains entity_clone_extras.module.
++ */
++
++use Drupal\Core\Access\AccessResult;
++use Drupal\Core\Entity\EntityInterface;
++use Drupal\Core\Routing\RouteMatchInterface;
++use Drupal\Core\Session\AccountInterface;
++
++/**
++ * Implements hook_help().
++ */
++function entity_clone_extras_help($route_name, RouteMatchInterface $route_match) {
++  switch ($route_name) {
++    // Main module help for the entity_clone_extras module.
++    case 'help.page.entity_clone_extras':
++      $output = '';
++      $output .= '<h3>' . t('About') . '</h3>';
++      $output .= '<p>' . t('allow for bundle level permissions for node entity type.') . '</p>';
++      return $output;
++
++    default:
++  }
++}
++
++/**
++ * Alter entity operations.
++ *
++ * @param array $operations
++ *   An operations array as returned by
++ *   EntityListBuilderInterface::getOperations().
++ * @param \Drupal\Core\Entity\EntityInterface $entity
++ *   The entity on which the linked operations will be performed.
++ *
++ * @see \Drupal\Core\Entity\EntityListBuilderInterface::getOperations()
++ */
++function entity_clone_extras_entity_operation_alter(array &$operations, EntityInterface $entity) {
++  // Check if entity type supports cloning:
++  if ($entity->hasLinkTemplate('clone-form')) {
++    // If it does,  get the current user.
++    $user = \Drupal::currentUser();
++    if ($entity->getEntityTypeId() == 'node') {
++      // If we are dealing with node, we handle permissions per bundle.
++      $bundle = $entity->bundle();
++      // Check the bundle access.
++      if (!$user->hasPermission("clone $bundle node entities")) {
++        // Remove the operation if the user has no access to it.
++        unset($operations['clone']);
++      }
++    }
++    else {
++      // For other entities, such as user, the entity clone module displays a
++      // clone operation even if the user does not have access. So we correct it
++      // and remove the clone operation.
++      // See: https://www.drupal.org/project/entity_clone/issues/2743379
++      if (!$user->hasPermission('clone ' . $entity->getEntityTypeId() . ' entity')) {
++        unset($operations['clone']);
++      }
++    }
++  }
++}
++
++/**
++ * Implements hook_entity_access().
++ */
++function entity_clone_extras_entity_access(EntityInterface $entity, $operation, AccountInterface $account) {
++  if ($operation === 'clone') {
++    return AccessResult::allowedIfHasPermission($account, 'clone ' . $entity->bundle() . ' node entities');
++  }
++  return AccessResult::neutral();
++}
+diff --git a/modules/entity_clone_extras/entity_clone_extras.permissions.yml b/modules/entity_clone_extras/entity_clone_extras.permissions.yml
+new file mode 100644
+index 0000000..e812779
+--- /dev/null
++++ b/modules/entity_clone_extras/entity_clone_extras.permissions.yml
+@@ -0,0 +1,2 @@
++permission_callbacks:
++  - Drupal\entity_clone_extras\EntityCloneExtrasPermissions::permissions
+diff --git a/modules/entity_clone_extras/src/Controller/AccessController.php b/modules/entity_clone_extras/src/Controller/AccessController.php
+new file mode 100644
+index 0000000..f172207
+--- /dev/null
++++ b/modules/entity_clone_extras/src/Controller/AccessController.php
+@@ -0,0 +1,60 @@
++<?php
++
++namespace Drupal\entity_clone_extras\Controller;
++
++use Drupal\Core\Access\AccessResult;
++use Drupal\Core\Controller\ControllerBase;
++use Drupal\Core\Session\AccountInterface;
++use Symfony\Component\DependencyInjection\ContainerInterface;
++use Drupal\node\NodeInterface;
++
++/**
++ * Provides access control for cloning node entities by role and bundle.
++ */
++class AccessController extends ControllerBase {
++
++  /**
++   * The entity Manager.
++   *
++   * @var \Drupal\Core\Entity\EntityManager
++   */
++  protected $currentUser;
++
++  /**
++   * Constructs a new ContentEntityCloneBase.
++   *
++   * @param \Drupal\Core\Session\AccountInterface $current_user
++   *   The current user.
++   */
++  public function __construct(AccountInterface $current_user) {
++    $this->currentUser = $current_user;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public static function create(ContainerInterface $container) {
++    return new static(
++      $container->get('current_user')
++    );
++  }
++
++  /**
++   * Custom access checker for the create lock requirements route.
++   *
++   * @see \Drupal\content_lock\Routing\ContentLockRoutes::routes()
++   */
++  public function access(NodeInterface $node) {
++    // Check if the user has "clone all content entities" permission.
++    if ($this->currentUser->hasPermission('clone node entity')) {
++      // Grant access if the user does.
++      return AccessResult::allowed();
++    }
++    // Otherwise check to see if user has access to clone specific content type:
++    elseif ($this->currentUser->hasPermission("clone " . $node->bundle() . " node entities")) {
++      return AccessResult::allowed();
++    }
++    return AccessResult::neutral();
++  }
++
++}
+diff --git a/modules/entity_clone_extras/src/EntityCloneExtrasPermissions.php b/modules/entity_clone_extras/src/EntityCloneExtrasPermissions.php
+new file mode 100644
+index 0000000..d126feb
+--- /dev/null
++++ b/modules/entity_clone_extras/src/EntityCloneExtrasPermissions.php
+@@ -0,0 +1,75 @@
++<?php
++
++namespace Drupal\entity_clone_extras;
++
++use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
++use Drupal\Core\Entity\EntityTypeManagerInterface;
++use Drupal\Core\StringTranslation\TranslationManager;
++use Symfony\Component\DependencyInjection\ContainerInterface;
++
++/**
++ * Provides dynamic permissions of the entity_clone module.
++ */
++class EntityCloneExtrasPermissions implements ContainerInjectionInterface {
++
++  /**
++   * The entity type manager.
++   *
++   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
++   */
++  protected $entityTypeManager;
++
++  /**
++   * The string translation manager.
++   *
++   * @var \Drupal\Core\StringTranslation\TranslationManager
++   */
++  protected $translationManager;
++
++  /**
++   * Constructs a new EntityCloneExtrasPermissions instance.
++   *
++   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
++   *   The entity type manager.
++   * @param \Drupal\Core\StringTranslation\TranslationManager $string_translation
++   *   The string translation manager.
++   */
++  public function __construct(EntityTypeManagerInterface $entity_manager, TranslationManager $string_translation) {
++    $this->entityTypeManager = $entity_manager;
++    $this->translationManager = $string_translation;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public static function create(ContainerInterface $container) {
++    return new static(
++      $container->get('entity_type.manager'),
++      $container->get('string_translation')
++    );
++  }
++
++  /**
++   * Returns an array of entity_clone_extras permissions.
++   *
++   * @return array
++   *   The permission list.
++   */
++  public function permissions() {
++    $permissions = [];
++    // Fetch all available content types.
++    $content_types = $this->entityTypeManager->getStorage('node_type')
++      ->loadMultiple();
++    foreach ($content_types as $key => $type) {
++      // Add a permission to clone each content type.
++      $permissions['clone ' . $key . ' node entities'] = $this
++        ->translationManager
++        ->translate('Clone all <em>@label</em> node entities', [
++          '@label' => $type->label(),
++        ]);
++    }
++
++    return $permissions;
++  }
++
++}

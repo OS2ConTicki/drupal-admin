@@ -1,0 +1,17 @@
+form_settings:
+  node:
+    hidden: true
+    default_value: false
+    disable: false
+  file:
+    default_value: false
+    disable: false
+    hidden: false
+  path_alias:
+    default_value: false
+    disable: false
+    hidden: false
+  user:
+    default_value: false
+    disable: false
+    hidden: false

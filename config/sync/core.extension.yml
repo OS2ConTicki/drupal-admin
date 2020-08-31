@@ -7,6 +7,8 @@ module:
   datetime_range: 0
   dynamic_page_cache: 0
   editor: 0
+  entity_clone: 0
+  entity_clone_extras: 0
   field: 0
   field_group: 0
   field_ui: 0
