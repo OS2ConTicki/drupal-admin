@@ -4,3 +4,6 @@ description: 'General content for OS2ConTicki'
 core_version_requirement: ^9
 package: OS2ConTicki
 # version: VERSION
+dependencies:
+  - drupal:entity_clone
+  - drupal:entity_clone_extras

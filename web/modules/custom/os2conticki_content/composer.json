@@ -16,8 +16,19 @@
         }
     },
     "require": {
+        "cweagans/composer-patches": "^1.6.5",
         "drupal/color_field": "^2.4",
         "drupal/field_group": "^3.1",
-        "drupal/svg_image": "^1.14"
+        "drupal/svg_image": "^1.14",
+        "drupal/entity_clone": "^1.0@beta"
+    },
+    "extra": {
+        "enable-patching": true,
+        "patches": {
+            "drupal/entity_clone": {
+                "Permissions per role per entity bundle (https://www.drupal.org/node/2931143)": "web/modules/custom/os2conticki_content/patches/entity_clone_extras-drupal-9.patch",
+                "Change author on clone (https://www.drupal.org/node/3078811)": "https://www.drupal.org/files/issues/2020-08-24/add_take_ownership_option-3078811-10.patch"
+            }
+        }
     }
 }

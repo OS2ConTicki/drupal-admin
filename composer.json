@@ -44,7 +44,9 @@
         "php": "^7.3",
         "ext-json": "*",
         "composer/installers": "^1.9",
+        "cweagans/composer-patches": "^1.6.5",
         "drupal/admin_toolbar": "^2.3",
+        "drupal/config_ignore": "^2.2",
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
@@ -138,6 +140,7 @@
                 "  * Remove the plugin that prints this message:",
                 "      composer remove drupal/core-project-message"
             ]
-        }
+        },
+        "enable-patching": true
     }
 }
