@@ -241,6 +241,15 @@ class Helper {
       }
     }
 
+    // Accessibility statement.
+    if (isset($item['attributes']['field_accessibility_statement']['uri'])) {
+      $link = $item['attributes']['field_accessibility_statement'];
+      $metadata['accessibility_statement'] = [
+        'url' => $link['uri'],
+        'text' => $link['title'] ?: NULL,
+      ];
+    }
+
     return $metadata;
   }
 
