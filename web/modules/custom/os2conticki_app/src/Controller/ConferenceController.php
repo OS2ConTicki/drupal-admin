@@ -61,10 +61,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       throw new NotFoundHttpException();
     }
 
-    $basename = $this->generateUrl('os2conticki_app.conference_app', [
-      'node' => $node->id(),
-    ]);
-
+    $basename = $this->getBasename($node);
     $apiUrl = $this->getApiUrl($node);
     $appData = $this->getAppData($apiUrl);
     $icons = $this->getIcons($appData);
@@ -183,16 +180,46 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   }
 
   /**
-   * Get conference api url.
+   * Get app url.
    */
-  private function getApiUrl(NodeInterface $node): string {
-    return $this->generateUrl('os2conticki_api.api_controller_index', [
-      'type' => $node->bundle(),
-      'id' => $node->uuid(),
-      'include' => implode(',', ['organizers', 'sponsors']),
+  private function getAppUrl(NodeInterface $node): string {
+    if (isset($node->field_custom_app_url->uri)) {
+      return $node->field_custom_app_url->uri;
+    }
+
+    return $this->generateUrl('os2conticki_app.conference_app', [
+      'node' => $node->id(),
     ], [
       'absolute' => TRUE,
     ]);
+  }
+
+  /**
+   * Get app basename.
+   */
+  private function getBasename(NodeInterface $node): string {
+    $appUrl = $this->getAppUrl($node);
+    $parts = parse_url($appUrl);
+
+    return $parts['path'] ?? '/';
+  }
+
+  /**
+   * Get conference api url.
+   */
+  private function getApiUrl(NodeInterface $node): string {
+    $appUrl = $this->getAppUrl($node);
+    $parts = parse_url($appUrl);
+    $url = $parts['scheme'] . '://' . $parts['host'];
+    if (isset($parts['port'])) {
+      $url .= ':' . $parts['port'];
+    }
+    $url .= '/api/conference/' . $node->uuid()
+      . '?' . http_build_query([
+        'include' => implode(',', ['organizers']),
+      ]);
+
+    return $url;
   }
 
   /**
