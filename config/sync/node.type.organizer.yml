@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 name: Organizer
 type: organizer
-description: ''
+description: 'An organizer of a conference or an event'
 help: ''
 new_revision: true
 preview_mode: 1
