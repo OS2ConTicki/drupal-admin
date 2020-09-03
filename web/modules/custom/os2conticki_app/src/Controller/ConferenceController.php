@@ -71,12 +71,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $styleUrls = array_filter(array_map('trim', explode(PHP_EOL, $config->get('app_style_urls') ?? '')));
     $scriptUrls = array_filter(array_map('trim', explode(PHP_EOL, $config->get('app_script_urls') ?? '')));
 
-    $manifestUrl = $this->generateUrl('os2conticki_app.conference_app_manifest', [
-      'node' => $node->id(),
-    ]);
-    $serviceWorkerUrl = $this->generateUrl('os2conticki_app.conference_app_service_worker', [
-      'node' => $node->id(),
-    ]);
+    $manifestUrl = $this->getManifestUrl($node);
+    $serviceWorkerUrl = $this->getServiceWorkerUrl($node);
 
     $renderable = [
       '#theme' => 'os2conticki_app_app',
@@ -150,9 +146,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $renderable = [
       '#theme' => 'os2conticki_app_service_worker',
       '#precache_urls' => [
-        $basename = $this->generateUrl('os2conticki_app.conference_app', [
-          'node' => $node->id(),
-        ]),
+        $this->getBasename($node),
       ],
     ];
 
@@ -182,16 +176,36 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   /**
    * Get app url.
    */
-  private function getAppUrl(NodeInterface $node): string {
-    if (isset($node->field_custom_app_url->uri)) {
-      return $node->field_custom_app_url->uri;
-    }
-
-    return $this->generateUrl('os2conticki_app.conference_app', [
+  private function getAppUrl(NodeInterface $node, string $path = NULL): string {
+    $appUrl = $this->generateUrl('os2conticki_app.conference_app', [
       'node' => $node->id(),
     ], [
       'absolute' => TRUE,
     ]);
+
+    if (isset($node->field_custom_app_url->uri)) {
+      $appUrl = $node->field_custom_app_url->uri;
+    }
+
+    if (NULL !== $path) {
+      $appUrl = rtrim($appUrl, '/') . '/' . $path;
+    }
+
+    return $appUrl;
+  }
+
+  /**
+   * Get manifest url.
+   */
+  private function getManifestUrl(NodeInterface $node): string {
+    return $this->getAppUrl($node, 'manifest');
+  }
+
+  /**
+   * Get service worker url.
+   */
+  private function getServiceWorkerUrl(NodeInterface $node): string {
+    return $this->getAppUrl($node, 'service-worker');
   }
 
   /**
@@ -208,18 +222,13 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
    * Get conference api url.
    */
   private function getApiUrl(NodeInterface $node): string {
-    $appUrl = $this->getAppUrl($node);
-    $parts = parse_url($appUrl);
-    $url = $parts['scheme'] . '://' . $parts['host'];
-    if (isset($parts['port'])) {
-      $url .= ':' . $parts['port'];
-    }
-    $url .= '/api/conference/' . $node->uuid()
-      . '?' . http_build_query([
-        'include' => implode(',', ['organizers']),
-      ]);
-
-    return $url;
+    return $this->generateUrl('os2conticki_api.api_controller_index', [
+      'type' => $node->bundle(),
+      'id' => $node->uuid(),
+      'include' => implode(',', ['organizers']),
+    ], [
+      'absolute' => TRUE,
+    ]);
   }
 
   /**

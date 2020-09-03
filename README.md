@@ -97,3 +97,44 @@ composer coding-standards-apply
 
 See also
 [web/modules/custom/os2conticki_content/README.md#coding-standards](web/modules/custom/os2conticki_content/README.md#coding-standards).
+
+## Custom conference urls
+
+For custom conference urls to work proxies must be set up. In this example we
+use `https://my-conference.example.com` as custom url for the conference app
+`https://conticki.example.com/app/1/`.
+
+Assuming DNS configuration has been made to make the domain
+`my-conference.example.com` point to the server hosting ConTicki admin
+(`conticki.example.com`) something along the lines of the following server
+proxies must be set up:
+
+### nginx
+
+```nginx
+server {
+  listen 443 ssl;
+  server_name my-conference.example.com;
+
+  location / {
+    # Note the trailing slash.
+    proxy_pass https://conticki.example.com/app/1/;
+  }
+}
+```
+
+### Apache
+
+```apache
+<VirtualHost _default_:443>
+  ServerName my-conference.example.com
+
+  SSLProxyEngine on
+
+  <Location />
+    # Note the trailing slash.
+    ProxyPass https://conticki.example.com/app/1/
+    ProxyPassReverse https://conticki.example.com/app/1/
+  </Location>
+</VirtualHost>
+```
