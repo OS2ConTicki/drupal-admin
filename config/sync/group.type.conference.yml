@@ -1,0 +1,10 @@
+uuid: bae6d243-c6c8-490e-815d-307cb65983ee
+langcode: en
+status: true
+dependencies: {  }
+id: conference
+label: Conference
+description: ''
+creator_membership: true
+creator_wizard: false
+creator_roles: {  }

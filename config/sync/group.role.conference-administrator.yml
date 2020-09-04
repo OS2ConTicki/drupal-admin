@@ -1,0 +1,57 @@
+uuid: 6acddb06-1659-48bb-9c8a-98c89eeb3ad2
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.conference
+id: conference-administrator
+label: Administrator
+weight: 6
+internal: false
+audience: member
+group_type: conference
+permissions_ui: true
+permissions:
+  - 'administer members'
+  - 'create group_node:conference entity'
+  - 'create group_node:event entity'
+  - 'create group_node:location entity'
+  - 'create group_node:organizer entity'
+  - 'create group_node:speaker entity'
+  - 'create group_node:sponsor entity'
+  - 'create group_node:tag entity'
+  - 'create group_node:theme entity'
+  - 'edit group'
+  - 'update any group_node:conference entity'
+  - 'update any group_node:event entity'
+  - 'update any group_node:location entity'
+  - 'update any group_node:organizer entity'
+  - 'update any group_node:speaker entity'
+  - 'update any group_node:sponsor entity'
+  - 'update any group_node:tag entity'
+  - 'update any group_node:theme entity'
+  - 'update own group_node:conference entity'
+  - 'update own group_node:event entity'
+  - 'update own group_node:location entity'
+  - 'update own group_node:organizer entity'
+  - 'update own group_node:speaker entity'
+  - 'update own group_node:sponsor entity'
+  - 'update own group_node:tag entity'
+  - 'update own group_node:theme entity'
+  - 'view group_membership content'
+  - 'view group_node:conference entity'
+  - 'view group_node:event entity'
+  - 'view group_node:location entity'
+  - 'view group_node:organizer entity'
+  - 'view group_node:speaker entity'
+  - 'view group_node:sponsor entity'
+  - 'view group_node:tag entity'
+  - 'view group_node:theme entity'
+  - 'view unpublished group_node:conference entity'
+  - 'view unpublished group_node:event entity'
+  - 'view unpublished group_node:location entity'
+  - 'view unpublished group_node:organizer entity'
+  - 'view unpublished group_node:speaker entity'
+  - 'view unpublished group_node:sponsor entity'
+  - 'view unpublished group_node:tag entity'
+  - 'view unpublished group_node:theme entity'

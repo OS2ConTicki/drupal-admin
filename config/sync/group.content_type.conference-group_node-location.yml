@@ -1,0 +1,19 @@
+uuid: 36869656-67bb-4e2b-a5c3-c5729e660b71
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.conference
+    - node.type.location
+  module:
+    - gnode
+    - node
+id: conference-group_node-location
+label: 'Conference: Group node (Location)'
+description: 'Adds <em class="placeholder">Location</em> content to groups both publicly and privately.'
+group_type: conference
+content_plugin: 'group_node:location'
+plugin_config:
+  group_cardinality: 1
+  entity_cardinality: 1
+  use_creation_wizard: false

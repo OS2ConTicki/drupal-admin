@@ -1,0 +1,18 @@
+uuid: f32e34f2-686d-45fa-adab-d5c51838982e
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.conference
+id: group.conference.label
+field_name: label
+entity_type: group
+bundle: conference
+label: Title
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -130,6 +130,7 @@ class Helper {
       if (NULL !== $conference) {
         // Make field readonly.
         $form['field_conference']['widget'][0]['target_id']['#attributes']['readonly'] = TRUE;
+        $form['field_conference']['#access'] = FALSE;
       }
     }
 
