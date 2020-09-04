@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.conference.body
+    - field.field.node.conference.field_accessibility_statement
     - field.field.node.conference.field_app_logo
     - field.field.node.conference.field_app_logo_svg
     - field.field.node.conference.field_app_primary_color
@@ -34,6 +35,18 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_accessibility_statement:
+    weight: 113
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
     region: content
   field_app_logo:
     weight: 109
