@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 name: Tag
 type: tag
-description: ''
+description: 'A tag for an event'
 help: ''
 new_revision: true
 preview_mode: 1

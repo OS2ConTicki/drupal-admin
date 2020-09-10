@@ -13,7 +13,7 @@ bundle: event
 label: Speakers
 description: 'Start typing the title of a piece of content to select it. To search speakers these must be submitted first'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

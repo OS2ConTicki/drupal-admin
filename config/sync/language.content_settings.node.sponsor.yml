@@ -8,4 +8,4 @@ id: node.sponsor
 target_entity_type_id: node
 target_bundle: sponsor
 default_langcode: site_default
-language_alterable: true
+language_alterable: false

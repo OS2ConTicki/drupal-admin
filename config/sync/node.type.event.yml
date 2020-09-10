@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 name: Event
 type: event
-description: 'A conference event.'
+description: 'A conference event'
 help: ''
 new_revision: true
 preview_mode: 1

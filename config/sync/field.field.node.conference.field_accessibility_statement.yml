@@ -1,0 +1,23 @@
+uuid: 62d20325-0af0-4457-961e-681b30cd6f12
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_accessibility_statement
+    - node.type.conference
+  module:
+    - link
+id: node.conference.field_accessibility_statement
+field_name: field_accessibility_statement
+entity_type: node
+bundle: conference
+label: 'Accessibility statement'
+description: 'Enter url to the accessibility statement'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link
