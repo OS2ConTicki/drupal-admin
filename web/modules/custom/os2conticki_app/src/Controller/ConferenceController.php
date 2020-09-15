@@ -189,7 +189,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     return $this->generateUrl('os2conticki_api.api_controller_index', [
       'type' => $node->bundle(),
       'id' => $node->uuid(),
-      'include' => implode(',', ['organizers']),
+      'include' => implode(',', ['organizers', 'sponsors']),
     ], [
       'absolute' => TRUE,
     ]);
