@@ -13,6 +13,7 @@ use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -27,10 +28,18 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   private $renderer;
 
   /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  private $requestStack;
+
+  /**
    * Constructor.
    */
-  public function __construct(RendererInterface $renderer) {
+  public function __construct(RendererInterface $renderer, RequestStack $requestStack) {
     $this->renderer = $renderer;
+    $this->requestStack = $requestStack;
   }
 
   /**
@@ -38,7 +47,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('renderer')
+      $container->get('renderer'),
+      $container->get('request_stack')
     );
   }
 
@@ -86,6 +96,12 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       '#style_urls' => $styleUrls,
       '#script_urls' => $scriptUrls,
       '#service_worker_url' => $serviceWorkerUrl,
+      // @see https://www.drupal.org/docs/8/api/render-api/cacheability-of-render-arrays
+      '#cache' => [
+        'contexts' => [
+          'url.query_args:preview',
+        ],
+      ],
     ];
 
     $content = $this->renderer->renderPlain($renderable);
@@ -167,7 +183,9 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $cacheMetadata = new CacheableMetadata();
     // Invalidate cache when the conference node changes.
     // @see https://www.drupal.org/docs/drupal-apis/cache-api/cache-tags
-    $cacheMetadata->addCacheTags(['node:' . $node->id()]);
+    $cacheMetadata
+      ->addCacheTags(['node:' . $node->id()])
+      ->addCacheContexts(['url.query_args:preview']);
     $response->addCacheableDependency($cacheMetadata);
 
     return $response;
@@ -183,8 +201,11 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       'absolute' => TRUE,
     ]);
 
-    if (isset($node->field_custom_app_url->uri)) {
-      $appUrl = $node->field_custom_app_url->uri;
+    $request = $this->requestStack->getCurrentRequest();
+    if (!$request->get('preview')) {
+      if (isset($node->field_custom_app_url->uri)) {
+        $appUrl = $node->field_custom_app_url->uri;
+      }
     }
 
     if (NULL !== $path) {
