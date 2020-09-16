@@ -1,0 +1,23 @@
+uuid: c8380cc4-0afa-4cb2-9ab2-838a83e9f903
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_custom_app_url
+    - node.type.conference
+  module:
+    - link
+id: node.conference.field_custom_app_url
+field_name: field_custom_app_url
+entity_type: node
+bundle: conference
+label: 'Custom app url'
+description: 'Enter a custom app url if needed.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

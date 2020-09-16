@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.conference.field_app_logo
     - field.field.node.conference.field_app_logo_svg
     - field.field.node.conference.field_app_primary_color
+    - field.field.node.conference.field_custom_app_url
     - field.field.node.conference.field_dates
     - field.field.node.conference.field_image
     - field.field.node.conference.field_language
@@ -78,6 +79,18 @@ content:
       opacity: true
     third_party_settings: {  }
     type: color_field_formatter_text
+    region: content
+  field_custom_app_url:
+    weight: 113
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
     region: content
   field_dates:
     weight: 104
