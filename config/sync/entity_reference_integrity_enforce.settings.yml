@@ -1,0 +1,27 @@
+enabled_entity_type_ids:
+  node: node
+  file: file
+  action: '0'
+  base_field_override: '0'
+  block: '0'
+  language_content_settings: '0'
+  node_type: '0'
+  date_format: '0'
+  entity_form_display: '0'
+  entity_view_display: '0'
+  field_config: '0'
+  field_storage_config: '0'
+  entity_form_mode: '0'
+  image_style: '0'
+  configurable_language: '0'
+  menu: '0'
+  user_role: '0'
+  editor: '0'
+  filter_format: '0'
+  toolbar_menu_element: '0'
+  path_alias: '0'
+  user: '0'
+  view: '0'
+  entity_view_mode: '0'
+_core:
+  default_config_hash: 8gwG5hTvIhM_TZyyG2_Vdl7g63M1Rp8-t4jtTcE2vdk
