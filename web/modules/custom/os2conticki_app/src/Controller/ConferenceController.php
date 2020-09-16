@@ -13,6 +13,7 @@ use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -27,10 +28,18 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   private $renderer;
 
   /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  private $requestStack;
+
+  /**
    * Constructor.
    */
-  public function __construct(RendererInterface $renderer) {
+  public function __construct(RendererInterface $renderer, RequestStack $requestStack) {
     $this->renderer = $renderer;
+    $this->requestStack = $requestStack;
   }
 
   /**
@@ -38,7 +47,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('renderer')
+      $container->get('renderer'),
+      $container->get('request_stack')
     );
   }
 
@@ -61,10 +71,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       throw new NotFoundHttpException();
     }
 
-    $basename = $this->generateUrl('os2conticki_app.conference_app', [
-      'node' => $node->id(),
-    ]);
-
+    $basename = $this->getBasename($node);
     $apiUrl = $this->getApiUrl($node);
     $appData = $this->getAppData($apiUrl);
     $icons = $this->getIcons($appData);
@@ -74,12 +81,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $styleUrls = array_filter(array_map('trim', explode(PHP_EOL, $config->get('app_style_urls') ?? '')));
     $scriptUrls = array_filter(array_map('trim', explode(PHP_EOL, $config->get('app_script_urls') ?? '')));
 
-    $manifestUrl = $this->generateUrl('os2conticki_app.conference_app_manifest', [
-      'node' => $node->id(),
-    ]);
-    $serviceWorkerUrl = $this->generateUrl('os2conticki_app.conference_app_service_worker', [
-      'node' => $node->id(),
-    ]);
+    $manifestUrl = $this->getManifestUrl($node);
+    $serviceWorkerUrl = $this->getServiceWorkerUrl($node);
 
     $renderable = [
       '#theme' => 'os2conticki_app_app',
@@ -93,6 +96,12 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       '#style_urls' => $styleUrls,
       '#script_urls' => $scriptUrls,
       '#service_worker_url' => $serviceWorkerUrl,
+      // @see https://www.drupal.org/docs/8/api/render-api/cacheability-of-render-arrays
+      '#cache' => [
+        'contexts' => [
+          'url.query_args:preview',
+        ],
+      ],
     ];
 
     $content = $this->renderer->renderPlain($renderable);
@@ -153,9 +162,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $renderable = [
       '#theme' => 'os2conticki_app_service_worker',
       '#precache_urls' => [
-        $basename = $this->generateUrl('os2conticki_app.conference_app', [
-          'node' => $node->id(),
-        ]),
+        $this->getBasename($node),
       ],
     ];
 
@@ -176,10 +183,60 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $cacheMetadata = new CacheableMetadata();
     // Invalidate cache when the conference node changes.
     // @see https://www.drupal.org/docs/drupal-apis/cache-api/cache-tags
-    $cacheMetadata->addCacheTags(['node:' . $node->id()]);
+    $cacheMetadata
+      ->addCacheTags(['node:' . $node->id()])
+      ->addCacheContexts(['url.query_args:preview']);
     $response->addCacheableDependency($cacheMetadata);
 
     return $response;
+  }
+
+  /**
+   * Get app url.
+   */
+  private function getAppUrl(NodeInterface $node, string $path = NULL): string {
+    $appUrl = $this->generateUrl('os2conticki_app.conference_app', [
+      'node' => $node->id(),
+    ], [
+      'absolute' => TRUE,
+    ]);
+
+    $request = $this->requestStack->getCurrentRequest();
+    if (!$request->get('preview')) {
+      if (isset($node->field_custom_app_url->uri)) {
+        $appUrl = $node->field_custom_app_url->uri;
+      }
+    }
+
+    if (NULL !== $path) {
+      $appUrl = rtrim($appUrl, '/') . '/' . $path;
+    }
+
+    return $appUrl;
+  }
+
+  /**
+   * Get manifest url.
+   */
+  private function getManifestUrl(NodeInterface $node): string {
+    return $this->getAppUrl($node, 'manifest');
+  }
+
+  /**
+   * Get service worker url.
+   */
+  private function getServiceWorkerUrl(NodeInterface $node): string {
+    return $this->getAppUrl($node, 'service-worker');
+  }
+
+  /**
+   * Get app basename.
+   */
+  private function getBasename(NodeInterface $node): string {
+    $appUrl = $this->getAppUrl($node);
+    $parts = parse_url($appUrl);
+
+    return $parts['path'] ?? '/';
   }
 
   /**
@@ -189,7 +246,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     return $this->generateUrl('os2conticki_api.api_controller_index', [
       'type' => $node->bundle(),
       'id' => $node->uuid(),
-      'include' => implode(',', ['organizers']),
+      'include' => implode(',', ['organizers', 'sponsors']),
     ], [
       'absolute' => TRUE,
     ]);
