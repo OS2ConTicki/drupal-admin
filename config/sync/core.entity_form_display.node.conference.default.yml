@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.conference.field_language
     - field.field.node.conference.field_location
     - field.field.node.conference.field_organizers
+    - field.field.node.conference.field_siteimprove_key
     - field.field.node.conference.field_sponsors
     - field.field.node.conference.field_ticket
     - image.style.thumbnail
@@ -35,6 +36,7 @@ third_party_settings:
         - field_app_primary_color
         - field_accessibility_statement
         - field_custom_app_url
+        - field_siteimprove_key
       parent_name: ''
       weight: 14
       format_type: details
@@ -99,7 +101,7 @@ content:
       default_colors: "\n#ac725e,#d06b64,#f83a22,#fa573c,#ff7537,#ffad46\n#42d692,#16a765,#7bd148,#b3dc6c,#fbe983\n#92e1c0,#9fe1e7,#9fc6e7,#4986e7,#9a9cff\n#b99aff,#c2c2c2,#cabdbf,#cca6ac,#f691b2\n#cd74e6,#a47ae2"
     third_party_settings: {  }
   field_custom_app_url:
-    weight: 3
+    weight: 4
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -145,6 +147,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: conference_entity_reference_autocomplete
+    region: content
+  field_siteimprove_key:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_sponsors:
     weight: 12
