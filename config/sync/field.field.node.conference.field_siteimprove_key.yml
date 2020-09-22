@@ -1,0 +1,19 @@
+uuid: 3621ef6c-bb41-4f3e-81f1-9948d268013f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_siteimprove_key
+    - node.type.conference
+id: node.conference.field_siteimprove_key
+field_name: field_siteimprove_key
+entity_type: node
+bundle: conference
+label: 'Siteimprove key'
+description: 'Enter your siteimprove key'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

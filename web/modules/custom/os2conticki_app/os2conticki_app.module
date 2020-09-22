@@ -28,12 +28,19 @@ function os2conticki_app_theme() {
         'style_urls' => NULL,
         'script_urls' => NULL,
         'service_worker_url' => NULL,
+        // Rendered tracking code.
+        'tracking' => NULL,
       ],
     ],
     'os2conticki_app_service_worker' => [
       'variables' => [
         // Urls to pre-cache.
         'precache_urls' => NULL,
+      ],
+    ],
+    'os2conticki_app_tracking_siteimprove' => [
+      'variables' => [
+        'key' => NULL,
       ],
     ],
   ];
