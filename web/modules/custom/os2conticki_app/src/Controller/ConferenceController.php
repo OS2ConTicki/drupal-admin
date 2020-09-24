@@ -84,6 +84,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $manifestUrl = $this->getManifestUrl($node);
     $serviceWorkerUrl = $this->getServiceWorkerUrl($node);
 
+    $tracking = $this->renderTracking($node);
+
     $renderable = [
       '#theme' => 'os2conticki_app_app',
       '#conference' => $node,
@@ -96,6 +98,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       '#style_urls' => $styleUrls,
       '#script_urls' => $scriptUrls,
       '#service_worker_url' => $serviceWorkerUrl,
+      '#tracking' => $tracking,
       // @see https://www.drupal.org/docs/8/api/render-api/cacheability-of-render-arrays
       '#cache' => [
         'contexts' => [
@@ -107,6 +110,22 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $content = $this->renderer->renderPlain($renderable);
 
     return $this->cacheResponse(new CacheableResponse($content), $node);
+  }
+
+  /**
+   * Render app tracking code.
+   */
+  private function renderTracking(NodeInterface $node) {
+    $renderable = NULL;
+
+    if ($key = trim($node->get('field_siteimprove_key')->value)) {
+      $renderable = [
+        '#theme' => 'os2conticki_app_tracking_siteimprove',
+        '#key' => $key,
+      ];
+    }
+
+    return $renderable ? $this->renderer->renderPlain($renderable) : NULL;
   }
 
   /**
