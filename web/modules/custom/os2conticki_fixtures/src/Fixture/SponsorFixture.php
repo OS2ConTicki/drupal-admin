@@ -7,7 +7,7 @@ use Drupal\content_fixtures\Fixture\DependentFixtureInterface;
 use Drupal\node\Entity\Node;
 
 /**
- * Class SponsorFixture.
+ * TODO: Description of what the class does.
  *
  * @package Drupal\os2conticki_fixtures\Fixture
  */

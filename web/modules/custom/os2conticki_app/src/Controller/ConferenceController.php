@@ -11,7 +11,6 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
-use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -298,7 +297,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
 
       return $data['data']['attributes'] ?? NULL;
     }
-    catch (Exception $exception) {
+    catch (\Exception $exception) {
       return NULL;
     }
   }

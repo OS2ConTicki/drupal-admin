@@ -6,7 +6,7 @@ use Drupal\content_fixtures\Fixture\AbstractFixture;
 use Drupal\user\Entity\User;
 
 /**
- * Class UserFixture.
+ * TODO: Description of what the class does.
  *
  * @package Drupal\os2conticki_fixtures\Fixture
  */
