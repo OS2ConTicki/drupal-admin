@@ -2,14 +2,12 @@
 
 namespace Drupal\os2conticki_fixtures\Fixture;
 
-use DateInterval;
-use DateTimeImmutable;
 use Drupal\content_fixtures\Fixture\AbstractFixture;
 use Drupal\content_fixtures\Fixture\DependentFixtureInterface;
 use Drupal\node\Entity\Node;
 
 /**
- * Class EventFixture.
+ * TODO: Description of what the class does.
  *
  * @package Drupal\os2conticki_fixtures\Fixture
  */
@@ -118,7 +116,7 @@ BODY,
     $event->save();
 
     // Events on a very long conference.
-    $startTime = new DateTimeImmutable('2001-01-01T10:00:00');
+    $startTime = new \DateTimeImmutable('2001-01-01T10:00:00');
     for ($i = 0; $i < 100; $i++) {
       $title = sprintf('Event %d', $i);
       $event = Node::create([
@@ -131,7 +129,7 @@ BODY,
         ],
         'field_times' => [
           'value' => $startTime->format('Y-m-d\TH:i:s'),
-          'end_value' => $startTime->add(new DateInterval('PT45M'))->format('Y-m-d\TH:i:s'),
+          'end_value' => $startTime->add(new \DateInterval('PT45M'))->format('Y-m-d\TH:i:s'),
         ],
         'field_location' => $this->getReference('location:long-room'),
         'field_ticket' => [
@@ -142,7 +140,7 @@ BODY,
       $event->setOwner($this->getReference('user:conference-editor'));
       $event->save();
 
-      $startTime = $startTime->add(new DateInterval('PT60M'));
+      $startTime = $startTime->add(new \DateInterval('PT60M'));
     }
   }
 

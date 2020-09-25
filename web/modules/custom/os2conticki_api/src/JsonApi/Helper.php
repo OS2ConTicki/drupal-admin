@@ -9,7 +9,7 @@ use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class Helper.
+ * TODO: Description of what the class does.
  *
  * @package Drupal\os2conticki_api\JsonApi
  */
@@ -91,7 +91,8 @@ class Helper {
         }
 
         // Flatten date ranges.
-        if (in_array($name, ['field_dates', 'field_times'], TRUE) && isset($value['value'], $value['end_value'])) {
+        if (in_array($name, ['field_dates', 'field_times'], TRUE)
+            && isset($value['value'], $value['end_value'])) {
           $attributes['start_time'] = $value['value'];
           $attributes['end_time'] = $value['end_value'];
           unset($attributes[$name]);

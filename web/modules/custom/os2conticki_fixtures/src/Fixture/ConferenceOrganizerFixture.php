@@ -6,7 +6,7 @@ use Drupal\content_fixtures\Fixture\AbstractFixture;
 use Drupal\content_fixtures\Fixture\DependentFixtureInterface;
 
 /**
- * Class OrganizerFixture.
+ * TODO: Description of what the class does.
  *
  * @package Drupal\os2conticki_fixtures\Fixture
  */

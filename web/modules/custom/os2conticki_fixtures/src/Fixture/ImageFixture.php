@@ -6,7 +6,7 @@ use Drupal\content_fixtures\Fixture\AbstractFixture;
 use Drupal\Core\File\FileSystemInterface;
 
 /**
- * Class ImageFixture.
+ * TODO: Description of what the class does.
  *
  * @package Drupal\os2conticki_fixtures\Fixture
  */
