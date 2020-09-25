@@ -5,7 +5,6 @@ namespace Drupal\os2conticki_api\Controller;
 use Drupal\os2conticki_api\JsonApi\Helper;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,7 +74,7 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
       }
 
     }
-    catch (Exception $exception) {
+    catch (\Exception $exception) {
       throw new BadRequestHttpException($exception->getMessage());
     }
 
