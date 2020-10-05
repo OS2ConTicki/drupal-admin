@@ -40,11 +40,3 @@ os2conticki_app.conference_app_service_worker:
     parameters:
       node:
         type: entity:node
-
-os2conticki_app.admin_config:
-  path: '/admin/config/services/os2conticki_app'
-  defaults:
-    _form: '\Drupal\os2conticki_app\Form\ConfigForm'
-    _title: 'Conference app configuration'
-  requirements:
-    _permission: 'administer site configuration'
