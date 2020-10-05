@@ -1,0 +1,7 @@
+display-react:
+  version: v0.7.2
+  css:
+    theme:
+      libraries/display-react/public/dist/entry.css: { minified: true }
+  js:
+    libraries/display-react/public/dist/entry.js: { minified: true }

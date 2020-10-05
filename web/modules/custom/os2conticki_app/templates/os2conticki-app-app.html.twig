@@ -23,16 +23,12 @@
     <{{ icon.tagName }}{% for name, value in icon.attributes %} {{ name|escape('html_attr') }}="{{ value|escape('html_attr') }}"{% endfor %}/>
   {% endfor %}
 
-  {% for url in style_urls %}
-    <link rel="stylesheet" href="{{ url }}">
-  {% endfor %}
+  {{ app_stylesheets }}
   <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="DA" type="text/javascript"></script>
 </head>
 <body>
 <div id="app">{{ conference.title.value }}</div>
-{% for url in script_urls %}
-  <script src="{{ url }}"></script>
-{% endfor %}
+{{ app_scripts }}
 <script>
   ConferenceApp.render({
     element: document.getElementById('app'),

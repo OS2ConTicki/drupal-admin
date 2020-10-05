@@ -2,6 +2,7 @@
 
 namespace Drupal\os2conticki_app\Controller;
 
+use Drupal\Core\Asset\AttachedAssets;
 use Drupal\Core\Cache\CacheableJsonResponse;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponse;
@@ -85,6 +86,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
 
     $tracking = $this->renderTracking($node);
 
+    $library = 'os2conticki_app/display-react';
+
     $renderable = [
       '#theme' => 'os2conticki_app_app',
       '#conference' => $node,
@@ -94,8 +97,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       '#application_name' => $applicationName,
       '#app_data' => $appData,
       '#api_url' => $apiUrl,
-      '#style_urls' => $styleUrls,
-      '#script_urls' => $scriptUrls,
+      '#app_stylesheets' => $this->getCssLibraryElements($library),
+      '#app_scripts' => $this->getJsLibraryElements($library),
       '#service_worker_url' => $serviceWorkerUrl,
       '#tracking' => $tracking,
       // @see https://www.drupal.org/docs/8/api/render-api/cacheability-of-render-arrays
@@ -109,6 +112,46 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $content = $this->renderer->renderPlain($renderable);
 
     return $this->cacheResponse(new CacheableResponse($content), $node);
+  }
+
+  /**
+   * Get style link elements for Drupal libraries.
+   */
+  private function getCssLibraryElements($libraries) {
+    $libraries = (array) $libraries;
+    $assets = AttachedAssets::createFromRenderArray([
+      '#attached' => ['library' => $libraries],
+    ]);
+    $optimize = FALSE;
+    /** @var \Drupal\Core\Asset\CssCollectionRenderer $cssRenderer */
+    $cssRenderer = \Drupal::service('asset.css.collection_renderer');
+    /** @var \Drupal\Core\Asset\AssetResolverInterface $resolver */
+    $resolver = \Drupal::service('asset.resolver');
+
+    return $cssRenderer->render($resolver->getCssAssets($assets, $optimize));
+  }
+
+  /**
+   * Get script elements for Drupal libraries.
+   */
+  private function getJsLibraryElements($libraries) {
+    $libraries = (array) $libraries;
+    $assets = AttachedAssets::createFromRenderArray([
+      '#attached' => ['library' => $libraries],
+    ]);
+    $optimize = FALSE;
+    /** @var \Drupal\Core\Asset\JsCollectionRenderer $jsRenderer */
+    $jsRenderer = \Drupal::service('asset.js.collection_renderer');
+    /** @var \Drupal\Core\Asset\AssetResolverInterface $resolver */
+    $resolver = \Drupal::service('asset.resolver');
+
+    // @TODO Find a better and more obvious way to do this.
+    $assets = $resolver->getJsAssets($assets, $optimize);
+    $assets = array_values(array_filter($assets));
+
+    return array_map(function ($asset) use ($jsRenderer, $resolver, $optimize) {
+      return $jsRenderer->render($asset, $optimize);
+    }, $assets);
   }
 
   /**
@@ -179,6 +222,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
 
     $renderable = [
       '#theme' => 'os2conticki_app_service_worker',
+      '#precache_key' => uniqid(__METHOD__, TRUE),
       '#precache_urls' => [
         $this->getBasename($node),
       ],
