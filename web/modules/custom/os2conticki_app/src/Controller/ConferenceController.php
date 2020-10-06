@@ -35,6 +35,13 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   private $requestStack;
 
   /**
+   * The app library.
+   *
+   * @var string
+   */
+  private $library = 'os2conticki_app/display-react';
+
+  /**
    * Constructor.
    */
   public function __construct(RendererInterface $renderer, RequestStack $requestStack) {
@@ -78,15 +85,11 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $applicationName = $node->getTitle();
 
     $config = $this->config('os2conticki_app.settings');
-    $styleUrls = array_filter(array_map('trim', explode(PHP_EOL, $config->get('app_style_urls') ?? '')));
-    $scriptUrls = array_filter(array_map('trim', explode(PHP_EOL, $config->get('app_script_urls') ?? '')));
 
     $manifestUrl = $this->getManifestUrl($node);
     $serviceWorkerUrl = $this->getServiceWorkerUrl($node);
 
     $tracking = $this->renderTracking($node);
-
-    $library = 'os2conticki_app/display-react';
 
     $renderable = [
       '#theme' => 'os2conticki_app_app',
@@ -97,8 +100,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       '#application_name' => $applicationName,
       '#app_data' => $appData,
       '#api_url' => $apiUrl,
-      '#app_stylesheets' => $this->getCssLibraryElements($library),
-      '#app_scripts' => $this->getJsLibraryElements($library),
+      '#app_stylesheets' => $this->getCssLibraryElements($this->library),
+      '#app_scripts' => $this->getJsLibraryElements($this->library),
       '#service_worker_url' => $serviceWorkerUrl,
       '#tracking' => $tracking,
       // @see https://www.drupal.org/docs/8/api/render-api/cacheability-of-render-arrays
@@ -127,8 +130,10 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $cssRenderer = \Drupal::service('asset.css.collection_renderer');
     /** @var \Drupal\Core\Asset\AssetResolverInterface $resolver */
     $resolver = \Drupal::service('asset.resolver');
+    $assets = $resolver->getCssAssets($assets, $optimize);
 
-    return $cssRenderer->render($resolver->getCssAssets($assets, $optimize));
+    // We need absolute asset urls to support custom app urls.
+    return $this->makeAbsolute($cssRenderer->render($assets));
   }
 
   /**
@@ -150,8 +155,25 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $assets = array_values(array_filter($assets));
 
     return array_map(function ($asset) use ($jsRenderer, $resolver, $optimize) {
-      return $jsRenderer->render($asset, $optimize);
+      // We need absolute asset urls to support custom app urls.
+      return $this->makeAbsolute($jsRenderer->render($asset));
     }, $assets);
+  }
+
+  /**
+   * Make asset referenes absolute.
+   */
+  private function makeAbsolute(array $renderable) {
+    foreach ($renderable as &$item) {
+      if (isset($item['#attributes']['href'])) {
+        $item['#attributes']['href'] = Url::fromUri('base:/', ['absolute' => TRUE])->toString() . ltrim($item['#attributes']['href'], '/');
+      }
+      if (isset($item['#attributes']['src'])) {
+        $item['#attributes']['src'] = Url::fromUri('base:/', ['absolute' => TRUE])->toString() . ltrim($item['#attributes']['src'], '/');
+      }
+    }
+
+    return $renderable;
   }
 
   /**
@@ -220,12 +242,32 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       throw new NotFoundHttpException();
     }
 
+    [$extension, $name] = explode('/', $this->library);
+    $library = \Drupal::service('library.discovery')
+      ->getLibraryByName($extension, $name);
+    $preCacheKey = 'os2conticki-app-cache-' . $library['version'];
+
+    $preCacheUrls = [
+      $this->getBasename($node),
+      $this->getManifestUrl($node),
+    ];
+    $assets = $this->getCssLibraryElements($this->library);
+    foreach ($this->getJsLibraryElements($this->library) as $asset) {
+      $assets = array_merge($assets, $asset);
+    }
+    foreach ($assets as $item) {
+      if (isset($item['#attributes']['href'])) {
+        $preCacheUrls[] = $item['#attributes']['href'];
+      }
+      if (isset($item['#attributes']['src'])) {
+        $preCacheUrls[] = $item['#attributes']['src'];
+      }
+    }
+
     $renderable = [
       '#theme' => 'os2conticki_app_service_worker',
-      '#precache_key' => uniqid(__METHOD__, TRUE),
-      '#precache_urls' => [
-        $this->getBasename($node),
-      ],
+      '#precache_key' => $preCacheKey,
+      '#precache_urls' => $preCacheUrls,
     ];
 
     $content = $this->renderer->renderPlain($renderable);
@@ -257,19 +299,24 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
    * Get app url.
    */
   private function getAppUrl(NodeInterface $node, string $path = NULL): string {
-    $appUrl = $this->generateUrl('os2conticki_app.conference_app', [
-      'node' => $node->id(),
-    ], [
-      'absolute' => TRUE,
-    ]);
-
     $request = $this->requestStack->getCurrentRequest();
-    if (!$request->get('preview')) {
-      if (isset($node->field_custom_app_url->uri)) {
-        $appUrl = $node->field_custom_app_url->uri;
+    $preview = $request->get('preview');
+
+    if ($preview || !isset($node->field_custom_app_url->uri)) {
+      $route = 'os2conticki_app.conference_app';
+      if (NULL !== $path) {
+        $route .= '_' . str_replace('-', '_', $path);
       }
+
+      return $this->generateUrl($route, array_filter([
+        'node' => $node->id(),
+        'preview' => $preview,
+      ]), [
+        'absolute' => TRUE,
+      ]);
     }
 
+    $appUrl = $node->field_custom_app_url->uri;
     if (NULL !== $path) {
       $appUrl = rtrim($appUrl, '/') . '/' . $path;
     }
@@ -298,7 +345,12 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $appUrl = $this->getAppUrl($node);
     $parts = parse_url($appUrl);
 
-    return $parts['path'] ?? '/';
+    $baseName = $parts['path'] ?? '/';
+    if (isset($parts['query'])) {
+      $baseName .= '?' . $parts['query'];
+    }
+
+    return $baseName;
   }
 
   /**
