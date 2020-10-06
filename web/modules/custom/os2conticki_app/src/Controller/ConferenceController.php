@@ -430,7 +430,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       };
 
       // iOS icons.
-      $rel = 'apple-touch-icon-precomposed';
+      $rel = 'apple-touch-icon';
       $sizes = [
         "152x152",
         "144x144",
