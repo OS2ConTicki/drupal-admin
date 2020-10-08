@@ -88,6 +88,10 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
 
     $manifestUrl = $this->getManifestUrl($node);
     $serviceWorkerUrl = $this->getServiceWorkerUrl($node);
+    $serviceWorkerParameters = [
+      // We need a trailing slash here to make the service worker scope work.
+      'scope' => rtrim($this->getAppUrl($node), '/') . '/',
+    ];
 
     $tracking = $this->renderTracking($node);
 
@@ -103,6 +107,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       '#app_stylesheets' => $this->getCssLibraryElements($this->library),
       '#app_scripts' => $this->getJsLibraryElements($this->library),
       '#service_worker_url' => $serviceWorkerUrl,
+      '#service_worker_parameters' => $serviceWorkerParameters,
       '#tracking' => $tracking,
       // @see https://www.drupal.org/docs/8/api/render-api/cacheability-of-render-arrays
       '#cache' => [
