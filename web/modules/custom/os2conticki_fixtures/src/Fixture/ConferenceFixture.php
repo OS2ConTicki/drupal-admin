@@ -34,8 +34,14 @@ BODY,
         'end_value' => '2001-01-11T23:59:59',
       ],
       'field_image' => [
-        'target_id' => $this->getReference('image:004')->id(),
+        'target_id' => $this->getReference('image:image-004')->id(),
         'alt' => 'Image for the conference',
+      ],
+      'field_app_logo' => [
+        'target_id' => $this->getReference('image:logo-004')->id(),
+      ],
+      'field_app_primary_color' => [
+        'color' => '#ffad46',
       ],
       'field_ticket' => [
         'uri' => 'https://dummyimage.com/600x400/000/fff&text=Buy+ticket',
@@ -60,6 +66,12 @@ BODY,
         'value' => '2001-01-01T00:00:00',
         'end_value' => '2001-01-04T23:59:59',
       ],
+      'field_app_logo' => [
+        'target_id' => $this->getReference('image:logo-005')->id(),
+      ],
+      'field_app_primary_color' => [
+        'color' => '#ffad46',
+      ],
       'field_ticket' => [
         'uri' => 'https://dummyimage.com/600x400/000/fff&text=Buy+ticket',
       ],
@@ -82,9 +94,38 @@ BODY,
         'value' => '2001-01-01T00:00:00',
         'end_value' => '2001-12-31T23:59:59',
       ],
+      'field_app_logo' => [
+        'target_id' => $this->getReference('image:logo-006')->id(),
+      ],
+      'field_app_primary_color' => [
+        'color' => '#ffad46',
+      ],
     ]);
     $conference->setOwner($this->getReference('user:conference-administrator'));
     $this->setReference('conference:long', $conference);
+
+    $conference = Node::create([
+      'type' => 'conference',
+      'title' => 'Conference with custom app url',
+      'body' => <<<'BODY'
+Conference with custom app url.
+BODY,
+      'field_dates' => [
+        'value' => '2020-01-01T10:00:00',
+        'end_value' => '2020-01-01T11:00:00',
+      ],
+      'field_app_logo' => [
+        'target_id' => $this->getReference('image:logo-007')->id(),
+      ],
+      'field_app_primary_color' => [
+        'color' => '#ffad46',
+      ],
+      'field_custom_app_url' => [
+        'uri' => 'https://example.com/my-custom-app',
+      ],
+    ]);
+    $conference->setOwner($this->getReference('user:conference-administrator'));
+    $this->setReference('conference:custom-app-url', $conference);
 
     $conference->save();
   }

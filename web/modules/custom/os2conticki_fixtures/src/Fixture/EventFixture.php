@@ -21,6 +21,7 @@ class EventFixture extends AbstractFixture implements DependentFixtureInterface 
     $event = Node::create([
       'type' => 'event',
       'title' => 'Welcome',
+      'field_language' => 'en',
       'body' => [
         'value' => <<<'BODY'
 Welcome!
@@ -29,7 +30,7 @@ BODY,
       ],
       'field_conference' => $this->getReference('conference:001'),
       'field_image' => [
-        'target_id' => $this->getReference('image:007')->id(),
+        'target_id' => $this->getReference('image:image-007')->id(),
         'alt' => 'Welcome!',
       ],
       'field_times' => [
@@ -45,6 +46,7 @@ BODY,
     $event = Node::create([
       'type' => 'event',
       'title' => 'The first event',
+      'field_language' => 'en',
       'body' => [
         'value' => <<<'BODY'
 This is the first event in <emph>the conference</emph>.
@@ -53,7 +55,7 @@ BODY,
       ],
       'field_conference' => $this->getReference('conference:001'),
       'field_image' => [
-        'target_id' => $this->getReference('image:001')->id(),
+        'target_id' => $this->getReference('image:image-001')->id(),
         'alt' => 'An image',
       ],
       'field_times' => [
@@ -81,9 +83,10 @@ BODY,
     $event = Node::create([
       'type' => 'event',
       'title' => 'Another event',
+      'field_language' => 'en',
       'field_conference' => $this->getReference('conference:002'),
       'field_image' => [
-        'target_id' => $this->getReference('image:002')->id(),
+        'target_id' => $this->getReference('image:image-002')->id(),
         'alt' => 'Image for the event',
       ],
       'field_times' => [
@@ -99,9 +102,10 @@ BODY,
     $event = Node::create([
       'type' => 'event',
       'title' => 'The third event',
+      'field_language' => 'en',
       'field_conference' => $this->getReference('conference:002'),
       'field_image' => [
-        'target_id' => $this->getReference('image:004')->id(),
+        'target_id' => $this->getReference('image:image-004')->id(),
         'alt' => 'Image for the third event',
       ],
       'field_times' => [
@@ -122,9 +126,10 @@ BODY,
       $event = Node::create([
         'type' => 'event',
         'title' => $title,
+        'field_language' => 'en',
         'field_conference' => $this->getReference('conference:long'),
         'field_image' => [
-          'target_id' => $this->getReference(sprintf('image:%03d', $i % 8 + 1))->id(),
+          'target_id' => $this->getReference(sprintf('image:image-%03d', $i % 8 + 1))->id(),
           'alt' => 'Image for the event',
         ],
         'field_times' => [
