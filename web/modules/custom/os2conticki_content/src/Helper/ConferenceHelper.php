@@ -123,7 +123,7 @@ class ConferenceHelper {
    */
   public function getApiUrl(NodeInterface $node) {
     // Build conference api url.
-    return Url::fromRoute('os2conticki_api.api_controller_index', [
+    return $this->generateUrl('os2conticki_api.api_controller_index', [
       'type' => $node->bundle(),
       'id' => $node->uuid(),
       'include' => implode(',', ['organizers', 'sponsors']),

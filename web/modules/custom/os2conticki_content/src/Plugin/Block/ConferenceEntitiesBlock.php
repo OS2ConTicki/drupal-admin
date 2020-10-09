@@ -3,6 +3,7 @@
 namespace Drupal\os2conticki_content\Plugin\Block;
 
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\os2conticki_content\Helper\ConferenceHelper;
 use Drupal\Core\Access\AccessResult;
@@ -39,10 +40,12 @@ class ConferenceEntitiesBlock extends BlockBase implements ContainerFactoryPlugi
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ConferenceHelper $conferenceHelper
+    ConferenceHelper $conferenceHelper,
+    RouteMatchInterface $routeMatch
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->conferenceHelper = $conferenceHelper;
+    $this->routeMatch = $routeMatch;
   }
 
   /**
@@ -53,7 +56,8 @@ class ConferenceEntitiesBlock extends BlockBase implements ContainerFactoryPlugi
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('os2conticki_content.conference_helper')
+      $container->get('os2conticki_content.conference_helper'),
+      $container->get('current_route_match')
     );
   }
 
@@ -61,7 +65,16 @@ class ConferenceEntitiesBlock extends BlockBase implements ContainerFactoryPlugi
    * {@inheritdoc}
    */
   public function blockAccess(AccountInterface $account) {
-    return AccessResult::allowedIf('conference' === $this->getContextValue('node')->bundle());
+    $routeName = $this->routeMatch->getRouteName();
+    $allowedRouteNames = [
+      'entity.node.canonical',
+      'entity.node.edit_form',
+    ];
+
+    return AccessResult::allowedIf(
+      'conference' === $this->getContextValue('node')->bundle()
+      && in_array($routeName, $allowedRouteNames, TRUE)
+    );
   }
 
   /**
