@@ -95,10 +95,15 @@ class Helper {
       'language' => \Drupal::service('language_manager')->getDefaultLanguage(),
     ]);
 
+    $appUrl = $this->conferenceHelper->getAppUrl($conference);
+    $appUrlPreview = $this->conferenceHelper->getAppUrl($conference, ['preview' => TRUE]);
+
     $form['os2conticki_content'] = [
       '#theme' => 'os2conticki_content_conference_info',
       '#conference' => $conference,
       '#api_url' => $apiUrl,
+      '#app_url' => $appUrl,
+      '#app_url_preview' => $appUrlPreview,
       '#weight' => -1000,
     ];
 

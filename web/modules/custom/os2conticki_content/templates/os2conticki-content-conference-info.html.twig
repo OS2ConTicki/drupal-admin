@@ -5,10 +5,24 @@ Variaables:
 #}
 
 <div class="conference-info">
-  {% if api_url|default(false) %}
+  <fieldset>
+    <legend>{{ 'App info'|trans }}</legend>
+
     <dl>
-      <dt>{{ 'Api url'|trans }}</dt>
-      <dd><a href="{{ api_url }}">{{ api_url }}</a></dd>
+      {% if app_url|default(false) %}
+        <dt>{{ 'App url'|trans }}</dt>
+        <dd><a href="{{ app_url }}">{{ app_url }}</a></dd>
+      {% endif %}
+
+      {% if app_url_preview|default(false) %}
+        <dt>{{ 'App url (preview)'|trans }}</dt>
+        <dd><a href="{{ app_url_preview }}">{{ app_url_preview }}</a></dd>
+      {% endif %}
+
+      {% if api_url|default(false) %}
+        <dt>{{ 'Api url'|trans }}</dt>
+        <dd><a href="{{ api_url }}">{{ api_url }}</a></dd>
+      {% endif %}
     </dl>
-  {% endif %}
+  </fieldset>
 </div>
