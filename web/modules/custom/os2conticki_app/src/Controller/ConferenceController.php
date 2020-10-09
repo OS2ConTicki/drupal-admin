@@ -88,10 +88,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
 
     $manifestUrl = $this->getManifestUrl($node);
     $serviceWorkerUrl = $this->getServiceWorkerUrl($node);
-    $serviceWorkerParameters = [
-      // We need a trailing slash here to make the service worker scope work.
-      'scope' => rtrim($this->getAppUrl($node), '/') . '/',
-    ];
+    $serviceWorkerParameters = (object) [];
 
     $tracking = $this->renderTracking($node);
 
@@ -213,9 +210,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       $manifest = [
         'short_name' => $data['title'],
         'name' => $data['title'],
-        'start_url' => $this->generateUrl('os2conticki_app.conference_app', [
-          'node' => $node->id(),
-        ]),
+        'start_url' => $this->getAppUrl($node),
         'theme_color' => $data['app']['primary_color'] ?? '#1E3284',
         'background_color' => '#1E3284',
         'display' => 'standalone',
@@ -323,7 +318,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
 
     $appUrl = $node->field_custom_app_url->uri;
     if (NULL !== $path) {
-      $appUrl = rtrim($appUrl, '/') . '/' . $path;
+      $appUrl = rtrim($appUrl, '/') . '/' . ltrim($path, '/');
     }
 
     return $appUrl;
