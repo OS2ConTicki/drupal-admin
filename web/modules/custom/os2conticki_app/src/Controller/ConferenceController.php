@@ -231,11 +231,12 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
           $parts = parse_url($url);
           $extension = pathinfo($parts['path'], PATHINFO_EXTENSION);
           $type = 'image/' . $extension;
-          $icons[] = [
+          $icons[] = array_filter([
             'src' => $url,
             'sizes' => $size,
             'type' => $type,
-          ];
+            'purpose' => '128x128' === $size ? 'any maskable' : NULL,
+          ]);
         }
         $manifest['icons'] = $icons;
       }
