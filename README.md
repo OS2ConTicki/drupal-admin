@@ -69,8 +69,9 @@ See
 
 ```sh
 symfony php vendor/bin/drush --yes pm:enable os2conticki_fixtures
-symfony php vendor/bin/drush content-fixtures:list
+symfony php vendor/bin/drush --yes pm:uninstall entity_reference_integrity
 symfony php vendor/bin/drush content-fixtures:load
+symfony php vendor/bin/drush --yes pm:enable entity_reference_integrity
 symfony php vendor/bin/drush --yes pm:uninstall content_fixtures
 ```
 

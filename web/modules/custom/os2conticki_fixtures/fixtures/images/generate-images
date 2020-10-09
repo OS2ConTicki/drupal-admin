@@ -9,7 +9,10 @@ normal=$(tput sgr0)
 number_of_images=${1:-8}
 
 for ((i=1; i<=$number_of_images; i++)); do
-  filename=$dir/$(printf "%03d.jpg" $i)
-  curl --silent https://lorempixel.com/800/600/ >| $filename
-  echo $filename
+  image_filename=$dir/$(printf "image-%03d.jpg" $i)
+  logo_filename=$dir/$(printf "logo-%03d.png" $i)
+  curl --silent https://lorempixel.com/800/600/ >| $image_filename
+  # Convert to 512x512 png.
+  convert $image_filename -extent 512x512 $logo_filename
+  echo "$image_filename ($logo_filename)"
 done
