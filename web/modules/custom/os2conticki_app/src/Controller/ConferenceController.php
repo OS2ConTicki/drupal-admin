@@ -12,6 +12,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\os2conticki_content\Helper\ConferenceHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -42,11 +43,19 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   private $library = 'os2conticki_app/display-react';
 
   /**
+   * The conference helper.
+   *
+   * @var \Drupal\os2conticki_content\Helper\ConferenceHelper
+   */
+  private $conferenceHelper;
+
+  /**
    * Constructor.
    */
-  public function __construct(RendererInterface $renderer, RequestStack $requestStack) {
+  public function __construct(RendererInterface $renderer, RequestStack $requestStack, ConferenceHelper $conferenceHelper) {
     $this->renderer = $renderer;
     $this->requestStack = $requestStack;
+    $this->conferenceHelper = $conferenceHelper;
   }
 
   /**
@@ -55,7 +64,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('request_stack')
+      $container->get('request_stack'),
+      $container->get('os2conticki_content.conference_helper')
     );
   }
 
@@ -357,13 +367,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
    * Get conference api url.
    */
   private function getApiUrl(NodeInterface $node): string {
-    return $this->generateUrl('os2conticki_api.api_controller_index', [
-      'type' => $node->bundle(),
-      'id' => $node->uuid(),
-      'include' => implode(',', ['organizers', 'sponsors']),
-    ], [
-      'absolute' => TRUE,
-    ]);
+    return $this->conferenceHelper->getApiUrl($node);
   }
 
   /**
@@ -489,6 +493,33 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     }
 
     return $icons;
+  }
+
+  /**
+   * Render app info.
+   */
+  public function appInfo(NodeInterface $node) {
+    if (('conference' !== $node->bundle()) && $node->hasField('field_conference')) {
+      $list = $node->get('field_conference')->referencedEntities();
+      $node = reset($list);
+    }
+
+    if (!$node || 'conference' !== $node->bundle()) {
+      throw new NotFoundHttpException();
+    }
+
+    $apiUrl = $this->conferenceHelper->getApiUrl($node);
+    $appUrl = $this->conferenceHelper->getAppUrl($node);
+    $appUrlPreview = $this->conferenceHelper->getAppUrl($node, ['preview' => TRUE]);
+
+    return [
+      '#theme' => 'os2conticki_content_conference_info',
+      '#conference' => $node,
+      '#api_url' => $apiUrl,
+      '#app_url' => $appUrl,
+      '#app_url_preview' => $appUrlPreview,
+      '#weight' => -1000,
+    ];
   }
 
 }

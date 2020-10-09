@@ -119,6 +119,22 @@ class ConferenceHelper {
   }
 
   /**
+   * Get API url.
+   */
+  public function getApiUrl(NodeInterface $node) {
+    // Build conference api url.
+    return Url::fromRoute('os2conticki_api.api_controller_index', [
+      'type' => $node->bundle(),
+      'id' => $node->uuid(),
+      'include' => implode(',', ['organizers', 'sponsors']),
+    ], [
+      'absolute' => TRUE,
+      // We want to get content in the default language.
+      'language' => \Drupal::service('language_manager')->getDefaultLanguage(),
+    ]);
+  }
+
+  /**
    * Generate a url.
    */
   private function generateUrl(string $route, array $parameters = [], array $options = []): string {

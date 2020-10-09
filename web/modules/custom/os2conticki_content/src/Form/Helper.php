@@ -5,7 +5,6 @@ namespace Drupal\os2conticki_content\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\os2conticki_content\Helper\ConferenceHelper;
 
@@ -83,29 +82,6 @@ class Helper {
     if (NULL === $conference->id()) {
       return;
     }
-
-    // Build conference api url.
-    $apiUrl = Url::fromRoute('os2conticki_api.api_controller_index', [
-      'type' => $conference->bundle(),
-      'id' => $conference->uuid(),
-      'include' => implode(',', ['organizers']),
-    ], [
-      'absolute' => TRUE,
-      // We want to get content in the default language.
-      'language' => \Drupal::service('language_manager')->getDefaultLanguage(),
-    ]);
-
-    $appUrl = $this->conferenceHelper->getAppUrl($conference);
-    $appUrlPreview = $this->conferenceHelper->getAppUrl($conference, ['preview' => TRUE]);
-
-    $form['os2conticki_content'] = [
-      '#theme' => 'os2conticki_content_conference_info',
-      '#conference' => $conference,
-      '#api_url' => $apiUrl,
-      '#app_url' => $appUrl,
-      '#app_url_preview' => $appUrlPreview,
-      '#weight' => -1000,
-    ];
 
     // Store conference to be used by conference autocomplete.
     $formState->set(['os2conticki_content', 'conference'], $conference);

@@ -4,5 +4,7 @@ description: 'App view for OS2ConTicki'
 core_version_requirement: ^9
 package: OS2ConTicki
 # version: VERSION
+dependencies:
+  - drupal:os2conticki_content
 
 configure: os2conticki_app.admin_config

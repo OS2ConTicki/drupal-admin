@@ -1,7 +1,5 @@
 os2conticki_app.conference_app_view:
   title: 'App'
-  route_name: os2conticki_app.conference_app
-  route_parameters:
-    preview: true
+  route_name: os2conticki_app.conference_app_info
   base_route: entity.node.canonical
   weight: 100
