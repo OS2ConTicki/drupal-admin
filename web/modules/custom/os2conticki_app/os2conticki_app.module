@@ -27,6 +27,7 @@ function os2conticki_app_theme() {
         'api_url' => NULL,
         'app_stylesheets' => NULL,
         'app_scripts' => NULL,
+        'app_scripts_ie11' => NULL,
         'service_worker_url' => NULL,
         'service_worker_parameters' => NULL,
         // Rendered tracking code.

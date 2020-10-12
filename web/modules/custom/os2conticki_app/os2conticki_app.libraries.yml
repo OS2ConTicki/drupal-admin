@@ -5,3 +5,8 @@ display-react:
       libraries/display-react/public/dist/entry.css: { minified: true }
   js:
     libraries/display-react/public/dist/entry.js: { minified: true }
+
+display-react-ie11:
+  version: v0.8.0
+  js:
+    libraries/display-react/public/dist/ie11.js: { minified: true }

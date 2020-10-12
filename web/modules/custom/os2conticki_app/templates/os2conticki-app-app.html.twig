@@ -28,6 +28,14 @@
 </head>
 <body>
 <div id="app">{{ conference.title.value }}</div>
+{% if app_scripts_ie11 %}
+  {# @see https://stackoverflow.com/a/29988202 #}
+  <script>
+    if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+      document.write({{ app_scripts_ie11|render|json_encode|raw }})
+    }
+  </script>
+{% endif %}
 {{ app_scripts }}
 <script>
   ConferenceApp.render({

@@ -43,6 +43,13 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   private $library = 'os2conticki_app/display-react';
 
   /**
+   * The IE 11 polyfills library.
+   *
+   * @var string
+   */
+  private $libraryIE11 = 'os2conticki_app/display-react-ie11';
+
+  /**
    * The conference helper.
    *
    * @var \Drupal\os2conticki_content\Helper\ConferenceHelper
@@ -115,6 +122,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       '#api_url' => $apiUrl,
       '#app_stylesheets' => $this->getCssLibraryElements($this->library),
       '#app_scripts' => $this->getJsLibraryElements($this->library),
+      '#app_scripts_ie11' => $this->getJsLibraryElements($this->libraryIE11),
       '#service_worker_url' => $serviceWorkerUrl,
       '#service_worker_parameters' => $serviceWorkerParameters,
       '#tracking' => $tracking,
