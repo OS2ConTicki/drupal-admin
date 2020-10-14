@@ -1,5 +1,5 @@
 display-react:
-  version: v0.8.0
+  version: v0.9.0
   css:
     theme:
       libraries/display-react/public/dist/entry.css: { minified: true }
@@ -7,6 +7,6 @@ display-react:
     libraries/display-react/public/dist/entry.js: { minified: true }
 
 display-react-ie11:
-  version: v0.8.0
+  version: v0.9.0
   js:
     libraries/display-react/public/dist/ie11.js: { minified: true }

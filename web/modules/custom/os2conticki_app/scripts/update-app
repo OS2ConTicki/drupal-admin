@@ -2,10 +2,7 @@
 set -o errexit -o errtrace -o noclobber -o nounset -o pipefail
 IFS=$'\n\t'
 
-script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
-dir=$(cd $(dirname "${BASH_SOURCE[0]}")/../ && pwd)
-bold=$(tput bold)
-normal=$(tput sgr0)
+dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 
 git_tag=${1:-}
 if [ -z "$git_tag" ]; then
@@ -13,14 +10,16 @@ if [ -z "$git_tag" ]; then
 	exit
 fi
 
-cd $dir
-rm -fr /tmp/display-react
-git clone --branch $git_tag https://github.com/OS2ConTicki/display-react /tmp/display-react
-version=$(git -C /tmp/display-react describe --abbrev=0)
+source_dir=/tmp/display-react
+target_dir=$dir/libraries/display-react
 
-if [ ! -z "$version" ]; then
-  sed -i '' "s/  version:.*/  version: $version/" $dir/os2conticki_app.libraries.yml
+rm -fr $source_dir
+git clone --branch "$git_tag" https://github.com/OS2ConTicki/display-react $source_dir
+version=$(git -C $source_dir describe --abbrev=0)
+
+if [ -n "$version" ]; then
+  sed -i '' "s/  version:.*/  version: $version/" "$dir/os2conticki_app.libraries.yml"
 fi
 
-mkdir -p libraries/display-react/public
-rsync -azv --delete $TMPDIR/display-react/public/dist libraries/display-react/public
+mkdir -p "$target_dir/public"
+rsync -azv --delete $source_dir/public/dist "$target_dir/public"
