@@ -105,9 +105,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
 
     $manifestUrl = $this->getManifestUrl($node);
     $serviceWorkerUrl = $this->getServiceWorkerUrl($node);
-    $serviceWorkerParameters = (object) [
-      'scope' => rtrim($this->getAppUrl($node), '/'),
-    ];
+    $serviceWorkerParameters = (object) [];
 
     $tracking = $this->renderTracking($node);
 
