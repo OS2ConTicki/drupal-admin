@@ -269,7 +269,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $preCacheKey = 'os2conticki-app-cache-' . $library['version'];
 
     $preCacheUrls = [
-      $this->getBasename($node),
+      $this->getAppUrl($node),
       $this->getManifestUrl($node),
     ];
     $assets = $this->getCssLibraryElements($this->library);
