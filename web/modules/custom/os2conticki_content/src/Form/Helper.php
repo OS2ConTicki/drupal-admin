@@ -83,6 +83,15 @@ class Helper {
       return;
     }
 
+    $appUrl = $this->conferenceHelper->getAppUrl($conference);
+
+    $form['os2conticki_content'] = [
+      '#theme' => 'os2conticki_content_conference_info',
+      '#conference' => $conference,
+      '#app_url' => $appUrl,
+      '#weight' => -1000,
+    ];
+
     // Store conference to be used by conference autocomplete.
     $formState->set(['os2conticki_content', 'conference'], $conference);
   }
