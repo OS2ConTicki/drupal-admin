@@ -23,16 +23,20 @@
     <{{ icon.tagName }}{% for name, value in icon.attributes %} {{ name|escape('html_attr') }}="{{ value|escape('html_attr') }}"{% endfor %}/>
   {% endfor %}
 
-  {% for url in style_urls %}
-    <link rel="stylesheet" href="{{ url }}">
-  {% endfor %}
+  {{ app_stylesheets }}
   <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="DA" type="text/javascript"></script>
 </head>
 <body>
 <div id="app">{{ conference.title.value }}</div>
-{% for url in script_urls %}
-  <script src="{{ url }}"></script>
-{% endfor %}
+{% if app_scripts_ie11 %}
+  {# @see https://stackoverflow.com/a/29988202 #}
+  <script>
+    if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+      document.write({{ app_scripts_ie11|render|json_encode|raw }})
+    }
+  </script>
+{% endif %}
+{{ app_scripts }}
 <script>
   ConferenceApp.render({
     element: document.getElementById('app'),
@@ -42,7 +46,7 @@
   {# TODO: Should we disable the service worker if user is authenticated? #}
   {% if service_worker_url|default(false) %}
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register({{ service_worker_url|json_encode|raw }});
+      navigator.serviceWorker.register({{ service_worker_url|json_encode|raw }}, {{ service_worker_parameters ? service_worker_parameters|json_encode|raw : '{}' }})
     }
   {% endif %}
 </script>

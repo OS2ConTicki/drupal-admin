@@ -41,10 +41,13 @@ os2conticki_app.conference_app_service_worker:
       node:
         type: entity:node
 
-os2conticki_app.admin_config:
-  path: '/admin/config/services/os2conticki_app'
+os2conticki_app.conference_app_info:
+  path: '/node/{node}/app-info'
   defaults:
-    _form: '\Drupal\os2conticki_app\Form\ConfigForm'
-    _title: 'Conference app configuration'
+    _title: 'App'
+    _controller: '\Drupal\os2conticki_app\Controller\ConferenceController::appInfo'
   requirements:
-    _permission: 'administer site configuration'
+    _access_node_revision: 'view'
+    node: \d+
+  options:
+    _node_operation_route: TRUE

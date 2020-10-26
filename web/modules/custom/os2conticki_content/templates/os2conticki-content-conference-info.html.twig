@@ -3,12 +3,42 @@ Variaables:
 
   conference: the conference (NodeInterface)
 #}
+<div class="app-info">
 
-<div class="conference-info">
-  {% if api_url|default(false) %}
-    <dl>
-      <dt>{{ 'Api url'|trans }}</dt>
-      <dd><a href="{{ api_url }}">{{ api_url }}</a></dd>
-    </dl>
+  {% if app_url|default(false) %}
+    <div class="field field--label-above">
+      <div class="field__label">{{ 'App url'|trans }}</div>
+      <div class="field__item">
+        <a href="{{ app_url }}">{{ app_url }}</a>
+      </div>
+      <div class="form-item__description">
+        {{ 'The app url. Use this when sharing the app.'|trans }}
+      </div>
+    </div>
   {% endif %}
+
+  {% if app_url_preview|default(false) %}
+    <div class="field field--label-above">
+      <div class="field__label">{{ 'App preview url'|trans }}</div>
+      <div class="field__item">
+        <a href="{{ app_url_preview }}">{{ app_url_preview }}</a>
+      </div>
+      <div class="form-item__description">
+        {{ 'This app preview url. Use this only when testing your app. <strong>Do not share this url!</strong>'|trans }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if api_url|default(false) %}
+    <div class="field field--label-above">
+      <div class="field__label">{{ 'API url'|trans }}</div>
+      <div class="field__item">
+        <a href="{{ api_url }}">{{ api_url }}</a>
+      </div>
+      <div class="form-item__description">
+        {{ 'App API url. This is used in the app to get conference data.'|trans }}
+      </div>
+    </div>
+  {% endif %}
+
 </div>

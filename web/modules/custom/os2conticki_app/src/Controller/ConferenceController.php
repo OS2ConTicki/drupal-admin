@@ -2,6 +2,7 @@
 
 namespace Drupal\os2conticki_app\Controller;
 
+use Drupal\Core\Asset\AttachedAssets;
 use Drupal\Core\Cache\CacheableJsonResponse;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponse;
@@ -11,6 +12,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\os2conticki_content\Helper\ConferenceHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,11 +36,33 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   private $requestStack;
 
   /**
+   * The app library.
+   *
+   * @var string
+   */
+  private $library = 'os2conticki_app/display-react';
+
+  /**
+   * The IE 11 polyfills library.
+   *
+   * @var string
+   */
+  private $libraryIE11 = 'os2conticki_app/display-react-ie11';
+
+  /**
+   * The conference helper.
+   *
+   * @var \Drupal\os2conticki_content\Helper\ConferenceHelper
+   */
+  private $conferenceHelper;
+
+  /**
    * Constructor.
    */
-  public function __construct(RendererInterface $renderer, RequestStack $requestStack) {
+  public function __construct(RendererInterface $renderer, RequestStack $requestStack, ConferenceHelper $conferenceHelper) {
     $this->renderer = $renderer;
     $this->requestStack = $requestStack;
+    $this->conferenceHelper = $conferenceHelper;
   }
 
   /**
@@ -47,7 +71,8 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('request_stack')
+      $container->get('request_stack'),
+      $container->get('os2conticki_content.conference_helper')
     );
   }
 
@@ -77,11 +102,10 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $applicationName = $node->getTitle();
 
     $config = $this->config('os2conticki_app.settings');
-    $styleUrls = array_filter(array_map('trim', explode(PHP_EOL, $config->get('app_style_urls') ?? '')));
-    $scriptUrls = array_filter(array_map('trim', explode(PHP_EOL, $config->get('app_script_urls') ?? '')));
 
     $manifestUrl = $this->getManifestUrl($node);
     $serviceWorkerUrl = $this->getServiceWorkerUrl($node);
+    $serviceWorkerParameters = (object) [];
 
     $tracking = $this->renderTracking($node);
 
@@ -94,9 +118,11 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       '#application_name' => $applicationName,
       '#app_data' => $appData,
       '#api_url' => $apiUrl,
-      '#style_urls' => $styleUrls,
-      '#script_urls' => $scriptUrls,
+      '#app_stylesheets' => $this->getCssLibraryElements($this->library),
+      '#app_scripts' => $this->getJsLibraryElements($this->library),
+      '#app_scripts_ie11' => $this->getJsLibraryElements($this->libraryIE11),
       '#service_worker_url' => $serviceWorkerUrl,
+      '#service_worker_parameters' => $serviceWorkerParameters,
       '#tracking' => $tracking,
       // @see https://www.drupal.org/docs/8/api/render-api/cacheability-of-render-arrays
       '#cache' => [
@@ -109,6 +135,65 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $content = $this->renderer->renderPlain($renderable);
 
     return $this->cacheResponse(new CacheableResponse($content), $node);
+  }
+
+  /**
+   * Get style link elements for Drupal libraries.
+   */
+  private function getCssLibraryElements($libraries) {
+    $libraries = (array) $libraries;
+    $assets = AttachedAssets::createFromRenderArray([
+      '#attached' => ['library' => $libraries],
+    ]);
+    $optimize = FALSE;
+    /** @var \Drupal\Core\Asset\CssCollectionRenderer $cssRenderer */
+    $cssRenderer = \Drupal::service('asset.css.collection_renderer');
+    /** @var \Drupal\Core\Asset\AssetResolverInterface $resolver */
+    $resolver = \Drupal::service('asset.resolver');
+    $assets = $resolver->getCssAssets($assets, $optimize);
+
+    // We need absolute asset urls to support custom app urls.
+    return $this->makeAbsolute($cssRenderer->render($assets));
+  }
+
+  /**
+   * Get script elements for Drupal libraries.
+   */
+  private function getJsLibraryElements($libraries) {
+    $libraries = (array) $libraries;
+    $assets = AttachedAssets::createFromRenderArray([
+      '#attached' => ['library' => $libraries],
+    ]);
+    $optimize = FALSE;
+    /** @var \Drupal\Core\Asset\JsCollectionRenderer $jsRenderer */
+    $jsRenderer = \Drupal::service('asset.js.collection_renderer');
+    /** @var \Drupal\Core\Asset\AssetResolverInterface $resolver */
+    $resolver = \Drupal::service('asset.resolver');
+
+    // @TODO Find a better and more obvious way to do this.
+    $assets = $resolver->getJsAssets($assets, $optimize);
+    $assets = array_values(array_filter($assets));
+
+    return array_map(function ($asset) use ($jsRenderer, $resolver, $optimize) {
+      // We need absolute asset urls to support custom app urls.
+      return $this->makeAbsolute($jsRenderer->render($asset));
+    }, $assets);
+  }
+
+  /**
+   * Make asset referenes absolute.
+   */
+  private function makeAbsolute(array $renderable) {
+    foreach ($renderable as &$item) {
+      if (isset($item['#attributes']['href'])) {
+        $item['#attributes']['href'] = Url::fromUri('base:/', ['absolute' => TRUE])->toString() . ltrim($item['#attributes']['href'], '/');
+      }
+      if (isset($item['#attributes']['src'])) {
+        $item['#attributes']['src'] = Url::fromUri('base:/', ['absolute' => TRUE])->toString() . ltrim($item['#attributes']['src'], '/');
+      }
+    }
+
+    return $renderable;
   }
 
   /**
@@ -143,9 +228,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       $manifest = [
         'short_name' => $data['title'],
         'name' => $data['title'],
-        'start_url' => $this->generateUrl('os2conticki_app.conference_app', [
-          'node' => $node->id(),
-        ]),
+        'start_url' => $this->getAppUrl($node),
         'theme_color' => $data['app']['primary_color'] ?? '#1E3284',
         'background_color' => '#1E3284',
         'display' => 'standalone',
@@ -156,11 +239,12 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
           $parts = parse_url($url);
           $extension = pathinfo($parts['path'], PATHINFO_EXTENSION);
           $type = 'image/' . $extension;
-          $icons[] = [
+          $icons[] = array_filter([
             'src' => $url,
             'sizes' => $size,
             'type' => $type,
-          ];
+            'purpose' => '128x128' === $size ? 'any maskable' : NULL,
+          ]);
         }
         $manifest['icons'] = $icons;
       }
@@ -177,11 +261,32 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       throw new NotFoundHttpException();
     }
 
+    [$extension, $name] = explode('/', $this->library);
+    $library = \Drupal::service('library.discovery')
+      ->getLibraryByName($extension, $name);
+    $preCacheKey = 'os2conticki-app-cache-' . $library['version'];
+
+    $preCacheUrls = [
+      $this->getAppUrl($node),
+      $this->getManifestUrl($node),
+    ];
+    $assets = $this->getCssLibraryElements($this->library);
+    foreach ($this->getJsLibraryElements($this->library) as $asset) {
+      $assets = array_merge($assets, $asset);
+    }
+    foreach ($assets as $item) {
+      if (isset($item['#attributes']['href'])) {
+        $preCacheUrls[] = $item['#attributes']['href'];
+      }
+      if (isset($item['#attributes']['src'])) {
+        $preCacheUrls[] = $item['#attributes']['src'];
+      }
+    }
+
     $renderable = [
       '#theme' => 'os2conticki_app_service_worker',
-      '#precache_urls' => [
-        $this->getBasename($node),
-      ],
+      '#precache_key' => $preCacheKey,
+      '#precache_urls' => $preCacheUrls,
     ];
 
     $content = $this->renderer->renderPlain($renderable);
@@ -213,21 +318,26 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
    * Get app url.
    */
   private function getAppUrl(NodeInterface $node, string $path = NULL): string {
-    $appUrl = $this->generateUrl('os2conticki_app.conference_app', [
-      'node' => $node->id(),
-    ], [
-      'absolute' => TRUE,
-    ]);
-
     $request = $this->requestStack->getCurrentRequest();
-    if (!$request->get('preview')) {
-      if (isset($node->field_custom_app_url->uri)) {
-        $appUrl = $node->field_custom_app_url->uri;
+    $preview = $request->get('preview');
+
+    if ($preview || !isset($node->field_custom_app_url->uri)) {
+      $route = 'os2conticki_app.conference_app';
+      if (NULL !== $path) {
+        $route .= '_' . str_replace('-', '_', $path);
       }
+
+      return $this->generateUrl($route, array_filter([
+        'node' => $node->id(),
+        'preview' => $preview,
+      ]), [
+        'absolute' => TRUE,
+      ]);
     }
 
+    $appUrl = $node->field_custom_app_url->uri;
     if (NULL !== $path) {
-      $appUrl = rtrim($appUrl, '/') . '/' . $path;
+      $appUrl = rtrim($appUrl, '/') . '/' . ltrim($path, '/');
     }
 
     return $appUrl;
@@ -254,20 +364,19 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $appUrl = $this->getAppUrl($node);
     $parts = parse_url($appUrl);
 
-    return $parts['path'] ?? '/';
+    $baseName = $parts['path'] ?? '/';
+    if (isset($parts['query'])) {
+      $baseName .= '?' . $parts['query'];
+    }
+
+    return $baseName;
   }
 
   /**
    * Get conference api url.
    */
   private function getApiUrl(NodeInterface $node): string {
-    return $this->generateUrl('os2conticki_api.api_controller_index', [
-      'type' => $node->bundle(),
-      'id' => $node->uuid(),
-      'include' => implode(',', ['organizers', 'sponsors']),
-    ], [
-      'absolute' => TRUE,
-    ]);
+    return $this->conferenceHelper->getApiUrl($node);
   }
 
   /**
@@ -334,7 +443,7 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
       };
 
       // iOS icons.
-      $rel = 'apple-touch-icon-precomposed';
+      $rel = 'apple-touch-icon';
       $sizes = [
         "152x152",
         "144x144",
@@ -393,6 +502,33 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     }
 
     return $icons;
+  }
+
+  /**
+   * Render app info.
+   */
+  public function appInfo(NodeInterface $node) {
+    if (('conference' !== $node->bundle()) && $node->hasField('field_conference')) {
+      $list = $node->get('field_conference')->referencedEntities();
+      $node = reset($list);
+    }
+
+    if (!$node || 'conference' !== $node->bundle()) {
+      throw new NotFoundHttpException();
+    }
+
+    $apiUrl = $this->conferenceHelper->getApiUrl($node);
+    $appUrl = $this->conferenceHelper->getAppUrl($node);
+    $appUrlPreview = $this->conferenceHelper->getAppUrl($node, ['preview' => TRUE]);
+
+    return [
+      '#theme' => 'os2conticki_content_conference_info',
+      '#conference' => $node,
+      '#api_url' => $apiUrl,
+      '#app_url' => $appUrl,
+      '#app_url_preview' => $appUrlPreview,
+      '#weight' => -1000,
+    ];
   }
 
 }

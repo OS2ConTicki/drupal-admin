@@ -30,7 +30,7 @@ class ImageFixture extends AbstractFixture {
    */
   public function load() {
     $source = __DIR__ . '/../../fixtures/images';
-    $files = $this->fileSystem->scanDirectory($source, '/\.jpg$/');
+    $files = $this->fileSystem->scanDirectory($source, '/\.(jpg|png)$/');
     foreach ($files as $file) {
       $name = $file->filename;
       $destination = 'public://fixtures/images/' . $name;

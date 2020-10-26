@@ -89,12 +89,6 @@ class ApiController extends ControllerBase implements ContainerInjectionInterfac
       $response->setContent(json_encode($content));
     }
 
-    // @see https://medium.com/thefirstcode/cors-cross-origin-resource-sharing-in-drupal-8-19778cf2838a
-    $response->headers->add([
-      'access-control-allow-origin' => '*',
-      'access-control-allow-methods' => 'GET',
-    ]);
-
     return $response;
   }
 

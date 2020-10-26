@@ -29,6 +29,10 @@ function os2conticki_content_theme() {
         'conference' => NULL,
         // The conference api url.
         'api_url' => NULL,
+        // The conference app.
+        'app_url' => NULL,
+        // The conference app url (preview).
+        'app_url_preview' => NULL,
       ],
     ],
     'os2conticki_content_conference_entity_list' => [
