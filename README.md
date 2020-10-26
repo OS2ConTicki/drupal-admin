@@ -139,3 +139,24 @@ server {
   </Location>
 </VirtualHost>
 ```
+
+### Cross-Origin Resource Sharing (CORS)
+
+Finally, the main server must add proper
+[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers to
+support custom app urls:
+
+#### Nginx
+
+```nginx
+# We need this to properly support custom app urls.
+add_header 'access-control-allow-origin' '*';
+add_header 'access-control-allow-methods' 'GET';
+```
+
+#### Apache
+
+```apache
+Header set access-control-allow-origin "*"
+Header set access-control-allow-methods "GET"
+```

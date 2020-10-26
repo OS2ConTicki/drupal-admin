@@ -1,9 +1,15 @@
 # OS2ConTicki App view
 
 Displays a conference using the OS2ConTicki React component
-(https://github.com/OS2ConTicki/display-react).
+([https://github.com/OS2ConTicki/display-react](https://github.com/OS2ConTicki/display-react)).
 
-## Configuration
+## App assets
 
-Go to `/admin/config/services/os2conticki_app` and define style and script urls
-for the app display.
+Run
+
+```sh
+./scripts/update-app git-tag
+```
+
+to update the app assets. `git add` and `git commit` both
+`os2conticki_app.libraries.yml` and `libraries/display-react/` afterwards.

@@ -1,0 +1,6 @@
+services:
+  os2conticki_app.path_processor_trailing_slash:
+    class: Drupal\os2conticki_app\PathProcessor\AppOutboundPathProcessor
+    # It must be executed as the last PathProcessor
+    tags:
+      - { name: path_processor_outbound, priority: -1}

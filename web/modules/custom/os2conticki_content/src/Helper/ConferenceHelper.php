@@ -5,6 +5,7 @@ namespace Drupal\os2conticki_content\Helper;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
@@ -96,6 +97,56 @@ class ConferenceHelper {
     $conference = Node::load($id);
 
     return (NULL !== $conference && 'conference' === $conference->bundle()) ? $conference : NULL;
+  }
+
+  /**
+   * Get app url.
+   */
+  public function getAppUrl(NodeInterface $node, array $parameters = []): string {
+    $preview = $parameters['preview'] ?? FALSE;
+    if ($preview || !isset($node->field_custom_app_url->uri)) {
+      $route = 'os2conticki_app.conference_app';
+
+      return $this->generateUrl($route, array_filter([
+        'node' => $node->id(),
+        'preview' => $preview,
+      ]), [
+        'absolute' => TRUE,
+      ]);
+    }
+
+    return $node->field_custom_app_url->uri;
+  }
+
+  /**
+   * Get API url.
+   */
+  public function getApiUrl(NodeInterface $node) {
+    // Build conference api url.
+    return $this->generateUrl('os2conticki_api.api_controller_index', [
+      'type' => $node->bundle(),
+      'id' => $node->uuid(),
+      'include' => implode(',', ['organizers', 'sponsors']),
+    ], [
+      'absolute' => TRUE,
+      // We want to get content in the default language.
+      'language' => \Drupal::service('language_manager')->getDefaultLanguage(),
+    ]);
+  }
+
+  /**
+   * Generate a url.
+   */
+  private function generateUrl(string $route, array $parameters = [], array $options = []): string {
+    $options += [
+      // We want to get content in the default language.
+      'language' => \Drupal::service('language_manager')->getDefaultLanguage(),
+    ];
+
+    return Url::fromRoute($route, $parameters, $options)
+      // @see https://www.lullabot.com/articles/early-rendering-a-lesson-in-debugging-drupal-8
+      ->toString(TRUE)
+      ->getGeneratedUrl();
   }
 
 }
