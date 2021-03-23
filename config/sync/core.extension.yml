@@ -12,6 +12,7 @@ module:
   editor: 0
   entity_clone: 0
   entity_clone_extras: 0
+  entity_reference_exposed_filters: 0
   entity_reference_integrity: 0
   entity_reference_integrity_enforce: 0
   field: 0
