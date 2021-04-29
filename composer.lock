@@ -244,6 +244,10 @@
                 "zend",
                 "zikula"
             ],
+            "support": {
+                "issues": "https://github.com/composer/installers/issues",
+                "source": "https://github.com/composer/installers/tree/v1.11.0"
+            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -1829,6 +1833,9 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
+            "support": {
+                "source": "https://github.com/drupal/core/tree/9.1.7"
+            },
             "time": "2021-04-20T23:05:22+00:00"
         },
         {
@@ -1876,6 +1883,9 @@
             "keywords": [
                 "drupal"
             ],
+            "support": {
+                "source": "https://github.com/drupal/core-composer-scaffold/tree/9.1.7"
+            },
             "time": "2020-08-07T22:30:13+00:00"
         },
         {
@@ -1914,6 +1924,9 @@
             "keywords": [
                 "drupal"
             ],
+            "support": {
+                "source": "https://github.com/drupal/core-project-message/tree/9.1.7"
+            },
             "time": "2020-09-14T13:40:36+00:00"
         },
         {
@@ -1996,6 +2009,9 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Locked core dependencies; require this project INSTEAD OF drupal/core.",
+            "support": {
+                "source": "https://github.com/drupal/core-recommended/tree/9.1.7"
+            },
             "time": "2021-04-20T23:05:22+00:00"
         },
         {
@@ -2024,9 +2040,6 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": {
-                    "Permissions per role per entity bundle (https://www.drupal.org/node/2931143)": "web/modules/custom/os2conticki_content/patches/entity_clone_extras-drupal-9.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2282,7 +2295,7 @@
         },
         {
             "name": "drupal/os2conticki_api",
-            "version": "dev-feature/JOBCAMP-120-content-list-filter",
+            "version": "dev-9d058254cd3eaf6680dcf531efa55a48fad09c86",
             "dist": {
                 "type": "path",
                 "url": "web/modules/custom/os2conticki_api",
@@ -2306,7 +2319,7 @@
         },
         {
             "name": "drupal/os2conticki_app",
-            "version": "dev-feature/JOBCAMP-120-content-list-filter",
+            "version": "dev-9d058254cd3eaf6680dcf531efa55a48fad09c86",
             "dist": {
                 "type": "path",
                 "url": "web/modules/custom/os2conticki_app",
@@ -2330,11 +2343,11 @@
         },
         {
             "name": "drupal/os2conticki_content",
-            "version": "dev-feature/JOBCAMP-120-content-list-filter",
+            "version": "dev-9d058254cd3eaf6680dcf531efa55a48fad09c86",
             "dist": {
                 "type": "path",
                 "url": "web/modules/custom/os2conticki_content",
-                "reference": "2a9b1e1c24592a7ae4e8c886955e6bc3b8eddfc0"
+                "reference": "0c6a823d4d6723c32defbccc737ef997d4a9d4c6"
             },
             "require": {
                 "cweagans/composer-patches": "^1.6.5",
@@ -2348,8 +2361,7 @@
                 "enable-patching": true,
                 "patches": {
                     "drupal/entity_clone": {
-                        "Permissions per role per entity bundle (https://www.drupal.org/node/2931143)": "web/modules/custom/os2conticki_content/patches/entity_clone_extras-drupal-9.patch",
-                        "Change author on clone (https://www.drupal.org/node/3078811)": "https://www.drupal.org/files/issues/2020-08-24/add_take_ownership_option-3078811-10.patch"
+                        "Permissions per role per entity bundle (https://www.drupal.org/node/2931143)": "https://www.drupal.org/files/issues/2021-01-12/drupal-9-compatibility-2931143-40.patch"
                     }
                 }
             },
@@ -2649,6 +2661,13 @@
             ],
             "description": "Drush is a command line shell and scripting interface for Drupal, a veritable Swiss Army knife designed to make life easier for those of us who spend some of our working hours hacking away at the command prompt.",
             "homepage": "http://www.drush.org",
+            "support": {
+                "forum": "http://drupal.stackexchange.com/questions/tagged/drush",
+                "irc": "irc://irc.freenode.org/drush",
+                "issues": "https://github.com/drush-ops/drush/issues",
+                "slack": "https://drupal.slack.com/messages/C62H9CWQM",
+                "source": "https://github.com/drush-ops/drush/tree/10.4.3"
+            },
             "funding": [
                 {
                     "url": "https://github.com/weitzman",
@@ -2779,6 +2798,10 @@
                 "security advisories",
                 "vulnerability scanner"
             ],
+            "support": {
+                "issues": "https://github.com/enlightn/security-checker/issues",
+                "source": "https://github.com/enlightn/security-checker/tree/v1.8.0"
+            },
             "time": "2021-04-19T07:13:16+00:00"
         },
         {
@@ -4217,6 +4240,10 @@
                 "interactive",
                 "shell"
             ],
+            "support": {
+                "issues": "https://github.com/bobthecow/psysh/issues",
+                "source": "https://github.com/bobthecow/psysh/tree/v0.10.8"
+            },
             "time": "2021-04-10T16:23:39+00:00"
         },
         {
@@ -4897,6 +4924,9 @@
             ],
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/filesystem/tree/v4.4.21"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7176,6 +7206,10 @@
                 "phpcs",
                 "standards"
             ],
+            "support": {
+                "issues": "https://www.drupal.org/project/issues/coder",
+                "source": "https://www.drupal.org/project/coder"
+            },
             "time": "2021-02-06T10:44:32+00:00"
         },
         {
@@ -7236,7 +7270,7 @@
         },
         {
             "name": "drupal/os2conticki_fixtures",
-            "version": "dev-feature/JOBCAMP-120-content-list-filter",
+            "version": "dev-9d058254cd3eaf6680dcf531efa55a48fad09c86",
             "dist": {
                 "type": "path",
                 "url": "web/modules/custom/os2conticki_fixtures",
@@ -7364,6 +7398,11 @@
                 "phpcs",
                 "standards"
             ],
+            "support": {
+                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
+                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
+                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
+            },
             "time": "2021-04-09T00:54:41+00:00"
         }
     ],
@@ -7381,5 +7420,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
