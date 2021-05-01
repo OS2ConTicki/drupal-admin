@@ -338,6 +338,11 @@ class ConferenceController extends ControllerBase implements ContainerInjectionI
     $appUrl = $node->field_custom_app_url->uri;
     if (NULL !== $path) {
       $appUrl = rtrim($appUrl, '/') . '/' . ltrim($path, '/');
+      // Add the conference id to the manifest url to make the service worker
+      // update if a custom url is changed to point to another conference.
+      if ('manifest' === $path) {
+        $appUrl .= (FALSE === strpos($appUrl, '?') ? '?' : '&') . 'id=' . $node->id();
+      }
     }
 
     return $appUrl;
