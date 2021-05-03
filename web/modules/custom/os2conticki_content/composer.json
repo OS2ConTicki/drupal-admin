@@ -26,8 +26,7 @@
         "enable-patching": true,
         "patches": {
             "drupal/entity_clone": {
-                "Permissions per role per entity bundle (https://www.drupal.org/node/2931143)": "web/modules/custom/os2conticki_content/patches/entity_clone_extras-drupal-9.patch",
-                "Change author on clone (https://www.drupal.org/node/3078811)": "https://www.drupal.org/files/issues/2020-08-24/add_take_ownership_option-3078811-10.patch"
+                "Permissions per role per entity bundle (https://www.drupal.org/node/2931143)": "https://www.drupal.org/files/issues/2021-01-12/drupal-9-compatibility-2931143-40.patch"
             }
         }
     }
