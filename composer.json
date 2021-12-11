@@ -57,6 +57,7 @@
         "drupal/os2conticki_app": "*",
         "drupal/os2conticki_content": "*",
         "drupal/restui": "^1.18",
+        "drupal/system_status": "^2.9",
         "drupal/toolbar_menu": "^2.2",
         "drush/drush": "^10.3"
     },
